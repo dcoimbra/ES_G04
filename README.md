@@ -10,4 +10,4 @@ To run tests execute: mvn clean install
 |   84766    |     Samuel Santos       | samuel.c.santos@tecnico.ulisboa.pt     |  santos-samuel |   4   |
 |   84708    |     David Coimbra       | david.coimbra@tecnico.ulisboa.pt       |  HiveMindize   |   4   |
 |   84727    |     Ivan Zarro          | ivan.zarro@tecnico.ulisboa.pt          |   ivancivel    |   4   |
-
+|   84842    | 	   Jose Ferrao	       | jozeus.alves@gmail.com                 |   jozeus	 |   4   |
