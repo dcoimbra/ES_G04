@@ -6,7 +6,7 @@ public class TaxPayer {
 	private String _name;
 	private String _address;
 	
-	public TaxPayer(NIF, NAME, ADRESS) {
+	public TaxPayer(String NIF,String NAME,String ADRESS) {
 		_NIF=NIF;
 		_name=NAME;
 		_address = ADDRESS;
