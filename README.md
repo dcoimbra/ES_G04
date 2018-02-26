@@ -1,6 +1,8 @@
 # Adventure Builder
 
 To run tests execute: mvn clean install
+To see the coverage reports, go to module_name/target/site/jacoco/index.html.
+
 
 |   Number   |          Name           |            Email                       |   Name GitHUb  | Grupo |
 | ---------- | ----------------------- | -------------------------------------- | ---------------| ----- |
@@ -10,4 +12,4 @@ To run tests execute: mvn clean install
 |   84766    |     Samuel Santos       | samuel.c.santos@tecnico.ulisboa.pt     |  santos-samuel |   4   |
 |   84708    |     David Coimbra       | david.coimbra@tecnico.ulisboa.pt       |  HiveMindize   |   4   |
 |   84727    |     Ivan Zarro          | ivan.zarro@tecnico.ulisboa.pt          |   ivancivel    |   4   |
-|   84842    | 	   Jose Ferrao	       | jozeus.alves@gmail.com                 |   jozeus	 |   4   |
+|   84842    | 	   Jose Ferrao	       | jozeus.alves@gmail.com                 |   jozeus	     |   4   |
