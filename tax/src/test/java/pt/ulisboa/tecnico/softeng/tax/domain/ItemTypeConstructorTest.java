@@ -40,7 +40,7 @@ public class ItemTypeConstructorTest {
 
 	@Test(expected =  ItemTypeException.class)
 	public void notPositiveTAX() {
-		new TaxPayer(ITEM_TYPE, -20);
+		new ItemType(ITEM_TYPE, -20);
 	}
 
 }
