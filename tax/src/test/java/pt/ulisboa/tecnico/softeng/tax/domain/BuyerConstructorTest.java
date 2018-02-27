@@ -45,6 +45,28 @@ public class BuyerConstructorTest {
 		}
 	}
 
+	@Test(expected = BuyerException.class)
+	public void nullName() {
+		new Buyer(BUYER_NIF, null, BUYER_ADDRESS);
+	}
+
+	@Test(expected = BuyerException.class)
+	public void nullAddress() {
+		new Buyer(BUYER_NIF, BUYER_NAME, null);
+	}
+
+
+	@Test(expected = BuyerException.class)
+	public void voidName() {
+		new Buyer(BUYER_NIF, "", BUYER_ADDRESS);
+	}
+
+	@Test(expected = BuyerException.class)
+	public void voidAddress() {
+		new Buyer(BUYER_NIF, BUYER_NAME, "");
+	}
+
+
 	@After 
 	public void tearDown() {
 
