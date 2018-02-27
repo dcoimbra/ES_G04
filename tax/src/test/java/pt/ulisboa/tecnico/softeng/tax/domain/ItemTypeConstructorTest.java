@@ -10,7 +10,7 @@ import pt.ulisboa.tecnico.softeng.bank.exception.ItemTypeException;
 public class ItemTypeConstructorTest {
 
 	private static final String ITEM_TYPE = "TOKEN";
-	private static final int TAX = "31";
+	private static final int TAX = 31;
 
 
 	@Test
@@ -42,5 +42,5 @@ public class ItemTypeConstructorTest {
 	public void notPositiveTAX() {
 		new ItemType(ITEM_TYPE, -20);
 	}
-
+	
 }
