@@ -5,30 +5,30 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import pt.ulisboa.tecnico.softeng.tax.exception.SellerException;
+import pt.ulisboa.tecnico.softeng.tax.exception.BuyerException;
 
-public class SellerToPayMethodTest {
+public class BuyerTaxReturnMethodTest {
 
-	private Seller seller;
+	private Buyer buyer;
 
 	@Before
 	public void setUp() {
-		this.seller = new Seller("123456789", "Antonio", "Quinta das Lagrimas");
+		this.buyer = new Buyer("123456789", "Antonio", "Quinta das Lagrimas");
 	}
 
-	@Test(expected = SellerException.class)
+	@Test(expected = BuyerException.class)
 	public void beforeYear() {
-		this.seller.toPay(1969);
+		this.buyer.toPay(1969);
 	}
 
 	@Test
 	public void beginYear() {
-		this.seller.toPay(1970);
+		this.buyer.toPay(1970);
 	}
 
 	@Test
 	public void afterYear() {
-		this.seller.toPay(1972);
+		this.buyer.toPay(1972);
 	}
 
 	@After 
