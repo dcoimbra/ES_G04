@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import pt.ulisboa.tecnico.softeng.bank.exception.SellerException;
+
 public class SellerConstructorTest {
 
 	private static final String SELLER_NIF = "123456789";
