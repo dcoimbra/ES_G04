@@ -13,7 +13,7 @@ public class InvoiceConstructorTest {
 	private static final String DATE = "13/3/2000";
 	private static final String ITEM_TYPE = "TOKEN";
 	private static final String SELLER = "tu";
-	private static final String BUYER = "yo";
+	private static final String BUYER = "eu";
 
 
 	@Test
@@ -30,12 +30,22 @@ public class InvoiceConstructorTest {
 
 	@Test(expected = InvoiceException.class)
 	public void notStringVALUE() {
-		new Invoice(123, DATE, ITEM_TYPE, SELLER, BUYER);
+		new Invoice(null, DATE, ITEM_TYPE, SELLER, BUYER);
+	}
+	
+	@Test(expected = InvoiceException.class)
+	public void notEmptyVALUE() {
+		new Invoice("", DATE, ITEM_TYPE, SELLER, BUYER);
 	}
 	
 	@Test(expected = InvoiceException.class)
 	public void notStringDATA() {
-		new Invoice(VALUE, 123, ITEM_TYPE , SELLER, BUYER);
+		new Invoice(VALUE, null, ITEM_TYPE , SELLER, BUYER);
+	}
+	
+	@Test(expected = InvoiceException.class)
+	public void notEmptyDATA() {
+		new Invoice(VALUE, "", ITEM_TYPE , SELLER, BUYER);
 	}
 	
 	@Test(expected = InvoiceException.class)
@@ -45,22 +55,35 @@ public class InvoiceConstructorTest {
 	
 	@Test(expected = InvoiceException.class)
 	public void notStringITEM_TYPE() {
-		new Invoice(VALUE, DATE, 123, SELLER, BUYER);
+		new Invoice(VALUE, DATE, null, SELLER, BUYER);
+	}
+	
+	@Test(expected = InvoiceException.class)
+	public void notEmptyITEM_TYPE() {
+		new Invoice(VALUE, DATE, "", SELLER, BUYER);
 	}
 	
 	@Test(expected = InvoiceException.class)
 	public void notStringSELLER() {
-		new Invoice(VALUE, DATE, ITEM_TYPE, 123, BUYER);
+		new Invoice(VALUE, DATE, ITEM_TYPE, null, BUYER);
+	}
+	
+	@Test(expected = InvoiceException.class)
+	public void notEmptySELLER() {
+		new Invoice(VALUE, DATE, ITEM_TYPE, "", BUYER);
 	}
 	
 	@Test(expected = InvoiceException.class)
 	public void notStringBUYER() {
-		new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, 123);
+		new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, null);
 	}
 	
+	@Test(expected = InvoiceException.class)
+	public void notEmptyBUYER() {
+		new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, "");
+	}
 	
-	
-	
+
 	@Test
 	public void notUnique() {
 		new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, BUYER);
