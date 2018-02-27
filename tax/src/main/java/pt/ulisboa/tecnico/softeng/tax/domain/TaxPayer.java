@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public class TaxPayer {
+public abstract class TaxPayer {
 	
 	public static Set<TaxPayer> taxpayers = new HashSet<>();
 	
@@ -17,6 +17,7 @@ public class TaxPayer {
 		_nif = NIF;
 		_name = NAME;
 		_address = ADDRESS;
+		taxpayers.add(this);
 	}
 	
 	private void checkArguments(String NIF, String NAME, String ADDRESS) {
