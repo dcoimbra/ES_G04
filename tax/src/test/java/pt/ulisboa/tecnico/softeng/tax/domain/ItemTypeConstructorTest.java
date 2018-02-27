@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import pt.ulisboa.tecnico.softeng.bank.exception.ItemTypeException;
+
 public class ItemTypeConstructorTest {
 
 	private static final String ITEM_TYPE = "TOKEN";
