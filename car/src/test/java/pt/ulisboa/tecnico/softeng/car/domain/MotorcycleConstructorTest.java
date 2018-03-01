@@ -26,11 +26,6 @@ public class MotorcycleConstructorTest {
 		Assert.assertEquals(VEHICLE_KM, vehicle.getKilometers());
 		Assert.assertEquals(VEHICLE_PLATE, vehicle.getPlate());
 	}
-
-	@Test(expected = CarException.class)
-	public void negativeKilometers() {
-		new Motorcycle(VEHICLE_PLATE, -VEHICLE_KM, this._rentACar);
-	}
 	
 	@Test(expected = CarException.class)
 	public void invalidPlate() {
@@ -74,13 +69,8 @@ public class MotorcycleConstructorTest {
 	}
 
 	@Test(expected = CarException.class)
-	public void nullKm() {
-		new Motorcycle(VEHICLE_PLATE, null, this._rentACar);
-	}
-	
-	@Test(expected = CarException.class)
-	public void nullRentACar() {
-		new Car(VEHICLE_PLATE, VEHICLE_KM, null);
+	public void negativeKilometers() {
+		new Motorcycle(VEHICLE_PLATE, -VEHICLE_KM, this._rentACar);
 	}
 	
 	@Test
@@ -92,9 +82,14 @@ public class MotorcycleConstructorTest {
 		}
 	}
 	
+	@Test(expected = CarException.class)
+	public void nullRentACar() {
+		new Car(VEHICLE_PLATE, VEHICLE_KM, null);
+	}
+	
 	@After
 	public void tearDown() {
-		Vehicle.vehicles.clear();
+		RentACar._vehicles.clear();
 		RentACar.rents.clear();
 	}
 }
