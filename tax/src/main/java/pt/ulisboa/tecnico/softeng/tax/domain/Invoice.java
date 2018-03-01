@@ -18,7 +18,7 @@ public abstract class Invoice {
 	public Invoice(String  VALUE, String DATE, String ITEM_TYPE,String SELLER,String BUYER) {
 		checkArguments(VALUE, DATE, ITEM_TYPE,SELLER,BUYER);
 
-		_iva = ItemType.itemtypes.get(ITEM_TYPE)/100;
+		_iva = ItemType.itemtypes.getItemTypeByITEM_TYPE(ITEM_TYPE)/100;
 		_value =VALUE;
 		_date = DATE;
 		_itemType = ITEM_TYPE;
