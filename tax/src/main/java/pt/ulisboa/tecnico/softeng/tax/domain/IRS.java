@@ -27,4 +27,12 @@ public class IRS {
 
 		_itemtypes.add(itemType);
 	}
+
+	public TaxPayer getTaxPayerByNIF(String BUYER_NIF){
+		for(TaxPayer tp : _taxpayers){
+			if(tp.getNIF().equals(BUYER_NIF)){
+				return tp;
+			}
+		}
+	}
 }
