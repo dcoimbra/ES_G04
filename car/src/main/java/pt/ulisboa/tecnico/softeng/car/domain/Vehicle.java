@@ -64,4 +64,14 @@ abstract class Vehicle {
 		if(!rentACar.plateIsFree(plate))
 			throw new CarException();
 	}
+
+	public boolean isFree(LocalDate begin, LocalDate end) {
+		if (begin.isBefore(end))
+			throw new CarException();
+		
+		for(Renting r : _rentings):
+			if (!( end.isBefore((r.getBegin())) || ((r.getEnd()).isBefore(begin)) )) {
+				throw new CarException();
+			}
+	}
 }
