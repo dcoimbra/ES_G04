@@ -5,7 +5,6 @@ import java.util.Set;
 
 import org.joda.time.LocalDate;
 
-import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 abstract class Vehicle {
@@ -27,6 +26,7 @@ abstract class Vehicle {
 		_plate = plate;
 		_kilometers = km;
 		_rentACar = rentACar;
+		_rentACar.addVehicle(this);
 	}
 
 	public String getPlate() {
