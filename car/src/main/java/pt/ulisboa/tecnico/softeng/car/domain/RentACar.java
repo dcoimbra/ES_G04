@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.joda.time.LocalDate;
+
 
 public class RentACar {
 	public static final Set<RentACar> rents = new HashSet<>();
@@ -33,5 +35,23 @@ public class RentACar {
 		}
 		throw new CarException();
 
+	}
+	public List<Vehicle> getAllAvailableCars(LocalDate begin, LocalDate end){
+		if( end.isBefore(begin) )
+			throw new CarException();
+
+		List<Vehicle> l = new ArrayList<>();
+		for(Vehicle v: this._vehicles){
+			if (v instanceof Car){	
+				for(Renting r : v._rentings){
+					if (v.isFree(begin, end) )
+						l.add(v);
+				}
+			}
+		}
+		return l;
+	}
+	public List<Vehicle> getAllVehicles(){
+		return this._vehicles;
 	}
 }
