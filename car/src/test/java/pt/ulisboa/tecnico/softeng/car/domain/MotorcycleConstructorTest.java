@@ -53,6 +53,16 @@ public class MotorcycleConstructorTest {
 	}
 	
 	@Test(expected = CarException.class)
+	public void blankPlate() {
+		new Car("    ", VEHICLE_KM, this._rentACar);
+	}
+
+	@Test(expected = CarException.class)
+	public void emptyPlate() {
+		new Car("", VEHICLE_KM, this._rentACar);
+	}
+	
+	@Test(expected = CarException.class)
 	public void duplicatedPlate() {
 		new Motorcycle(VEHICLE_PLATE, VEHICLE_KM, this._rentACar);
 		new Motorcycle(VEHICLE_PLATE, VEHICLE_KM, this._rentACar);
