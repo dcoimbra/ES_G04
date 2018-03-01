@@ -17,4 +17,25 @@ public class ItemType {
 
 		_itemtypes.add(this);
 	}
+
+	public String getITEM_TYPE() {
+
+		return _itemtype;
+	}
+
+	public int getTax() {
+
+		return _tax;
+	}
+
+	public static ItemType getItemTypeByITEM_TYPE(String ITEM_TYPE) {
+
+		for (ItemType it : _itemtypes) {
+
+			if (it.getITEM_TYPE().equals(ITEM_TYPE)) {
+
+				return it;
+			}
+		}
+	} 
 }
