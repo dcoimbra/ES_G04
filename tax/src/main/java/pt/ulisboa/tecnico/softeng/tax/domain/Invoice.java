@@ -65,7 +65,7 @@ public abstract class Invoice {
 		return this._buyer;
 	}
 
-	public int getIva(){
+	public float getIva(){
 		return this._iva;
 	}
 }
