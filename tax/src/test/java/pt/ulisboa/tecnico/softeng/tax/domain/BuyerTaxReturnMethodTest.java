@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import pt.ulisboa.tecnico.softeng.tax.exception.BuyerException;
+import pt.ulisboa.tecnico.softeng.tax.exception.TaxPayerException;
 
 public class BuyerTaxReturnMethodTest {
 
@@ -16,7 +16,7 @@ public class BuyerTaxReturnMethodTest {
 		this.buyer = new Buyer("123456789", "Antonio", "Quinta das Lagrimas");
 	}
 
-	@Test(expected = BuyerException.class)
+	@Test(expected = TaxPayerException.class)
 	public void beforeYear() {
 		this.buyer.toPay(1969);
 	}
