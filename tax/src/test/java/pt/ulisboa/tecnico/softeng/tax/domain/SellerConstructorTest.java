@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import pt.ulisboa.tecnico.softeng.bank.exception.SellerException;
+import pt.ulisboa.tecnico.softeng.bank.exception.TaxPayerException;
 
 public class SellerConstructorTest {
 
@@ -24,12 +24,12 @@ public class SellerConstructorTest {
 		Assert.assertEquals(SELLER_ADDRESS, seller.getAddress());
 	}
 
-	@Test(expected = SellerException.class)
+	@Test(expected = TaxPayerException.class)
 	public void inconsistentNIFSmaller() {
 		new Seller("12345678", SELLER_NAME, SELLER_ADDRESS);
 	}
 
-	@Test(expected = SellerException.class)
+	@Test(expected = TaxPayerException.class)
 	public void inconsistentNIFBigger() {
 		new Seller("1234567891", SELLER_NAME, SELLER_ADDRESS);
 	}
@@ -40,7 +40,7 @@ public class SellerConstructorTest {
 		try {
 			new Seller(SELLER_NIF, SELLER_NAME, SELLER_ADDRESS);
 			Assert.fail();
-		} catch (SellerException se) {
+		} catch (TaxPayerException se) {
 			Assert.assertEquals(1, TaxPayer.taxpayers.size());
 		}
 	}
