@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import pt.ulisboa.tecnico.softeng.bank.exception.InvoiceException;
+import pt.ulisboa.tecnico.softeng.tax.exception.InvoiceException;
 
 public class InvoiceConstructorTest {
     
@@ -31,6 +31,16 @@ public class InvoiceConstructorTest {
 	@Test(expected = InvoiceException.class)
 	public void notStringVALUE() {
 		new Invoice(null, DATE, ITEM_TYPE, SELLER, BUYER);
+	}
+
+	@Test
+	public void ivaTaxValue(){
+		ItemType it = new ItemType (ITEM_TYPE, 20);
+		Invoice invoice = new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, BUYER);
+
+		int tax = ItemType.itemtypes.get(ITEM_TYPE);
+
+		Assert.assertEquals(tax/100, Invoice.getIva())
 	}
 	
 	@Test(expected = InvoiceException.class)

@@ -13,10 +13,12 @@ public abstract class Invoice {
 	private String _itemType ;
 	private String _seller ;
 	private String _buyer ;
+	private float _iva;
 	
 	public Invoice(String  VALUE, String DATE, String ITEM_TYPE,String SELLER,String BUYER) {
 		checkArguments(VALUE, DATE, ITEM_TYPE,SELLER,BUYER);
 
+		_iva = ItemType.itemtypes.get(ITEM_TYPE)/100;
 		_value =VALUE;
 		_date = DATE;
 		_itemType = ITEM_TYPE;
@@ -61,6 +63,10 @@ public abstract class Invoice {
 	
 	public String getBUYER() {
 		return this._buyer;
+	}
+
+	public int getIva(){
+		return this._iva;
 	}
 }
 
