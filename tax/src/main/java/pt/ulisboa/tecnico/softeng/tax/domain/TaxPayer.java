@@ -29,12 +29,6 @@ public abstract class TaxPayer {
 		if(NAME=="" || NAME==null || ADDRESS=="" || ADDRESS==null) {
 			throw new TaxPayerException();
 		}
-		
-		for (TaxPayer tp : _taxpayers) {
-			if (tp.getNIF().equals(NIF)) {
-				throw new TaxPayerException();
-			}
-		}
 	}
 	
 	public String getNIF() {
