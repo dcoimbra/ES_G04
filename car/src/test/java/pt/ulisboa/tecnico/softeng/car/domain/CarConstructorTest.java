@@ -51,6 +51,16 @@ public class CarConstructorTest {
 	public void invalidPlate4() {
 		new Car("XX-XX-X", VEHICLE_KM, this._rentACar);
 	}
+
+	@Test(expected = CarException.class)
+	public void blankPlate() {
+		new Car("    ", VEHICLE_KM, this._rentACar);
+	}
+
+	@Test(expected = CarException.class)
+	public void emptyPlate() {
+		new Car("", VEHICLE_KM, this._rentACar);
+	}
 	
 	@Test(expected = CarException.class)
 	public void duplicatedPlate() {
