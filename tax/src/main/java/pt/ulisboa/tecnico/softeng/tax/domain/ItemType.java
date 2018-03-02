@@ -3,6 +3,8 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import pt.ulisboa.tecnico.softeng.tax.exception.ItemTypeException;
+
 public class ItemType {
 
 	public static Set<ItemType> _itemtypes = new HashSet<>(); 
@@ -38,6 +40,6 @@ public class ItemType {
 			}
 		}
 
-		throw new ItemTypeException();
+		throw new ItemTypeException("No such item type.");
 	} 
 }
