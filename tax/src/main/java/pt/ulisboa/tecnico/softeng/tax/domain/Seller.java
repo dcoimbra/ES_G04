@@ -12,17 +12,17 @@ public class Seller extends TaxPayer {
 	public float toPay(int YEAR) {
 		checkArgumentstoPay(YEAR);
 
-		float contador = 0;
+		float amount = 0;
 		
 		for (Invoice i : Invoice._invoices) {
 			if (i.getSELLER().getNIF() == this.getNIF()) {
 				if (i.getDATE().getYear() == YEAR) {
-					contador += i.getVALUE()*i.getIVA();
+					amount += i.getVALUE()*i.getIVA();
 				}
 			}
 		}
 
-		return contador;
+		return amount;
 	}
 
 	private void checkArgumentstoPay(int YEAR) {
