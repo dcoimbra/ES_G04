@@ -29,7 +29,7 @@ public class RentACar {
 	}
 	public Renting getRenting(String reference){
 		for(Vehicle v : this._vehicles){
-			for(Renting r : v._rentings)
+			for(Renting r : v.getRentings())
 				if(r.getReference().equals(reference))
 					return r;
 		}
@@ -43,7 +43,7 @@ public class RentACar {
 		List<Vehicle> l = new ArrayList<>();
 		for(Vehicle v: this._vehicles){
 			if (v instanceof Car){	
-				for(Renting r : v._rentings){
+				for(Renting r : v.getRentings()){
 					if (v.isFree(begin, end) )
 						l.add(v);
 				}
@@ -59,7 +59,7 @@ public class RentACar {
 		List<Vehicle> l = new ArrayList<>();
 		for(Vehicle v: this._vehicles){
 			if (v instanceof Motorcycle){	
-				for(Renting r : v._rentings){
+				for(Renting r : v.getRentings()){
 					if (v.isFree(begin, end) )
 						l.add(v);
 				}
