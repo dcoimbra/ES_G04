@@ -28,7 +28,7 @@ public class ItemType {
 		return _tax;
 	}
 
-	public static ItemType getItemTypeByITEM_TYPE(String ITEM_TYPE) {
+	public static ItemType getItemTypeByName(String ITEM_TYPE) {
 
 		for (ItemType it : _itemtypes) {
 
@@ -37,5 +37,7 @@ public class ItemType {
 				return it;
 			}
 		}
+
+		throw new ItemTypeException();
 	} 
 }

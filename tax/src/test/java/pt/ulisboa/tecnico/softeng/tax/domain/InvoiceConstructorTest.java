@@ -38,7 +38,7 @@ public class InvoiceConstructorTest {
 		new ItemType (ITEM_TYPE, 20);
 		Invoice invoice = new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, BUYER);
 
-		ItemType it = ItemType.getItemTypeByITEM_TYPE(ITEM_TYPE);
+		ItemType it = ItemType.getItemTypeByName(ITEM_TYPE);
 
 		Assert.assertEquals(it.getTax/100, invoice.getIva())
 	}
