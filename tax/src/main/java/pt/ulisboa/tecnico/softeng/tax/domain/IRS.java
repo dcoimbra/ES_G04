@@ -3,6 +3,9 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import pt.ulisboa.tecnico.softeng.tax.exception.IRSException;
+
+
 /* IRS class implements the Singleton design pattern. */ 
 public class IRS {
 	
@@ -35,7 +38,7 @@ public class IRS {
 			}
 		}
 
-		throw new IRSException();
+		throw new IRSException("No such TaxPayer");
 	}
 
 	public ItemType getItemTypeByName(String ITEM_TYPE){
@@ -45,6 +48,6 @@ public class IRS {
 			}
 		}
 
-		throw new IRSException();
+		throw new IRSException("No such ItemType");
 	}
 }
