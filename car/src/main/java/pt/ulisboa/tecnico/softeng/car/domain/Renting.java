@@ -6,17 +6,16 @@ import org.joda.time.LocalDate;
 
 
 public class Renting{
-	private final String _reference;
+
 	private final String _license;
 	private final LocalDate _begin;
 	private final LocalDate _end;
 	private final int _kilometers;
 
 
-	public Renting(String reference, String license, LocalDate begin, LocalDate end, int kilometers) {
-		checkArguments(reference, license, begin, end, kilometers);
+	public Renting(String license, LocalDate begin, LocalDate end, int kilometers) {
+		checkArguments(license, begin, end, kilometers);
 		
-		this._reference = reference;
 		this._license = license;
 		this._begin = begin;
 		this._end = end;
@@ -24,11 +23,7 @@ public class Renting{
 		
 	}
 	
-	private void checkArguments(String reference, String license, LocalDate begin, LocalDate end, int kilometers) {
-		if (reference == null || reference.trim().equals("") || reference.trim().equals("    ")) {
-			throw new CarException();
-			
-		}
+	private void checkArguments(String license, LocalDate begin, LocalDate end, int kilometers) {
 		
 		if (license == null || license.trim().equals("") || license.trim().equals("    ") || this.checkLicense(license)) {
 			throw new CarException();
@@ -82,9 +77,8 @@ public class Renting{
 		return false;
 	}
 	
-	
 	public String getReference() {
-		return _reference;
+		return "";
 	}
 	
 	public String getLicense() {
