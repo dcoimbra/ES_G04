@@ -53,8 +53,7 @@ public class RentACarGetAllAvailableCarsMethodTest {
 		c4.rent(DRIVING_LICENSE, new LocalDate(2014,1,4) ,  new LocalDate(2014, 1, 4));
 		c5.rent(DRIVING_LICENSE, new LocalDate(2014,1,10),  new LocalDate(2014, 1, 10));
 		m1.rent(DRIVING_LICENSE, new LocalDate(2014,1,1) ,  new LocalDate(2014, 1, 2));
-		availableCars.add(c1);
-
+	
 		Assert.assertEquals(availableCars, this._rentCar.getAllAvailableCars(new LocalDate(2014,1,4), new LocalDate(2014, 1, 10)));
 	}
 
