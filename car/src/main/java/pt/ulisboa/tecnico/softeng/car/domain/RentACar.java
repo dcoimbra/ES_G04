@@ -51,6 +51,23 @@ public class RentACar {
 		}
 		return l;
 	}
+
+	public List<Vehicle> getAllAvailableMotorCycles(LocalDate begin, LocalDate end){
+		if( end.isBefore(begin) )
+			throw new CarException();
+
+		List<Vehicle> l = new ArrayList<>();
+		for(Vehicle v: this._vehicles){
+			if (v instanceof Motorcycle){	
+				for(Renting r : v._rentings){
+					if (v.isFree(begin, end) )
+						l.add(v);
+				}
+			}
+		}
+		return l;
+	}
+
 	public List<Vehicle> getAllVehicles(){
 		return this._vehicles;
 	}
