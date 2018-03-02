@@ -9,7 +9,7 @@ public class IRS {
 	private static final IRS _irs = new IRS();
 	
 	private Set<TaxPayer> _taxpayers = new HashSet<>();
-	private Set<String> _itemtypes = new HashSet<>();
+	private Set<ItemType> _itemtypes = new HashSet<>();
 
 	private IRS() {}
 
@@ -23,7 +23,7 @@ public class IRS {
 		_taxpayers.add(taxPayer);
 	}
 
-	public void addItemType(String itemType) {
+	public void addItemType(ItemType itemType) {
 
 		_itemtypes.add(itemType);
 	}
@@ -34,5 +34,17 @@ public class IRS {
 				return tp;
 			}
 		}
+
+		throw new IRSException();
+	}
+
+	public ItemType getItemTypeByName(String ITEM_TYPE){
+		for(ItemType it : _itemtypes){
+			if(it.getITEM_TYPE().equals(ITEM_TYPE)){
+				return it;
+			}
+		}
+
+		throw new IRSException();
 	}
 }
