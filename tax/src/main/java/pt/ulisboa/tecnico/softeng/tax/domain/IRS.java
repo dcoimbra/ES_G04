@@ -35,7 +35,7 @@ public class IRS {
 			}
 		}
 
-		throw new IRSException;
+		throw new IRSException();
 	}
 
 	public ItemType getItemTypeByName(String ITEM_TYPE){
@@ -44,7 +44,7 @@ public class IRS {
 				return it;
 			}
 		}
-		
-		throw new IRSException;
+
+		throw new IRSException();
 	}
 }
