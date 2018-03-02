@@ -36,6 +36,10 @@ abstract class Vehicle {
 	public int getKilometers() {
 		return _kilometers;
 	}
+	
+	public Set<Renting> getRentings() {
+		return _rentings;
+	}
 
 	private void checkArguments(String plate, int km, RentACar rentACar) {
 		if (plate == null || km < 0) {
@@ -66,12 +70,24 @@ abstract class Vehicle {
 	}
 
 	public boolean isFree(LocalDate begin, LocalDate end) {
-		if (begin.isBefore(end))
+		if (end.isBefore(begin))
 			throw new CarException();
 		
-		for(Renting r : _rentings):
+		for(Renting r : _rentings) {
 			if (!( end.isBefore((r.getBegin())) || ((r.getEnd()).isBefore(begin)) )) {
 				throw new CarException();
 			}
+		}
+	}
+
+	public void rent(String drivingLicence, LocalDate begin, LocalDate end) {
+		if (end.isBefore(begin))
+			throw new CarException();
+		
+		for (Vehicle v: _rentACar.getAllVehicles()) {
+			if (v.isFree(begin, end)) {
+				_rentings.add(new Renting("1234", drivingLicence, begin, end, _kilometers));
+			}
+		}
 	}
 }

@@ -89,7 +89,7 @@ public class MotorcycleConstructorTest {
 	
 	@After
 	public void tearDown() {
-		RentACar._vehicles.clear();
+		RentACar.getAllVehicles().clear();
 		RentACar.rents.clear();
 	}
 }
