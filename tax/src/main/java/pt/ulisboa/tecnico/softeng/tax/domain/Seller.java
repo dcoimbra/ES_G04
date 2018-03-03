@@ -2,25 +2,22 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxPayerException;
 
-public class Buyer extends TaxPayer {
+public class Seller extends TaxPayer {
 	
-	public Buyer(String NIF, String NAME, String ADDRESS) {
+	public Seller(String NIF, String NAME, String ADDRESS) {
 		
 		super(NIF, NAME, ADDRESS);
 	}
 
-	public float taxReturn(int YEAR) {
-		checkArgumentsTaxReturn(YEAR);
+	public float toPay(int YEAR) {
+		checkArgumentstoPay(YEAR);
 
 		float amount = 0;
 		
 		for (Invoice i : Invoice._invoices) {
-			
-			if (i.getBUYER().getNIF() == this.getNIF()) {
-				
+			if (i.getSELLER().getNIF() == this.getNIF()) {
 				if (i.getDATE().getYear() == YEAR) {
-					
-					amount += (0.05 * (i.getVALUE() * i.getIVA()));
+					amount += i.getVALUE()*i.getIVA();
 				}
 			}
 		}
@@ -28,13 +25,10 @@ public class Buyer extends TaxPayer {
 		return amount;
 	}
 
-	private void checkArgumentsTaxReturn(int YEAR) {
-		
+	private void checkArgumentstoPay(int YEAR) {
 		if (YEAR < 1970) {
-			
 			throw new TaxPayerException();
 		}
 		
 	}
 }
-

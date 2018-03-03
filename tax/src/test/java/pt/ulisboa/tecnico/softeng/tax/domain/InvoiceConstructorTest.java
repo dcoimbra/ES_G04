@@ -45,7 +45,7 @@ public class InvoiceConstructorTest {
 
 		int tax = ItemType.itemtypes.get(_itemType);
 
-		Assert.assertEquals(tax/100, Invoice.getIva())
+		Assert.assertEquals(it.getTax/100, invoice.getIva())
 	}
 	
 	@Test(expected = InvoiceException.class)

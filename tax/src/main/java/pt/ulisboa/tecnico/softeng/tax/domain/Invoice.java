@@ -23,6 +23,7 @@ public abstract class Invoice {
 	public Invoice(float value, LocalDate date, String item_type,Seller seller, Buyer buyer) {
 		checkArguments(value, date, item_type,seller,buyer);
 
+
 		_iva = ItemType.itemtypes.get(item_type)/100;
 		_value =value;
 		_date = date;

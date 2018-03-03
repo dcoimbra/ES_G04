@@ -3,10 +3,11 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import pt.ulisboa.tecnico.softeng.tax.exception.TaxPayerException;
 
 public abstract class TaxPayer {
 	
-	public static Set<TaxPayer> taxpayers = new HashSet<>();
+	public static Set<TaxPayer> _taxpayers = new HashSet<>();
 	
 	private String _nif;
 	private String _name;
@@ -17,7 +18,7 @@ public abstract class TaxPayer {
 		_nif = NIF;
 		_name = NAME;
 		_address = ADDRESS;
-		taxpayers.add(this);
+		_taxpayers.add(this);
 	}
 	
 	private void checkArguments(String NIF, String NAME, String ADDRESS) {
@@ -25,15 +26,21 @@ public abstract class TaxPayer {
 			throw new TaxPayerException();
 		}
 		
-		for (TaxPayer tp : taxpayers) {
-			if (tp.getNIF().equals(NIF)) {
-				throw new TaxPayerException();
-			}
+		if(NAME=="" || NAME==null || ADDRESS=="" || ADDRESS==null) {
+			throw new TaxPayerException();
 		}
 	}
 	
 	public String getNIF() {
 		return this._nif;
+	}
+
+	public String getNAME() {
+		return this._name;
+	}
+
+	public String getADDRESS() {
+		return this._address;
 	}
 }
 
