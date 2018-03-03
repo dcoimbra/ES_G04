@@ -1,6 +1,8 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
@@ -8,69 +10,81 @@ import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 import org.joda.time.LocalDate;
 
 public class RentingConstructorTest {
-	private static final String REFERENCE = "1";
 	private static final String DRIVINGLICENSE = "VN12345";
 	private static final LocalDate BEGIN = new LocalDate(2018,5,2);
 	private static final LocalDate END = new LocalDate(2018,5,12);
 	private static final int KILOMETERS = 1;
+	private RentACar _rentacar;
+
+	@Before
+	public void setUp() {
+		this._rentacar = new RentACar("Benecar", "01");
+	}
 
 	@Test
 	public void success() {
-		Renting _rent = new Renting(DRIVINGLICENSE, BEGIN, END, KILOMETERS);
+		Renting _rent = new Renting(this._rentacar, DRIVINGLICENSE, BEGIN, END, KILOMETERS);
 		
-		Assert.assertEquals(REFERENCE, _rent.getReference());
+		Assert.assertTrue(_rent.getReference().startsWith(this._rentacar.getCode()));
 		Assert.assertEquals(DRIVINGLICENSE, _rent.getLicense());
 		Assert.assertEquals(BEGIN, _rent.getBegin());
 		Assert.assertEquals(END, _rent.getEnd());
 		Assert.assertEquals(KILOMETERS, _rent.getKilometers());
 	}
 
+	
+//Reference Tests
+	@Test(expected = CarException.class)
+	public void nullReference() {
+		new Renting(null, DRIVINGLICENSE, BEGIN, END, KILOMETERS);
+	}
+	
 //License Tests
 	@Test(expected = CarException.class)
 	public void lettersLicense() {
-		new Renting("ABCDEF", BEGIN, END, KILOMETERS);
+		new Renting(this._rentacar, "ABCDEF", BEGIN, END, KILOMETERS);
 	}
 	
 	@Test(expected = CarException.class)
 	public void numbersLicense() {
-		new Renting("12345", BEGIN, END, KILOMETERS);
+		new Renting(this._rentacar, "12345", BEGIN, END, KILOMETERS);
 	}
 	
 	@Test(expected = CarException.class)
 	public void capsAndNumbersLicense() {
-		new Renting("1234FGC", BEGIN, END, KILOMETERS);
+		new Renting(this._rentacar, "1234FGC", BEGIN, END, KILOMETERS);
 	}
 	
 	@Test(expected = CarException.class)
 	public void notCapsAndNumbersLicense() {
-		new Renting("asd1234", BEGIN, END, KILOMETERS);
+		new Renting(this._rentacar, "asd1234", BEGIN, END, KILOMETERS);
 	}
 	
 	@Test(expected = CarException.class)
 	public void mixedNumbersLettersLicense() {
-		new Renting("N4A8Z5", BEGIN, END, KILOMETERS);
+		new Renting(this._rentacar, "N4A8Z5", BEGIN, END, KILOMETERS);
 	}
 	
 	@Test(expected = CarException.class)
 	public void emptyLicense() {
-		new Renting("", BEGIN, END, KILOMETERS);
+		new Renting(this._rentacar, "", BEGIN, END, KILOMETERS);
 	}
 	
 	@Test(expected = CarException.class)
 	public void nullLicense() {
-		new Renting(null, BEGIN, END, KILOMETERS);
+		new Renting(this._rentacar, null, BEGIN, END, KILOMETERS);
 	}
 	
 	@Test(expected = CarException.class)
 	public void blankLicense() {
-		new Renting("    ", BEGIN, END, KILOMETERS);
+		new Renting(this._rentacar, "    ", BEGIN, END, KILOMETERS);
 	}
 	
 //Kilometers Tests
 	@Test
 	public void zeroKilometers() {
 		try {
-			new Renting(DRIVINGLICENSE, BEGIN, END, 0);
+			new Renting(this._rentacar, DRIVINGLICENSE, BEGIN, END, 0);
 		} catch (CarException ce) {
 			Assert.fail();
 		}
@@ -78,23 +92,28 @@ public class RentingConstructorTest {
 	
 	@Test(expected = CarException.class)
 	public void negativeKm() {
-		new Renting(DRIVINGLICENSE, BEGIN, END, -KILOMETERS);
+		new Renting(this._rentacar, DRIVINGLICENSE, BEGIN, END, -KILOMETERS);
 	}
 
 //Date Tests
 	@Test(expected = CarException.class)
 	public void nullBeginDate() {
-		new Renting(DRIVINGLICENSE, null, END, KILOMETERS);
+		new Renting(this._rentacar, DRIVINGLICENSE, null, END, KILOMETERS);
 	}
 
 	@Test(expected = CarException.class)
 	public void nullEndDate() {
-		new Renting(DRIVINGLICENSE, BEGIN, null, KILOMETERS);
+		new Renting(this._rentacar, DRIVINGLICENSE, BEGIN, null, KILOMETERS);
 	}
 	
 	@Test(expected = CarException.class)
 	public void swapDate() {
-		new Renting(DRIVINGLICENSE, END, BEGIN, KILOMETERS);
+		new Renting(this._rentacar, DRIVINGLICENSE, END, BEGIN, KILOMETERS);
+	}
+	
+	@After
+	public void tearDown() {
+		RentACar.rents.clear();
 	}
 
 	
