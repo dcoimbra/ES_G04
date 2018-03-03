@@ -6,16 +6,18 @@ import org.joda.time.LocalDate;
 
 
 public class Renting{
+	private static int counter = 0;
 
+	private final String _reference;
 	private final String _license;
 	private final LocalDate _begin;
 	private final LocalDate _end;
 	private final int _kilometers;
-
-
-	public Renting(String license, LocalDate begin, LocalDate end, int kilometers) {
-		checkArguments(license, begin, end, kilometers);
+	
+	public Renting(RentACar rentaCar, String license, LocalDate begin, LocalDate end, int kilometers) {
+		checkArguments(rentaCar, license, begin, end, kilometers);
 		
+		this._reference = rentaCar.getCode() + Integer.toString(++Renting.counter);
 		this._license = license;
 		this._begin = begin;
 		this._end = end;
@@ -23,14 +25,17 @@ public class Renting{
 		
 	}
 	
-	private void checkArguments(String license, LocalDate begin, LocalDate end, int kilometers) {
+	private void checkArguments(RentACar rentacar, String license, LocalDate begin, LocalDate end, int kilometers) {
 		
-		if (license == null || license.trim().equals("") || license.trim().equals("    ") || this.checkLicense(license)) {
+		if (rentacar == null || license == null || begin == null || end == null) {
 			throw new CarException();
-			
+		}
+				
+		if (license.trim().equals("") || license.trim().equals("    ") || this.checkLicense(license)) {
+			throw new CarException();
 		}
 		
-		if (begin == null || end == null || end.isBefore(begin)) {
+		if (end.isBefore(begin)) {
 			throw new CarException();
 		}
 		
@@ -40,26 +45,27 @@ public class Renting{
 		
 	}
 	
-	private boolean checkLicense(String license) {
+	private boolean checkLicense(String licens) {
 		
 		int i;
 		int ascii;
-		int len = license.length();
+		int len = licens.length();
 		boolean letter = true; 
 		
-		int firstLetter = license.charAt(0);
+		int firstLetter = licens.charAt(0);
+		int lastLetter = licens.charAt(len - 1);
 		
-		if (firstLetter < 65 && firstLetter > 90) {
+		if (firstLetter < 65 || firstLetter > 90) {
 			return true;
 		}
 
 		for (i = 1; i < len; i++) {
 			
-			ascii = license.charAt(i);
+			ascii = licens.charAt(i);
 			
 			if (letter) {
 			
-				if (ascii < 65 && ascii > 90) {
+				if (ascii < 65 || ascii > 90) {
 					letter = false;
 					
 					i--; 					
@@ -67,18 +73,22 @@ public class Renting{
 			}
 			
 			else {
-				if (ascii < 48 && ascii > 57) {
+				if (ascii < 48 || ascii > 57) {
 					return true;
 				}
 				
 			}	
 		}
-				
+		
+		if (lastLetter >= 65 && lastLetter <= 90) {
+			return true;
+		}
+		
 		return false;
 	}
 	
 	public String getReference() {
-		return "";
+		return _reference;
 	}
 	
 	public String getLicense() {
@@ -100,4 +110,5 @@ public class Renting{
 	
 
 }
+
 
