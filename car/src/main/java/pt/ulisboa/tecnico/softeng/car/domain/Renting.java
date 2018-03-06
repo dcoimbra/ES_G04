@@ -118,7 +118,27 @@ public class Renting{
 	}
 	
 	public boolean conflict(LocalDate begin, LocalDate end) {
-		return true;
+		
+		if (begin.equals(end))
+			return true;
+		
+		if (end.isBefore(begin))
+			throw new CarException();
+		
+		if ((begin.equals(_begin) || begin.isAfter(_begin)) && begin.isBefore(_end)) 
+			return true;
+		
+		if ((end.equals(_end) || end.isBefore(_end)) && end.isAfter(_begin))
+			return true;
+		
+		if (begin.equals(_end) || end.equals(_begin))
+			return true;
+		
+		if (begin.isBefore(_begin) && end.isAfter(_end))
+			return true;
+		
+		
+		return false;
 	}
 }
 

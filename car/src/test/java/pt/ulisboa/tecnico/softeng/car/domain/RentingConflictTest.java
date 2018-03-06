@@ -36,9 +36,9 @@ public class RentingConflictTest {
 		Assert.assertTrue(this._renting.conflict(new LocalDate(2018,6,12), new LocalDate(2018,6,12)));
 	}
 	
-	@Test
+	@Test(expected = CarException.class)
 	public void endBeforeBegin() {
-		Assert.assertTrue(this._renting.conflict(new LocalDate(2018,5,12), new LocalDate(2018,5,3)));
+		this._renting.conflict(new LocalDate(2018,5,12), new LocalDate(2018,5,3));
 	}
 	
 	@Test
