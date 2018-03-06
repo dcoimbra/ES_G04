@@ -29,38 +29,8 @@ public class BrokerBulkBookingMethodTest {
 	}
 
 	@Test(expected = BrokerException.class)
-	public void zeroNumber () {
-		this._broker.bulkBooking(0, null, BOOKING_DEPARTURE);
-	}
-
-	@Test(expected = BrokerException.class)
-	public void zeroNumber () {
-		this._broker.bulkBooking(0, BOOKING_ARRIVAL, null);
-	}
-
-	@Test(expected = BrokerException.class)
-	public void zeroNumber () {
-		this._broker.bulkBooking(0, null, null);
-	}
-
-	@Test(expected = BrokerException.class)
 	public void negativeNumber () {
 		this._broker.bulkBooking(-BOOKING_NUMBER, BOOKING_ARRIVAL, BOOKING_DEPARTURE);
-	}
-
-	@Test(expected = BrokerException.class)
-	public void negativeNumber () {
-		this._broker.bulkBooking(-BOOKING_NUMBER, null, BOOKING_DEPARTURE);
-	}
-
-	@Test(expected = BrokerException.class)
-	public void negativeNumber () {
-		this._broker.bulkBooking(-BOOKING_NUMBER, BOOKING_ARRIVAL, null);
-	}
-
-	@Test(expected = BrokerException.class)
-	public void negativeNumber () {
-		this._broker.bulkBooking(-BOOKING_NUMBER, null, null);
 	}
 
 	@Test(expected = BrokerException.class)
@@ -82,17 +52,5 @@ public class BrokerBulkBookingMethodTest {
 	@Test(expected = BrokerException.class)
 	public void invalidDates () {
 		this._broker.bulkBooking(BOOKING_NUMBER, BOOKING_DEPARTURE, BOOKING_ARRIVAL);
-	}
-
-	//Tests if Arrival Date is before than Departure Date
-	@Test(expected = BrokerException.class)
-	public void invalidDates () {
-		this._broker.bulkBooking(0, BOOKING_DEPARTURE, BOOKING_ARRIVAL);
-	}
-
-	//Tests if Arrival Date is before than Departure Date
-	@Test(expected = BrokerException.class)
-	public void invalidDates () {
-		this._broker.bulkBooking(-BOOKING_NUMBER, BOOKING_DEPARTURE, BOOKING_ARRIVAL);
 	}
 }
