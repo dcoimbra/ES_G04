@@ -18,6 +18,7 @@ public class IRS {
 	
 	private Set<TaxPayer> _taxpayers = new HashSet<>();
 	private Set<ItemType> _itemtypes = new HashSet<>();
+	
 
 	private IRS() {}
 
@@ -57,7 +58,26 @@ public class IRS {
 	}
 	
 	public void submitInvoice(InvoiceData invoiceData) {
-		
+		TaxPayer tpseller = null;
+		for(TaxPayer tp : _taxpayers){
+			if(tp.getNIF() == invoiceData.getSellerNIF()) {
+				tpseller = tp;
+				break;
+			}
+		}
+		TaxPayer buyer1 = null;
+		for(TaxPayer buyer: _taxpayers){
+			if(buyer.getNIF() == invoiceData.getBuyerNIF()) {
+				buyer1=buyer;
+				break;
+			}
+		}
+		if(tpseller != null && (buyer1 != null)){
+			 new Invoice(invoiceData.getValue(), invoiceData.getDate(),invoiceData.getItemType(), (Seller)tpseller, (Buyer)buyer1);
+		}
+		else {
+			throw new TaxPayerException("seller or buyer dont exist");
+		}
 		
 	}
 }
