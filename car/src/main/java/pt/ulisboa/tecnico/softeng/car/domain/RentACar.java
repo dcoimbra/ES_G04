@@ -36,6 +36,17 @@ public class RentACar {
 		throw new CarException();
 
 	}
+
+	public static Renting getRentingByReference(String reference) {
+		for (RentACar rent : RentACar.rents) {
+			Renting r = rent.getRenting(reference);
+			if (r != null) {
+				return r;
+			}
+		}
+		return null;
+	}
+
 	public List<Vehicle> getAllAvailableCars(LocalDate begin, LocalDate end){
 		if( end.isBefore(begin) )
 			throw new CarException();
@@ -70,5 +81,13 @@ public class RentACar {
 
 	public List<Vehicle> getAllVehicles(){
 		return this._vehicles;
+	}
+
+	public static RentingData getRentingData(String reference) {
+		Renting r = getRentingByReference(reference);
+		if (r != null) {
+			return new RentingData(r);
+		}
+		throw new CarException();
 	}
 }

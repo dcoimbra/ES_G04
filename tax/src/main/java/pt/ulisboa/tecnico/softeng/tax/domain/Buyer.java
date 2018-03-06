@@ -32,7 +32,7 @@ public class Buyer extends TaxPayer {
 		
 		if (YEAR < 1970) {
 			
-			throw new TaxPayerException();
+			throw new TaxPayerException("Year must be after 1970");
 		}
 		
 	}
