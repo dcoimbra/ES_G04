@@ -70,5 +70,9 @@ public class Invoice {
 	public float getIVA(){
 		return this._iva;
 	}
+	
+	public String getREFERENCE(){
+		return this._reference;
+	}
 }
 
