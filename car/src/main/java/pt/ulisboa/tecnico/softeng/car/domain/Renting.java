@@ -115,7 +115,11 @@ public class Renting{
 		
 		return kilometers - _kilometers;
 		
-	}		
+	}
+	
+	public boolean conflict(LocalDate begin, LocalDate end) {
+		return true;
+	}
 }
 
 
