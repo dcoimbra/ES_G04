@@ -83,11 +83,27 @@ public class RentACar {
 		return this._vehicles;
 	}
 
+	public void addVehicle(Vehicle v){
+		this._vehicles.add(v);
+	}
+
 	public static RentingData getRentingData(String reference) {
 		Renting r = getRentingByReference(reference);
 		if (r != null) {
 			return new RentingData(r);
 		}
 		throw new CarException();
+	}
+
+	public String getCode(){
+		return this.code;
+	}
+
+	public boolean plateIsFree(String plate){
+		for (RentACar rent : RentACar.rents) 
+			for(Vehicle v : rent.getAllVehicles())
+				if(v.getPlate().equals(plate))
+					throw new CarException();
+		return true;
 	}
 }
