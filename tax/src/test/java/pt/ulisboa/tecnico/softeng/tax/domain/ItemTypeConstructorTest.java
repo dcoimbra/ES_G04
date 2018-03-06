@@ -35,6 +35,13 @@ public class ItemTypeConstructorTest {
 	}
 
 	@Test(expected =  ItemTypeException.class)
+	public void alreadyExistingITEMTYPE() {
+		new ItemType("Desporto", 25);
+		new ItemType("Nuno", 2);
+		new ItemType("Desporto", 25);
+	}
+
+	@Test(expected =  ItemTypeException.class)
 	public void notPositiveTAX() {
 		new ItemType(ITEM_TYPE, -20);
 	}
