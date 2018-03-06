@@ -13,6 +13,7 @@ public class SellerToPayMethodTest {
 
 	@Before
 	public void setUp() {
+		TaxPayer._taxpayers.clear();
 		this.seller = new Seller("123456789", "Antonio", "Quinta das Lagrimas");
 	}
 
