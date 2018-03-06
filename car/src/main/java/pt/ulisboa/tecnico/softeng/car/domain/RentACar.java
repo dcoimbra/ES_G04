@@ -105,4 +105,5 @@ public class RentACar {
 				if(v.getPlate().equals(plate))
 					throw new CarException();
 		return true;
+	}
 }
