@@ -4,8 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-import pt.ulisboa.tecnico.softeng.tax.exception.IRSException;
+
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
+import pt.ulisboa.tecnico.softeng.tax.exception.TaxPayerException;
+import pt.ulisboa.tecnico.softeng.tax.exception.ItemTypeException;
 
 
 
@@ -41,7 +43,7 @@ public class IRS {
 			}
 		}
 
-		throw new IRSException("No such TaxPayer");
+		throw new TaxPayerException("No such tax payer");
 	}
 
 	public ItemType getItemTypeByName(String ITEM_TYPE){
@@ -51,7 +53,7 @@ public class IRS {
 			}
 		}
 
-		throw new IRSException("No such ItemType");
+		throw new ItemTypeException("No such item type");
 	}
 	
 	public void submitInvoice(InvoiceData invoiceData) {

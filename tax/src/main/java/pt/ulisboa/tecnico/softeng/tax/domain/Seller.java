@@ -29,7 +29,7 @@ public class Seller extends TaxPayer {
 
 	private void checkArgumentstoPay(int YEAR) {
 		if (YEAR < 1970) {
-			throw new TaxPayerException();
+			throw new TaxPayerException("Year must be before 1970");
 		}
 		
 	}

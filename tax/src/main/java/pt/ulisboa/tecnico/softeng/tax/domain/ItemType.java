@@ -28,8 +28,10 @@ public class ItemType {
 		}
 
 		for(ItemType it : _itemtypes){
+			
 			if(it.getITEM_TYPE() == ITEM_TYPE)
-				throw new ItemTypeException();
+				
+				throw new ItemTypeException("Item type already exists");
 		}
 	}
 
