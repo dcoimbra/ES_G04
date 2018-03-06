@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import pt.ulisboa.tecnico.softeng.bank.exception.BuyerException;
+import pt.ulisboa.tecnico.softeng.tax.exception.TaxPayerException;
 
 public class BuyerConstructorTest {
 
@@ -20,16 +20,16 @@ public class BuyerConstructorTest {
 		Buyer buyer = new Buyer(BUYER_NIF, BUYER_NAME, BUYER_ADDRESS);
 
 		Assert.assertEquals(BUYER_NIF, buyer.getNIF());
-		Assert.assertEquals(BUYER_NAME, buyer.getName());
-		Assert.assertEquals(BUYER_ADDRESS, buyer.getAddress());
+		Assert.assertEquals(BUYER_NAME, buyer.getNAME());
+		Assert.assertEquals(BUYER_ADDRESS, buyer.getADDRESS());
 	}
 
-	@Test(expected = BuyerException.class)
+	@Test(expected = TaxPayerException.class)
 	public void inconsistentNIFSmaller() {
 		new Buyer("12345678", BUYER_NAME, BUYER_ADDRESS);
 	}
 
-	@Test(expected = BuyerException.class)
+	@Test(expected = TaxPayerException.class)
 	public void inconsistentNIFBigger() {
 		new Buyer("1234567891", BUYER_NAME, BUYER_ADDRESS);
 	}
@@ -40,28 +40,28 @@ public class BuyerConstructorTest {
 		try {
 			new Buyer(BUYER_NIF, BUYER_NAME, BUYER_ADDRESS);
 			Assert.fail();
-		} catch (BuyerException be) {
-			Assert.assertEquals(1, TaxPayer.taxpayers.size());
+		} catch (TaxPayerException tpe) {
+			Assert.assertEquals(1, TaxPayer._taxpayers.size());
 		}
 	}
 
-	@Test(expected = BuyerException.class)
+	@Test(expected = TaxPayerException.class)
 	public void nullName() {
 		new Buyer(BUYER_NIF, null, BUYER_ADDRESS);
 	}
 
-	@Test(expected = BuyerException.class)
+	@Test(expected = TaxPayerException.class)
 	public void nullAddress() {
 		new Buyer(BUYER_NIF, BUYER_NAME, null);
 	}
 
 
-	@Test(expected = BuyerException.class)
+	@Test(expected = TaxPayerException.class)
 	public void voidName() {
 		new Buyer(BUYER_NIF, "", BUYER_ADDRESS);
 	}
 
-	@Test(expected = BuyerException.class)
+	@Test(expected = TaxPayerException.class)
 	public void voidAddress() {
 		new Buyer(BUYER_NIF, BUYER_NAME, "");
 	}
@@ -70,6 +70,6 @@ public class BuyerConstructorTest {
 	@After 
 	public void tearDown() {
 
-		TaxPayer.taxpayers.clear();
+		TaxPayer._taxpayers.clear();
 	}
 }

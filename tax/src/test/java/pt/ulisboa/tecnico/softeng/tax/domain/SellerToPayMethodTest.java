@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import pt.ulisboa.tecnico.softeng.tax.exception.SellerException;
+import pt.ulisboa.tecnico.softeng.tax.exception.TaxPayerException;
 
 public class SellerToPayMethodTest {
 
@@ -16,7 +16,7 @@ public class SellerToPayMethodTest {
 		this.seller = new Seller("123456789", "Antonio", "Quinta das Lagrimas");
 	}
 
-	@Test(expected = SellerException.class)
+	@Test(expected = TaxPayerException.class)
 	public void beforeYear() {
 		this.seller.toPay(1969);
 	}
@@ -33,6 +33,6 @@ public class SellerToPayMethodTest {
 
 	@After 
 	public void tearDown() {
-		TaxPayer.taxpayers.clear();
+		TaxPayer._taxpayers.clear();
 	}
 }

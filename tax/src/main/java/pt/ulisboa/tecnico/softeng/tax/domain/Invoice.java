@@ -2,14 +2,15 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.time.LocalDate;
+import org.joda.time.LocalDate;
 import java.sql.Timestamp;
 
 
+import pt.ulisboa.tecnico.softeng.tax.exception.InvoiceException;
 
-public abstract class Invoice {
+public class Invoice {
 	
-	public static Set<Invoice> invoices = new HashSet<>();
+	public static Set<Invoice> _invoices = new HashSet<>();
 	
 	private float _value ;
 	private LocalDate _date ;
@@ -24,32 +25,26 @@ public abstract class Invoice {
 		checkArguments(value, date, item_type,seller,buyer);
 
 
-		_iva = ItemType.itemtypes.get(item_type)/100;
+		_iva = ItemType.getItemTypeByName(item_type).getTAX()/100;
 		_value =value;
 		_date = date;
 		_itemType = item_type;
 		_seller = seller;
 		_buyer = buyer ;
 		_reference= new Timestamp(0).toString();
-		invoices.add(this);
+		_invoices.add(this);
 	}
 	
 	private void checkArguments(float VALUE, LocalDate DATE, String ITEM_TYPE,Seller SELLER,Buyer BUYER) {
 		
 		if(DATE==null || ITEM_TYPE=="" || ITEM_TYPE==null || SELLER==null || BUYER==null) {
-			throw new InvoiceException();
+			throw new InvoiceException("1");
 		}
 		
 		if(DATE.getYear() < 1970) {
-			throw new InvoiceException();
+			throw new InvoiceException("2");
 		}
 			
-		
-		for (Invoice tp : Invoices) {
-			if (tp.getVALUE()==(VALUE) || tp.getDATE().equals(DATE)  || tp.getITEM_TYPE().equals(ITEM_TYPE) || tp.getSELLER().equals(SELLER)  || tp.getBUYER().equals(BUYER) ){
-				throw new InvoiceException();
-			}
-		}
 	}
 	
 	public float getVALUE() {
@@ -72,7 +67,7 @@ public abstract class Invoice {
 		return this._buyer;
 	}
 
-	public float getIva(){
+	public float getIVA(){
 		return this._iva;
 	}
 }

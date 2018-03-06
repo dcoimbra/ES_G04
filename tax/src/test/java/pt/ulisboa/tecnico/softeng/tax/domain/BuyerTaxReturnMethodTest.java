@@ -18,21 +18,21 @@ public class BuyerTaxReturnMethodTest {
 
 	@Test(expected = TaxPayerException.class)
 	public void beforeYear() {
-		this.buyer.toPay(1969);
+		this.buyer.taxReturn(1969);
 	}
 
 	@Test
 	public void beginYear() {
-		this.buyer.toPay(1970);
+		this.buyer.taxReturn(1970);
 	}
 
 	@Test
 	public void afterYear() {
-		this.buyer.toPay(1972);
+		this.buyer.taxReturn(1972);
 	}
 
 	@After 
 	public void tearDown() {
-		TaxPayer.taxpayers.clear();
+		TaxPayer._taxpayers.clear();
 	}
 }
