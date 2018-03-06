@@ -9,10 +9,10 @@ import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 abstract class Vehicle {
 	private static final int hifenASCII = 45;
-	private static final int A_ASCII = 45;
-	private static final int Z_ASCII = 45;
-	private static final int ZERO_ASCII = 45;
-	private static final int NINE_ASCII = 45;
+	private static final int A_ASCII = 65;
+	private static final int Z_ASCII = 90;
+	private static final int ZERO_ASCII = 48;
+	private static final int NINE_ASCII = 57;
 	private static final int PLATE_LEN = 8;
 
 	private String _plate;
@@ -42,7 +42,7 @@ abstract class Vehicle {
 	}
 
 	private void checkArguments(String plate, int km, RentACar rentACar) {
-		if (plate == null || km < 0) {
+		if (plate == null || km < 0 || rentACar == null) {
 			throw new CarException();
 		}
 		
@@ -51,15 +51,16 @@ abstract class Vehicle {
 		}
 		else {
 			int i = 0;
-			for(; i < PLATE_LEN; i++) {  // 01234567 index
-				if (i == 2 || i == 5) {  // XX-XX-XX
-					if ((int) plate.charAt(i) != hifenASCII) {
+			int asciiCode;
+			for(; i < PLATE_LEN; i++) {
+				asciiCode = (int) plate.charAt(i);
+				if (i == 2 || i == 5) {
+					if (asciiCode != hifenASCII) {
 						throw new CarException();
 					}
 				}
 				else {
-					int asciiCode = plate.charAt(i);
-					if (! ( (asciiCode >= A_ASCII && asciiCode <= Z_ASCII) || (asciiCode >= ZERO_ASCII && asciiCode <= NINE_ASCII) ))
+					if ( !( (asciiCode >= A_ASCII && asciiCode <= Z_ASCII) || (asciiCode >= ZERO_ASCII && asciiCode <= NINE_ASCII) ) )
 						throw new CarException();
 				}
 			}
@@ -70,19 +71,24 @@ abstract class Vehicle {
 	}
 
 	public boolean isFree(LocalDate begin, LocalDate end) {
+		if (begin == null || end == null)
+			throw new CarException();
+		
 		if (end.isBefore(begin))
 			throw new CarException();
 		
-		for(Renting r : _rentings) {
+		for(Renting r : _rentings) {			
 			if (!( end.isBefore((r.getBegin())) || ((r.getEnd()).isBefore(begin)) )) {
-				throw new CarException();
+				return false;
 			}
 		}
-		
 		return true;
 	}
 
 	public void rent(String drivingLicence, LocalDate begin, LocalDate end) {
+		if (begin == null || end == null)
+			throw new CarException();
+		
 		if (end.isBefore(begin))
 			throw new CarException();
 		

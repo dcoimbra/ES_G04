@@ -17,8 +17,13 @@ public class VehicleIsFreeMethodTest {
 	private static final String DRIVINGLICENCE = "VC1234";
 	
 	RentACar r = new RentACar(RENTACARNAME, RENTACARCODE);
-	Vehicle c = new Car(VEHICLE_PLATE, VEHICLE_KM, r);
+	Vehicle c;
 
+	@Before
+	public void setUp() {
+		c = new Car(VEHICLE_PLATE, VEHICLE_KM, r);
+	}
+	
 	@Test(expected = CarException.class)
 	public void invalidDate1() {
 		c.isFree(null, null);
@@ -59,11 +64,20 @@ public class VehicleIsFreeMethodTest {
 		Vehicle c2 = new Car("YY-YY-YY", VEHICLE_KM, r);
 		c.rent(DRIVINGLICENCE, new LocalDate(2018,1,1), new LocalDate(2018,1,10));
 		c2.rent(DRIVINGLICENCE, new LocalDate(2018,1,11), new LocalDate(2018,1,15));
-		if ( (c.isFree(new LocalDate(2018,1,2), new LocalDate(2018,1,5)) == true)  ||
-			 (c.isFree(new LocalDate(2018,1,5), new LocalDate(2018,1,15)) == true) ||
-			 (c.isFree(new LocalDate(2018,1,11), new LocalDate(2018,1,16)) == false)) {
+		if (c.isFree(new LocalDate(2018,1,12), new LocalDate(2018,1,14)) == false)
 			Assert.fail();
-		}
+		if (c.isFree(new LocalDate(2018,1,2), new LocalDate(2018,1,5)) == true)
+			Assert.fail();
+		if (c.isFree(new LocalDate(2018,1,13), new LocalDate(2018,1,16)) == false)
+			Assert.fail();
+		if (c.isFree(new LocalDate(2017,12,15), new LocalDate(2018,1,7)) == true)
+			Assert.fail();
+		if (c.isFree(new LocalDate(2017,12,12), new LocalDate(2018,1,31)) == true)
+			Assert.fail();
+		if (c.isFree(new LocalDate(2017,12,12), new LocalDate(2017,12,31)) == false)
+			Assert.fail();
+		if (c.isFree(new LocalDate(2018,1,16), new LocalDate(2018,1,20)) == false)
+			Assert.fail();
 	}
 
 	@Test
