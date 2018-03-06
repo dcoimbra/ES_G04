@@ -1,6 +1,8 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxPayerException;
+import pt.ulisboa.tecnico.softeng.tax.exception.InvoiceException;
+
 
 public class Seller extends TaxPayer {
 	
@@ -27,8 +29,19 @@ public class Seller extends TaxPayer {
 
 	private void checkArgumentstoPay(int YEAR) {
 		if (YEAR < 1970) {
-			throw new TaxPayerException();
+			throw new TaxPayerException("Year must be before 1970");
 		}
 		
 	}
+	
+	public Invoice getInvoiceByReference(String INVOICE_REFERENCE) {
+		for (Invoice i : Invoice._invoices) {
+			if (i.getREFERENCE() == INVOICE_REFERENCE) {
+				return i;
+			}
+		}
+		throw new InvoiceException("There is no Invoice with the given Reference");
+	}
+	
+	
 }

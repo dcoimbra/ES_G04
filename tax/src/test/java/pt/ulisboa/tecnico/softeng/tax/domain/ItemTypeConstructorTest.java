@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import pt.ulisboa.tecnico.softeng.bank.exception.ItemTypeException;
+import pt.ulisboa.tecnico.softeng.tax.exception.ItemTypeException;
 
 public class ItemTypeConstructorTest {
 
@@ -22,11 +22,7 @@ public class ItemTypeConstructorTest {
 		Assert.assertEquals(TAX, itemtype.getTAX());
 	}
 
-	@Test(expected = ItemTypeException.class)
-	public void notStringITEM_TYPE() {
-		new ItemType(123, TAX);
-	}
-	
+
 	@Test
 	public void notUniqueITEM_TYPE() {
 		new ItemType(ITEM_TYPE, TAX);
@@ -34,13 +30,18 @@ public class ItemTypeConstructorTest {
 			new ItemType(ITEM_TYPE, TAX);
 			Assert.fail();
 		} catch (ItemTypeException tpe) {
-			Assert.assertEquals(1, ItemType.itemtypes.size());
+			Assert.assertEquals(1, ItemType._itemtypes.size());
 		}
 	}
 
 	@Test(expected =  ItemTypeException.class)
 	public void notPositiveTAX() {
 		new ItemType(ITEM_TYPE, -20);
+	}
+
+	@After 
+	public void tearDown() {
+		ItemType._itemtypes.clear();
 	}
 	
 }

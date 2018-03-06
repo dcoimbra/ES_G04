@@ -14,10 +14,25 @@ public class ItemType {
 
 	public ItemType(String ITEM_TYPE, int TAX) {
 
+		checkArguments(ITEM_TYPE, TAX);
 		_itemtype = ITEM_TYPE;
 		_tax = TAX;
 
 		_itemtypes.add(this);
+	}
+
+	private void checkArguments(String ITEM_TYPE, int TAX){
+
+		if(TAX < 0){
+			throw new ItemTypeException();
+		}
+
+		for(ItemType it : _itemtypes){
+			
+			if(it.getITEM_TYPE() == ITEM_TYPE)
+				
+				throw new ItemTypeException("Item type already exists");
+		}
 	}
 
 	public String getITEM_TYPE() {
@@ -25,7 +40,7 @@ public class ItemType {
 		return _itemtype;
 	}
 
-	public int getTax() {
+	public int getTAX() {
 
 		return _tax;
 	}
