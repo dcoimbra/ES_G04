@@ -107,6 +107,10 @@ public class Renting{
 		return _kilometers;
 	}
 	
+	public int checkout(int kilometers) {
+		return 0;
+	}
+	
 	
 
 }
