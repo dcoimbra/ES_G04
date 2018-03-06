@@ -22,11 +22,6 @@ public class VehicleRentMethodTest {
 	Vehicle c = new Car(VEHICLE_PLATE, VEHICLE_KM, r);
 	
 	@Test(expected = CarException.class)
-	public void invalidDrivingLicense() {
-		c.rent(null, BEGIN, END);
-	}
-	
-	@Test(expected = CarException.class)
 	public void invalidBeginDate() {
 		c.rent(DRIVINGLICENCE, null, END);
 	}
@@ -42,12 +37,18 @@ public class VehicleRentMethodTest {
 	}
 	
 	@Test(expected = CarException.class)
-	public void blankDrivingLicense() {
-		c.rent("    ", BEGIN, END);
+	public void testAdd() {
+		int initialSize = c.getRentings().size();
+		c.rent(DRIVINGLICENCE, BEGIN, END);
+		if (initialSize + 1 != c.getRentings().size()) {
+			System.out.println(initialSize);
+			System.out.println(c.getRentings().size());
+			Assert.fail();
+		}
 	}
-
-	@Test(expected = CarException.class)
-	public void emptyDrivingLicense() {
-		c.rent("", BEGIN, END);
+	
+	@After
+	public void tearDown() {
+		c.getRentings().clear();
 	}
 }

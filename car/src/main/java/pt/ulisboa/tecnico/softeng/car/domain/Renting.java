@@ -75,8 +75,7 @@ public class Renting{
 			else {
 				if (ascii < 48 || ascii > 57) {
 					return true;
-				}
-				
+				}				
 			}	
 		}
 		
@@ -107,8 +106,40 @@ public class Renting{
 		return _kilometers;
 	}
 	
+	public int checkout(int kilometers) {
+		if (kilometers < 0) 
+			throw new CarException();
+				
+		if (kilometers - _kilometers < 0) 
+			throw new CarException();		
+		
+		return kilometers - _kilometers;
+		
+	}
 	
-
+	public boolean conflict(LocalDate begin, LocalDate end) {
+		
+		if (begin.equals(end))
+			return true;
+		
+		if (end.isBefore(begin))
+			throw new CarException();
+		
+		if ((begin.equals(_begin) || begin.isAfter(_begin)) && begin.isBefore(_end)) 
+			return true;
+		
+		if ((end.equals(_end) || end.isBefore(_end)) && end.isAfter(_begin))
+			return true;
+		
+		if (begin.equals(_end) || end.equals(_begin))
+			return true;
+		
+		if (begin.isBefore(_begin) && end.isAfter(_end))
+			return true;
+		
+		
+		return false;
+	}
 }
 
 

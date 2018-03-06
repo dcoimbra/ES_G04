@@ -38,11 +38,11 @@ public class Invoice {
 	private void checkArguments(float VALUE, LocalDate DATE, String ITEM_TYPE,Seller SELLER,Buyer BUYER) {
 		
 		if(DATE==null || ITEM_TYPE=="" || ITEM_TYPE==null || SELLER==null || BUYER==null) {
-			throw new InvoiceException("1");
+			throw new InvoiceException("Null or empty arguments");
 		}
 		
 		if(DATE.getYear() < 1970) {
-			throw new InvoiceException("2");
+			throw new InvoiceException("Year must be after 1970");
 		}
 			
 	}
@@ -69,6 +69,10 @@ public class Invoice {
 
 	public float getIVA(){
 		return this._iva;
+	}
+	
+	public String getREFERENCE(){
+		return this._reference;
 	}
 }
 
