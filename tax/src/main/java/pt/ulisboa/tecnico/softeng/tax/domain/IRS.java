@@ -3,7 +3,10 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+
 import pt.ulisboa.tecnico.softeng.tax.exception.IRSException;
+import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
+
 
 
 /* IRS class implements the Singleton design pattern. */ 
@@ -49,5 +52,10 @@ public class IRS {
 		}
 
 		throw new IRSException("No such ItemType");
+	}
+	
+	public void submitInvoice(InvoiceData invoiceData) {
+		
+		
 	}
 }
