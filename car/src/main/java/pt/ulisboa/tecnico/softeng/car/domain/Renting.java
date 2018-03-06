@@ -75,8 +75,7 @@ public class Renting{
 			else {
 				if (ascii < 48 || ascii > 57) {
 					return true;
-				}
-				
+				}				
 			}	
 		}
 		
@@ -108,11 +107,15 @@ public class Renting{
 	}
 	
 	public int checkout(int kilometers) {
-		return 0;
-	}
-	
-	
-
+		if (kilometers < 0) 
+			throw new CarException();
+				
+		if (kilometers - _kilometers < 0) 
+			throw new CarException();		
+		
+		return kilometers - _kilometers;
+		
+	}		
 }
 
 
