@@ -78,6 +78,8 @@ abstract class Vehicle {
 				throw new CarException();
 			}
 		}
+		
+		return true;
 	}
 
 	public void rent(String drivingLicence, LocalDate begin, LocalDate end) {
@@ -86,7 +88,7 @@ abstract class Vehicle {
 		
 		for (Vehicle v: _rentACar.getAllVehicles()) {
 			if (v.isFree(begin, end)) {
-				_rentings.add(new Renting("1234", drivingLicence, begin, end, _kilometers));
+				_rentings.add(new Renting(_rentACar, drivingLicence, begin, end, _kilometers));
 			}
 		}
 	}
