@@ -1,7 +1,7 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
-import java.time.LocalDate;
-import java.time.Local_date;
+import org.joda.time.LocalDate;
+
 
 import org.junit.After;
 import org.junit.Assert;
@@ -14,58 +14,52 @@ public class InvoiceConstructorTest {
     
 
 	private static final float _value =1.5f;
-	private static final LocalDate _date ;
-	private static final String _itemType ="token" ;
-	private static final Seller _seller ;
-	private static final Buyer _buyer ;
-	private static final float _iva;
-
+	private static final LocalDate _date = new LocalDate().now();
+	private static final String _itemType = "token";
+	private static final Seller _seller = new Seller("123456789","Jose Toni","Quinta das Lagrimas");
+	private static final Buyer _buyer = new Buyer("123456780", "Jose Toni", "Quinta das Lagrimas");
+	
 
 	@Test
 	public void success() {
 
+		ItemType it = new ItemType(_itemType, 20);
+
 		Invoice Invoice = new Invoice(_value, _date, _itemType, _seller, _buyer);
 
-		Assert.assertEquals(_value, Invoice.get_value());
-		Assert.assertEquals(_date, Invoice.get_date());
-		Assert.assertEquals(_itemType, Invoice.get_itemType());
-		Assert.assertEquals(_seller, Invoice.get_seller());
-		Assert.assertEquals(_buyer, Invoice.get_buyer());
+		Assert.assertEquals(_value, Invoice.getVALUE(), 0.0f);
+		Assert.assertEquals(_date, Invoice.getDATE());
+		Assert.assertEquals(_itemType, Invoice.getITEM_TYPE());
+		Assert.assertEquals(_seller, Invoice.getSELLER());
+		Assert.assertEquals(_buyer, Invoice.getBUYER());
 	}
 
-	@Test(expected = InvoiceException.class)
-	public void notString_value() {
-		new Invoice(null, _date, _itemType, _seller, _buyer);
-	}
+	/*Test border values for invoice constructor*/
 
 	@Test
 	public void ivaTax_value(){
 		ItemType it = new ItemType (_itemType, 20);
 		Invoice invoice = new Invoice(_value, _date, _itemType, _seller, _buyer);
 
-		int tax = ItemType.itemtypes.get(_itemType);
+		int tax = ItemType.getItemTypeByName(_itemType).getTAX();
 
-		Assert.assertEquals(it.getTax/100, invoice.getIva())
+		Assert.assertEquals(it.getTAX()/100, invoice.getIVA(),0.0f);
 	}
 	
 	@Test(expected = InvoiceException.class)
-	public void notEmpty_value() {
-		new Invoice("", _date, _itemType, _seller, _buyer);
-	}
-	
-	@Test(expected = InvoiceException.class)
-	public void notStringDATA() {
+	public void nullDATE() {
 		new Invoice(_value, null, _itemType , _seller, _buyer);
 	}
 	
-	@Test(expected = InvoiceException.class)
-	public void notEmptyDATA() {
-		new Invoice(_value, "", _itemType , _seller, _buyer);
+	@Test
+	public void beginDATE() {
+		ItemType it = new ItemType(_itemType, 20);
+		new Invoice(_value, new LocalDate(1970,1,1) , _itemType , _seller, _buyer);
 	}
 	
 	@Test(expected = InvoiceException.class)
-	public void notValidDATA() {
-		new Invoice(_value, "13/3/1969", _itemType , _seller, _buyer);
+	public void beforeDATE() {
+		new Invoice(_value, new LocalDate(1969,10,1), _itemType , _seller, _buyer);
 	}
 	
 	@Test(expected = InvoiceException.class)
@@ -83,32 +77,17 @@ public class InvoiceConstructorTest {
 		new Invoice(_value, _date, _itemType, null, _buyer);
 	}
 	
-	@Test(expected = InvoiceException.class)
-	public void notEmpty_seller() {
-		new Invoice(_value, _date, _itemType, "", _buyer);
-	}
 	
 	@Test(expected = InvoiceException.class)
 	public void notString_buyer() {
 		new Invoice(_value, _date, _itemType, _seller, null);
 	}
-	
-	@Test(expected = InvoiceException.class)
-	public void notEmpty_buyer() {
-		new Invoice(_value, _date, _itemType, _seller, "");
+
+	@After 
+	public void tearDown() {
+		ItemType._itemtypes.clear();
+		Invoice._invoices.clear();
 	}
 	
-
-	@Test
-	public void notUnique() {
-		new Invoice(_value, _date, _itemType, _seller, _buyer);
-		try {
-			new Invoice(_value, _date, _itemType, _seller, _buyer);
-			Assert.fail();
-		} catch (InvoiceException tpe) {
-			Assert.assertEquals(1, Invoice.Invoices.size());
-		}
-	}
-
 	
 }

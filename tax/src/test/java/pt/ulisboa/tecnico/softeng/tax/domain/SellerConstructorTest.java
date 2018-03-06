@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import pt.ulisboa.tecnico.softeng.bank.exception.TaxPayerException;
+import pt.ulisboa.tecnico.softeng.tax.exception.TaxPayerException;
 
 public class SellerConstructorTest {
 
@@ -20,8 +20,8 @@ public class SellerConstructorTest {
 		Seller seller = new Seller(SELLER_NIF, SELLER_NAME, SELLER_ADDRESS);
 
 		Assert.assertEquals(SELLER_NIF, seller.getNIF());
-		Assert.assertEquals(SELLER_NAME, seller.getName());
-		Assert.assertEquals(SELLER_ADDRESS, seller.getAddress());
+		Assert.assertEquals(SELLER_NAME, seller.getNAME());
+		Assert.assertEquals(SELLER_ADDRESS, seller.getADDRESS());
 	}
 
 	@Test(expected = TaxPayerException.class)
@@ -41,13 +41,13 @@ public class SellerConstructorTest {
 			new Seller(SELLER_NIF, SELLER_NAME, SELLER_ADDRESS);
 			Assert.fail();
 		} catch (TaxPayerException se) {
-			Assert.assertEquals(1, TaxPayer.taxpayers.size());
+			Assert.assertEquals(1, TaxPayer._taxpayers.size());
 		}
 	}
 
 	@After 
 	public void tearDown() {
 
-		TaxPayer.taxpayers.clear();
+		TaxPayer._taxpayers.clear();
 	}
 }
