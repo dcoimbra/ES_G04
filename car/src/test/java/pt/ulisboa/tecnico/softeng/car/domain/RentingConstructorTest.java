@@ -114,6 +114,7 @@ public class RentingConstructorTest {
 	@After
 	public void tearDown() {
 		RentACar.rents.clear();
+		_rentacar.getAllVehicles().clear();
 	}
 
 	
