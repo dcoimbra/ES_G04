@@ -19,6 +19,7 @@ public abstract class TaxPayer {
 		_name = NAME;
 		_address = ADDRESS;
 		_taxpayers.add(this);
+		IRS.getIRS().addTaxPayer(this);
 	}
 	
 	private void checkArguments(String NIF, String NAME, String ADDRESS) {
