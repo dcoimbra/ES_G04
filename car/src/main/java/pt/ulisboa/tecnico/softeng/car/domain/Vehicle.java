@@ -7,7 +7,7 @@ import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
-abstract class Vehicle {
+public abstract class Vehicle {
 	private static final int hifenASCII = 45;
 	private static final int A_ASCII = 65;
 	private static final int Z_ASCII = 90;
@@ -39,6 +39,10 @@ abstract class Vehicle {
 	
 	public Set<Renting> getRentings() {
 		return _rentings;
+	}
+	
+	public RentACar getRentACar() {
+		return _rentACar;
 	}
 
 	private void checkArguments(String plate, int km, RentACar rentACar) {
