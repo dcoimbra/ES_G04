@@ -11,6 +11,7 @@ public class CarConstructorTest {
 	private static final String VEHICLE_PLATE = "XX-XX-XX";
 	private static final int VEHICLE_KM = 1;
 	private static final String RENTACARNAME = "AlugamISTo";
+	private static final int PLATE_LEN = 8;
 
 	private RentACar _rentACar;
 	
@@ -85,6 +86,23 @@ public class CarConstructorTest {
 	@Test(expected = CarException.class)
 	public void negativeKilometers() {
 		new Car(VEHICLE_PLATE, -VEHICLE_KM, this._rentACar);
+	}
+	
+	@Test
+	public void edgeValidPlate() {
+		try {
+			new Car("AA-09-ZZ", VEHICLE_KM, this._rentACar);
+		} catch (Exception e) {Assert.fail();}
+	}
+	
+	@Test(expected = CarException.class)
+	public void edgeInvalidPlate() {
+		StringBuilder sb = new StringBuilder(PLATE_LEN);
+		char ch = (char) 64;
+		sb.append(ch);sb.append(ch);
+		sb.append("-/:-[[");
+		
+		new Car(sb.toString(), VEHICLE_KM, this._rentACar);
 	}
 	
 	@After
