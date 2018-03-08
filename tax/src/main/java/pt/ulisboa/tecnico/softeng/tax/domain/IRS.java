@@ -17,7 +17,7 @@ public class IRS {
 	private static final IRS _irs = new IRS();
 	
 	public static Set<TaxPayer> _taxpayers = new HashSet<>();
-	private Set<ItemType> _itemtypes = new HashSet<>();
+	public static Set<ItemType> _itemtypes = new HashSet<>();
 	
 
 	private IRS() {}
