@@ -68,7 +68,7 @@ public class RentACar {
 	}
 
 	public List<Vehicle> getAllVehicles(){
-		return this._vehicles;
+		return _vehicles;
 	}
 
 	public void addVehicle(Vehicle v){
@@ -98,14 +98,23 @@ public class RentACar {
 	public Set<RentACar> getRents(){
 		return RentACar.rents;
 	}
+	
 	public boolean plateIsFree(String plate){
-		if (plate == null || plate.trim().equals("") ) {
+		if (plate == null || plate.trim().equals("") )
 			throw new CarException();
-		}
-		for (RentACar rent : RentACar.rents) 
-			for(Vehicle v : rent.getAllVehicles())
-				if(v.getPlate().equals(plate))
+		
+		for (RentACar rent : RentACar.rents) {
+			List<Vehicle> list = rent.getAllVehicles();
+			if (list.size() == 0) {
+				break;
+			}
+			
+			for(Vehicle v : list) {				
+				if((v.getPlate()).equals(plate)) {
 					throw new CarException();
+				}
+			}
+		}
 		return true;
 	}
 }

@@ -50,9 +50,9 @@ public abstract class Vehicle {
 			throw new CarException();
 		}
 		
-		if (plate.length() != PLATE_LEN) {
+		if (plate.length() != PLATE_LEN || plate.trim().equals(""))
 			throw new CarException();
-		}
+		
 		else {
 			int i = 0;
 			int asciiCode;
@@ -69,7 +69,7 @@ public abstract class Vehicle {
 				}
 			}
 		}
-
+		
 		if(!rentACar.plateIsFree(plate))
 			throw new CarException();
 	}
