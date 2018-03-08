@@ -32,7 +32,7 @@ public class RentingConflictTest {
 	
 	@Test
 	public void equalBeginEnd() {
-		Assert.assertTrue(this._renting.conflict(new LocalDate(2018,6,12), new LocalDate(2018,6,12)));
+		Assert.assertFalse(this._renting.conflict(new LocalDate(2018,6,12), new LocalDate(2018,6,12)));
 	}
 	
 	@Test(expected = CarException.class)
