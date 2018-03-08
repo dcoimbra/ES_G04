@@ -46,6 +46,6 @@ public class IRSsubmitInvoiceMethodTest {
 	@After 
 	public void tearDown() {
 		ItemType._itemtypes.clear();
-		TaxPayer._taxpayers.clear();
+		IRS.getIRS()._taxpayers.clear();
 	}
 }

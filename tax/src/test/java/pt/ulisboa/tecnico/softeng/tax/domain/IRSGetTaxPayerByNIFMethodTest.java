@@ -7,33 +7,27 @@ import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxPayerException;
 
-public class SellerToPayMethodTest {
-
-	private Seller seller;
+public class IRSGetTaxPayerByNIFMethodTest {
 
 	@Before
 	public void setUp() {
 		IRS.getIRS()._taxpayers.clear();
-		this.seller = new Seller("123456789", "Antonio", "Quinta das Lagrimas");
-	}
-
-	@Test(expected = TaxPayerException.class)
-	public void beforeYear() {
-		this.seller.toPay(1969);
+		TaxPayer tp1 = new Buyer("123456789", "Jose Toni", "Quinta das Lagrimas");
 	}
 
 	@Test
-	public void beginYear() {
-		this.seller.toPay(1970);
+	public void success() {
+		IRS.getIRS().getTaxPayerByNIF("123456789");
 	}
 
-	@Test
-	public void afterYear() {
-		this.seller.toPay(1972);
+	@Test(expected =  TaxPayerException.class)
+	public void noSuchTaxPayer() {
+		IRS.getIRS().getTaxPayerByNIF("987654321");
 	}
 
-	@After 
+	@After
 	public void tearDown() {
+
 		IRS.getIRS()._taxpayers.clear();
 	}
 }
