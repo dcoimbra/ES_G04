@@ -48,34 +48,27 @@ public class RentACar {
 	}
 
 	public List<Vehicle> getAllAvailableCars(LocalDate begin, LocalDate end){
-		if( end.isBefore(begin) )
+		if( end.isBefore(begin) || begin == null || end == null )
 			throw new CarException();
 
 		List<Vehicle> l = new ArrayList<>();
-		for(Vehicle v: this._vehicles){
-			if (v instanceof Car){	
-				for(Renting r : v.getRentings()){
-					if (v.isFree(begin, end) )
-						l.add(v);
-				}
-			}
-		}
+		for(Vehicle v: this._vehicles)
+			if (v instanceof Car)
+				if (v.isFree(begin, end) )
+					l.add(v);
 		return l;
 	}
 
 	public List<Vehicle> getAllAvailableMotorCycles(LocalDate begin, LocalDate end){
-		if( end.isBefore(begin) )
+		if( end.isBefore(begin) || begin == null || end == null )
 			throw new CarException();
 
 		List<Vehicle> l = new ArrayList<>();
-		for(Vehicle v: this._vehicles){
-			if (v instanceof Motorcycle){	
-				for(Renting r : v.getRentings()){
-					if (v.isFree(begin, end) )
-						l.add(v);
-				}
-			}
-		}
+		for(Vehicle v: this._vehicles)
+			if (v instanceof Motorcycle)	
+				if (v.isFree(begin, end) )
+					l.add(v);
+		
 		return l;
 	}
 
@@ -99,6 +92,13 @@ public class RentACar {
 		return this.code;
 	}
 
+	public String getName(){
+		return this.name;
+	}
+
+	public Set<RentACar> getRents(){
+		return RentACar.rents;
+	}
 	public boolean plateIsFree(String plate){
 		for (RentACar rent : RentACar.rents) 
 			for(Vehicle v : rent.getAllVehicles())

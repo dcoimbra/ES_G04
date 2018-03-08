@@ -1,6 +1,9 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
 import org.junit.Test;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
@@ -14,14 +17,14 @@ public class RentACarContructorTest {
 	@Before
 	public void setUp() {
 		this._rentacar = new RentACar(RENT_A_CAR_NAME, RENT_A_CAR_CODE);
-		this._rentacar.addVehicle(new Motorcycle(VEHICLE_PLATE, VEHICLE_KM, this._rentacar))
+		new Motorcycle(VEHICLE_PLATE, VEHICLE_KM, this._rentacar);
 	}
 
 	@Test
 	public void success() {		
 		Assert.assertEquals(RENT_A_CAR_CODE, _rentacar.getCode());
 		Assert.assertTrue(_rentacar.plateIsFree("YY-YY-YY"));
-		assertEquals(_rentacar.getAllVehicles().size(), 1);
+		Assert.assertEquals(_rentacar.getAllVehicles().size(), 1);
 	}
 
 	@Test(expected = CarException.class)
