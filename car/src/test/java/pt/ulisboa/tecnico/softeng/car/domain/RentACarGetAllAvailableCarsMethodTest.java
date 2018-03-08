@@ -1,8 +1,6 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -20,9 +18,10 @@ public class RentACarGetAllAvailableCarsMethodTest {
 	private static final String PLATE4 = "PP-PP-PP";
 	private static final String PLATE5 = "AA-AA-AA";
 	private static final String PLATE6 = "ZZ-ZZ-ZZ";
+	private static final String PLATE7 = "BB-BB-BB";
 	private static final int KM = 100;
 	private static final String DRIVING_LICENSE = "VC1";
-	private RentACar _rentCar = new RentACar("Benecar", "01");
+	private RentACar _rentCar = new RentACar("Benecar");
 
 
 	@Test
@@ -32,28 +31,21 @@ public class RentACarGetAllAvailableCarsMethodTest {
 		Vehicle c3 = new Car(PLATE3, KM, this._rentCar);
 		Vehicle c4 = new Car(PLATE4, KM, this._rentCar);
 		Vehicle c5 = new Car(PLATE5, KM, this._rentCar);
-		Vehicle m1 = new Motorcycle(PLATE6, KM, this._rentCar);
+		Vehicle c6 = new Car(PLATE6, KM, this._rentCar);
+		Vehicle m1 = new Motorcycle(PLATE7, KM, this._rentCar);
 
 		List<Vehicle> availableCars = new ArrayList<>();
 
-		c1.rent(DRIVING_LICENSE, new LocalDate(2014,1,1) ,  new LocalDate(2014, 1, 2));
+		c1.rent(DRIVING_LICENSE, new LocalDate(2014,1,1) ,  new LocalDate(2014, 1, 3));
 		availableCars.add(c1);
-		c1.rent(DRIVING_LICENSE, new LocalDate(2014,1,3) ,  new LocalDate(2014, 1, 4));
-		c1.rent(DRIVING_LICENSE, new LocalDate(2014,1,3) ,  new LocalDate(2014, 1, 5));
-		c1.rent(DRIVING_LICENSE, new LocalDate(2014,1,4) ,  new LocalDate(2014, 1, 5));
-		c1.rent(DRIVING_LICENSE, new LocalDate(2014,1,5) ,  new LocalDate(2014, 1, 6));
-		c1.rent(DRIVING_LICENSE, new LocalDate(2014,1,9) ,  new LocalDate(2014, 1,10));
-		c1.rent(DRIVING_LICENSE, new LocalDate(2014,1,9) ,  new LocalDate(2014, 1,11));
-		c1.rent(DRIVING_LICENSE, new LocalDate(2014,1,10),  new LocalDate(2014, 1,11));
-		c1.rent(DRIVING_LICENSE, new LocalDate(2014,1,11),  new LocalDate(2014, 1,12));
-		c2.rent(DRIVING_LICENSE, new LocalDate(2014,1,1) ,  new LocalDate(2014, 1, 2));
-		availableCars.add(c2);
-		c3.rent(DRIVING_LICENSE, new LocalDate(2014,1,11),  new LocalDate(2014, 1, 11));
-		availableCars.add(c3);
-		c4.rent(DRIVING_LICENSE, new LocalDate(2014,1,4) ,  new LocalDate(2014, 1, 4));
-		c5.rent(DRIVING_LICENSE, new LocalDate(2014,1,10),  new LocalDate(2014, 1, 10));
+		c2.rent(DRIVING_LICENSE, new LocalDate(2014,1,4) ,  new LocalDate(2014, 1, 4));
+		c3.rent(DRIVING_LICENSE, new LocalDate(2014,1,3) ,  new LocalDate(2014, 1, 5));
+		c4.rent(DRIVING_LICENSE, new LocalDate(2014,1,10) ,  new LocalDate(2014, 1, 10));
+		c5.rent(DRIVING_LICENSE, new LocalDate(2014,1,8) ,  new LocalDate(2014, 1, 11));
+		c6.rent(DRIVING_LICENSE, new LocalDate(2014,1,11) ,  new LocalDate(2014, 1, 12));
+		availableCars.add(c6);
 		m1.rent(DRIVING_LICENSE, new LocalDate(2014,1,1) ,  new LocalDate(2014, 1, 2));
-	
+		
 		Assert.assertEquals(availableCars, this._rentCar.getAllAvailableCars(new LocalDate(2014,1,4), new LocalDate(2014, 1, 10)));
 	}
 

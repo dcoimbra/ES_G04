@@ -7,22 +7,16 @@ import org.junit.Before;
 
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
-public class RentACarContructorTest {
+public class RentACarConstructorTest {
 	private static final String RENT_A_CAR_NAME = "Benecar";
-	private static final String RENT_A_CAR_CODE = "1";
 	private static final String VEHICLE_PLATE = "XX-XX-XX";
 	private static final int VEHICLE_KM = 1;
 	private RentACar _rentacar;
 
-	@Before
-	public void setUp() {
-		this._rentacar = new RentACar(RENT_A_CAR_NAME);
-		new Motorcycle(VEHICLE_PLATE, VEHICLE_KM, this._rentacar);
-	}
-
 	@Test
 	public void success() {		
-		Assert.assertEquals(RENT_A_CAR_CODE, _rentacar.getCode());
+		this._rentacar = new RentACar(RENT_A_CAR_NAME);
+		new Motorcycle(VEHICLE_PLATE, VEHICLE_KM, this._rentacar);
 		Assert.assertTrue(_rentacar.plateIsFree("YY-YY-YY"));
 		Assert.assertEquals(_rentacar.getAllVehicles().size(), 1);
 	}
@@ -39,6 +33,8 @@ public class RentACarContructorTest {
 
 	@Test(expected = CarException.class)
 	public void plateAlreadyExists() {
+		this._rentacar = new RentACar(RENT_A_CAR_NAME);
+		new Motorcycle(VEHICLE_PLATE, VEHICLE_KM, this._rentacar);
 		_rentacar.plateIsFree("XX-XX-XX");
 	}
 

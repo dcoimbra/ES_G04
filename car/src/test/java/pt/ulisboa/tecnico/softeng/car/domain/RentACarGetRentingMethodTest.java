@@ -14,13 +14,6 @@ public class RentACarGetRentingMethodTest {
 
 	private RentACar _rentCar = new RentACar("Benecar");
 
-	@Test
-	public void success() {
-		Vehicle v = new Car(PLATE, KM, this._rentCar);
-		v.rent(DRIVING_LICENSE, new LocalDate(2014,1,2), new LocalDate(2014, 1, 3));
-		Assert.assertEquals(v.getRentings().iterator().next(), this._rentCar.getRenting(v.getRentings().iterator().next().getReference()));
-	}
-
 	@Test(expected = CarException.class)
 	public void nullReference() {
 		this._rentCar.getRenting(null);

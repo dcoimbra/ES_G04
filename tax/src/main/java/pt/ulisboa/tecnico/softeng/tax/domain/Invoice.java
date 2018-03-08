@@ -5,7 +5,6 @@ import java.util.Set;
 import org.joda.time.LocalDate;
 import java.sql.Timestamp;
 
-
 import pt.ulisboa.tecnico.softeng.tax.exception.InvoiceException;
 
 public class Invoice {
