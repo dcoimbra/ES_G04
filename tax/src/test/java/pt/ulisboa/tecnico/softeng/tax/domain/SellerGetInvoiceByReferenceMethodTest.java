@@ -31,6 +31,6 @@ public class SellerGetInvoiceByReferenceMethodTest {
 
 	@After 
 	public void tearDown() {
-		TaxPayer._taxpayers.clear();
+		IRS.getIRS()._taxpayers.clear();
 	}
 }

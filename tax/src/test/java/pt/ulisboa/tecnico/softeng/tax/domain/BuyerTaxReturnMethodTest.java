@@ -30,7 +30,7 @@ public class BuyerTaxReturnMethodTest {
 
 	@Before
 	public void setUp() {
-		TaxPayer._taxpayers.clear();
+		IRS.getIRS()._taxpayers.clear();
 		this.buyer = new Buyer("123456789", "Antonio", "Quinta das Lagrimas");
 	}
 
@@ -52,6 +52,6 @@ public class BuyerTaxReturnMethodTest {
 
 	@After 
 	public void tearDown() {
-		TaxPayer._taxpayers.clear();
+		IRS.getIRS()._taxpayers.clear();
 	}
 }

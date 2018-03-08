@@ -41,7 +41,7 @@ public class BuyerConstructorTest {
 			new Buyer(BUYER_NIF, BUYER_NAME, BUYER_ADDRESS);
 			Assert.fail();
 		} catch (TaxPayerException tpe) {
-			Assert.assertEquals(1, TaxPayer._taxpayers.size());
+			Assert.assertEquals(1, IRS.getIRS()._taxpayers.size());
 		}
 	}
 
@@ -70,6 +70,6 @@ public class BuyerConstructorTest {
 	@After 
 	public void tearDown() {
 
-		TaxPayer._taxpayers.clear();
+		IRS.getIRS()._taxpayers.clear();
 	}
 }

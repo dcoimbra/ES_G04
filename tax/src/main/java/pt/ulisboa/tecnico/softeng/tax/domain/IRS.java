@@ -16,7 +16,7 @@ public class IRS {
 	
 	private static final IRS _irs = new IRS();
 	
-	private Set<TaxPayer> _taxpayers = new HashSet<>();
+	public static Set<TaxPayer> _taxpayers = new HashSet<>();
 	private Set<ItemType> _itemtypes = new HashSet<>();
 	
 
@@ -40,6 +40,8 @@ public class IRS {
 	public TaxPayer getTaxPayerByNIF(String BUYER_NIF){
 		for(TaxPayer tp : _taxpayers){
 			if(tp.getNIF().equals(BUYER_NIF)){
+
+				System.out.println(tp.getNIF());
 				return tp;
 			}
 		}
@@ -76,7 +78,7 @@ public class IRS {
 			 new Invoice(invoiceData.getValue(), invoiceData.getDate(),invoiceData.getItemType(), (Seller)tpseller, (Buyer)buyer1);
 		}
 		else {
-			throw new TaxPayerException("seller or buyer dont exist");
+			throw new TaxPayerException("No such tax payer");
 		}
 		
 	}
