@@ -15,11 +15,16 @@ public class VehicleRentMethodTest {
 	private static final String VEHICLE_PLATE = "XX-XX-XX";
 	private static final int VEHICLE_KM = 1;
 	private static final String RENTACARNAME = "AlugamISTo";
-	private static final String RENTACARCODE = "001";
 	private static final String DRIVINGLICENCE = "VC1234";
 	
-	RentACar r = new RentACar(RENTACARNAME, RENTACARCODE);
-	Vehicle c = new Car(VEHICLE_PLATE, VEHICLE_KM, r);
+	RentACar r;
+	Vehicle c;
+	
+	@Before
+	public void setUp() {
+		r = new RentACar(RENTACARNAME);
+		c = new Car(VEHICLE_PLATE, VEHICLE_KM, r);
+	}
 	
 	@Test(expected = CarException.class)
 	public void invalidBeginDate() {
@@ -36,19 +41,47 @@ public class VehicleRentMethodTest {
 		c.rent(DRIVINGLICENCE, END, BEGIN);
 	}
 	
-	@Test(expected = CarException.class)
+	@Test
 	public void testAdd() {
 		int initialSize = c.getRentings().size();
 		c.rent(DRIVINGLICENCE, BEGIN, END);
 		if (initialSize + 1 != c.getRentings().size()) {
-			System.out.println(initialSize);
-			System.out.println(c.getRentings().size());
 			Assert.fail();
 		}
 	}
 	
+	@Test(expected = CarException.class)
+	public void invalidRent() {
+		c.rent(DRIVINGLICENCE, BEGIN, END);
+		c.rent(DRIVINGLICENCE, BEGIN, END);
+	}
+	
+	@Test(expected = CarException.class)
+	public void invalidRent2() {
+		c.rent(DRIVINGLICENCE, new LocalDate(2018,1,1), new LocalDate(2018,1,3));
+		c.rent(DRIVINGLICENCE, new LocalDate(2018,1,3), new LocalDate(2018,1,5));
+	}
+	
+	@Test(expected = CarException.class)
+	public void invalidRent3() {
+		c.rent(DRIVINGLICENCE, new LocalDate(2018,1,2), new LocalDate(2018,1,3));
+		c.rent(DRIVINGLICENCE, new LocalDate(2018,1,4), new LocalDate(2018,1,5));
+		c.rent(DRIVINGLICENCE, new LocalDate(2018,1,1), new LocalDate(2018,1,2));
+	}
+	
+	@Test
+	public void validRent() {
+		try {
+			Vehicle c2 = new Car("AA-BB-SS", VEHICLE_KM, r);
+			c2.rent(DRIVINGLICENCE, new LocalDate(2018,1,1), new LocalDate(2018,1,2));
+			c.rent(DRIVINGLICENCE, new LocalDate(2018,1,1), new LocalDate(2018,1,2));
+			c.rent(DRIVINGLICENCE, new LocalDate(2018,1,3), new LocalDate(2018,1,4));
+		} catch (Exception e) {Assert.fail();}
+	}
+	
 	@After
 	public void tearDown() {
+		RentACar.rents.clear();
 		c.getRentings().clear();
 	}
 }

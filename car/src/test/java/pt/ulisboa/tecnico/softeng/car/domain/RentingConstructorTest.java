@@ -18,7 +18,7 @@ public class RentingConstructorTest {
 
 	@Before
 	public void setUp() {
-		this._rentacar = new RentACar("Benecar", "01");
+		this._rentacar = new RentACar("Benecar");
 	}
 
 	@Test

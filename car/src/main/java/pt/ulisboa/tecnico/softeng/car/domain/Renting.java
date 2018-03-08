@@ -119,9 +119,6 @@ public class Renting{
 	
 	public boolean conflict(LocalDate begin, LocalDate end) {
 		
-		if (begin.equals(end))
-			return true;
-		
 		if (end.isBefore(begin))
 			throw new CarException();
 		

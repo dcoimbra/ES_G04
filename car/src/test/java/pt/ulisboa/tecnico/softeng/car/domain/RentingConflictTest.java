@@ -15,14 +15,13 @@ public class RentingConflictTest {
 	private static final LocalDate END = new LocalDate(2018,5,12);
 	private static final int KILOMETERS = 1;
 	private static final String RENTACARNAME = "AlugamISTo";
-	private static final String RENTACARCODE = "001";
 	private RentACar _rentacar;
 	private Renting _renting;
 
 
 	@Before
 	public void setUp() {
-		_rentacar = new RentACar(RENTACARNAME, RENTACARCODE);		
+		_rentacar = new RentACar(RENTACARNAME);		
 		_renting = new Renting(_rentacar, DRIVINGLICENSE, BEGIN, END, KILOMETERS);
 	}
 
@@ -33,7 +32,7 @@ public class RentingConflictTest {
 	
 	@Test
 	public void equalBeginEnd() {
-		Assert.assertTrue(this._renting.conflict(new LocalDate(2018,6,12), new LocalDate(2018,6,12)));
+		Assert.assertFalse(this._renting.conflict(new LocalDate(2018,6,12), new LocalDate(2018,6,12)));
 	}
 	
 	@Test(expected = CarException.class)

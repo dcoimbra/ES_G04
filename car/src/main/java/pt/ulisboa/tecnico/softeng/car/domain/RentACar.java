@@ -10,20 +10,21 @@ import org.joda.time.LocalDate;
 
 
 public class RentACar {
+	private static int counter = 0;
 	public static final Set<RentACar> rents = new HashSet<>();
 	private final List<Vehicle> _vehicles = new ArrayList<>();
 	private final String name;
 	private final String code;
 
-	public RentACar(String name, String code) {
-		checkArguments(name, code);
+	public RentACar(String name) {
+		checkArguments(name);
 		this.name = name;
-		this.code = code;
+		this.code = Integer.toString(++RentACar.counter);
 		RentACar.rents.add(this);
 	}
 	
-	private void checkArguments(String name, String code) {
-		if (name == null || name.trim().equals("") || code == null || code.trim().equals("")) {
+	private void checkArguments(String name) {
+		if (name == null || name.trim().equals("") ) {
 			throw new CarException();
 		}
 	}

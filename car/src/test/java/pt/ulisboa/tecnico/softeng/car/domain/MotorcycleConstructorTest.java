@@ -11,13 +11,12 @@ public class MotorcycleConstructorTest {
 	private static final String VEHICLE_PLATE = "XX-XX-XX";
 	private static final int VEHICLE_KM = 1;
 	private static final String RENTACARNAME = "AlugamISTo";
-	private static final String RENTACARCODE = "001";
 
 	private RentACar _rentACar;
 	
 	@Before
 	public void setUp() {
-		this._rentACar = new RentACar(RENTACARNAME, RENTACARCODE);
+		this._rentACar = new RentACar(RENTACARNAME);
 	}
 	
 	@Test
@@ -25,6 +24,7 @@ public class MotorcycleConstructorTest {
 		Vehicle vehicle = new Motorcycle(VEHICLE_PLATE, VEHICLE_KM, this._rentACar);
 		Assert.assertEquals(VEHICLE_KM, vehicle.getKilometers());
 		Assert.assertEquals(VEHICLE_PLATE, vehicle.getPlate());
+		Assert.assertEquals(_rentACar, vehicle.getRentACar());
 	}
 	
 	@Test(expected = CarException.class)
