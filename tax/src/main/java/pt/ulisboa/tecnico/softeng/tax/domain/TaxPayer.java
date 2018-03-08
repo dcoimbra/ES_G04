@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import pt.ulisboa.tecnico.softeng.tax.exception.InvoiceException;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxPayerException;
 
 public abstract class TaxPayer {
@@ -48,5 +49,15 @@ public abstract class TaxPayer {
 	public String getADDRESS() {
 		return this._address;
 	}
+	
+	public Invoice getInvoiceByReference(String INVOICE_REFERENCE) {
+		for (Invoice i : Invoice._invoices) {
+			if (i.getREFERENCE() == INVOICE_REFERENCE) {
+				return i;
+			}
+		}
+		throw new InvoiceException("There is no Invoice with the given Reference");
+	}
+
 }
 
