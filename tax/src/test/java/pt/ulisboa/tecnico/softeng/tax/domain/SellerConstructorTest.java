@@ -41,13 +41,13 @@ public class SellerConstructorTest {
 			new Seller(SELLER_NIF, SELLER_NAME, SELLER_ADDRESS);
 			Assert.fail();
 		} catch (TaxPayerException se) {
-			Assert.assertEquals(1, TaxPayer._taxpayers.size());
+			Assert.assertEquals(1, IRS.getIRS()._taxpayers.size());
 		}
 	}
 
 	@After 
 	public void tearDown() {
 
-		TaxPayer._taxpayers.clear();
+		IRS.getIRS()._taxpayers.clear();
 	}
 }

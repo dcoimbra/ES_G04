@@ -8,8 +8,6 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxPayerException;
 
 public abstract class TaxPayer {
 	
-	public static Set<TaxPayer> _taxpayers = new HashSet<>();
-	
 	private String _nif;
 	private String _name;
 	private String _address;
@@ -19,7 +17,6 @@ public abstract class TaxPayer {
 		_nif = NIF;
 		_name = NAME;
 		_address = ADDRESS;
-		_taxpayers.add(this);
 		IRS.getIRS().addTaxPayer(this);
 	}
 	
@@ -32,7 +29,7 @@ public abstract class TaxPayer {
 			throw new TaxPayerException();
 		}
 
-		for(TaxPayer tp : _taxpayers){
+		for(TaxPayer tp : IRS.getIRS()._taxpayers){
 			if(tp.getNIF() == NIF)
 				throw new TaxPayerException();
 		}

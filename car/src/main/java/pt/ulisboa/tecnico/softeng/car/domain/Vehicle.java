@@ -96,10 +96,10 @@ public abstract class Vehicle {
 		if (end.isBefore(begin))
 			throw new CarException();
 		
-		for (Vehicle v: _rentACar.getAllVehicles()) {
-			if (v.isFree(begin, end)) {
-				_rentings.add(new Renting(_rentACar, drivingLicence, begin, end, _kilometers));
-			}
+		if (this.isFree(begin, end)) {
+			_rentings.add(new Renting(_rentACar, drivingLicence, begin, end, _kilometers));
 		}
+		else
+			throw new CarException();
 	}
 }

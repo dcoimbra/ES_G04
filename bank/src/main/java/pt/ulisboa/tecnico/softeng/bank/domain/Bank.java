@@ -77,12 +77,28 @@ public class Bank {
 	}
 
 	public Account getAccount(String IBAN) {
+		getAccountcheckArguments(IBAN);
 		for (Account account : this.accounts) {
 			if (account.getIBAN().equals(IBAN)) {
 				return account;
 			}
 		}
-		throw new BankException();
+		return null;
+	}
+
+	private void getAccountcheckArguments(String IBAN){
+		if (IBAN == null){
+			throw new BankException();
+		}
+		else if(IBAN == ""){
+			throw new BankException();
+		}
+		else{
+			for(int i = 0; i < IBAN.length(); i++){
+				if(IBAN.charAt(i) == 32)
+					throw new BankException();
+			}
+		}
 	}
 
 	public Operation getOperation(String reference) {
