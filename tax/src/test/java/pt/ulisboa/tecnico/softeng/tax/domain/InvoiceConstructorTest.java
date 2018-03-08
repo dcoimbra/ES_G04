@@ -2,7 +2,6 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 
 import org.joda.time.LocalDate;
 
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -88,6 +87,4 @@ public class InvoiceConstructorTest {
 		ItemType._itemtypes.clear();
 		Invoice._invoices.clear();
 	}
-	
-	
 }

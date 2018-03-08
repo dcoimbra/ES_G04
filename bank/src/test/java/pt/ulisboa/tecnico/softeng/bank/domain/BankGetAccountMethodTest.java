@@ -41,17 +41,19 @@ public class BankGetAccountMethodTest {
 		this.bank.getAccount("    ");
 	}
 
-	@Test(expected = BankException.class)
+	@Test
 	public void emptySetOfAccounts() {
-		this.bank.getAccount("XPTO");
+		Account ac1 = this.bank.getAccount("XPTO");
+		Assert.assertEquals(null, ac1);
 	}
 
-	@Test(expected = BankException.class)
+	@Test
 	public void severalAccountsDoNoMatch() {
 		new Account(this.bank, this.client);
 		new Account(this.bank, this.client);
 
-		this.bank.getAccount("XPTO");
+		Account ac1 = this.bank.getAccount("XPTO");
+		Assert.assertEquals(null, ac1);
 	}
 
 	@After
