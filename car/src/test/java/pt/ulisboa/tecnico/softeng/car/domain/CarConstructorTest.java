@@ -47,6 +47,11 @@ public class CarConstructorTest {
 	public void invalidPlate4() {
 		new Car("XX-XX-X", VEHICLE_KM, this._rentACar);
 	}
+	
+	@Test(expected = CarException.class)
+	public void invalidPlate5() {
+		new Car("**-**-**", VEHICLE_KM, this._rentACar);
+	}
 
 	@Test(expected = CarException.class)
 	public void blankPlate() {

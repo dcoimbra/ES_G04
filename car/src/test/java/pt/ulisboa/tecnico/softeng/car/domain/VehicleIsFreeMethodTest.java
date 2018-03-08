@@ -91,6 +91,5 @@ public class VehicleIsFreeMethodTest {
 	@After
 	public void tearDown() {
 		RentACar.rents.clear();
-		c.getRentings().clear();
 	}
 }
