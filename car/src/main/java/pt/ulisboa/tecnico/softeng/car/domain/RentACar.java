@@ -1,4 +1,5 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
+import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 import java.util.ArrayList;
@@ -29,6 +30,9 @@ public class RentACar {
 		}
 	}
 	public Renting getRenting(String reference){
+		if(reference == null || reference.trim().equals("")){
+			throw new CarException();
+		}
 		for(Vehicle v : this._vehicles){
 			for(Renting r : v.getRentings())
 				if(r.getReference().equals(reference))
@@ -38,18 +42,8 @@ public class RentACar {
 
 	}
 
-	public static Renting getRentingByReference(String reference) {
-		for (RentACar rent : RentACar.rents) {
-			Renting r = rent.getRenting(reference);
-			if (r != null) {
-				return r;
-			}
-		}
-		return null;
-	}
-
 	public List<Vehicle> getAllAvailableCars(LocalDate begin, LocalDate end){
-		if( end.isBefore(begin) || begin == null || end == null )
+		if(  begin == null || end == null || end.isBefore(begin) )
 			throw new CarException();
 
 		List<Vehicle> l = new ArrayList<>();
@@ -61,7 +55,7 @@ public class RentACar {
 	}
 
 	public List<Vehicle> getAllAvailableMotorCycles(LocalDate begin, LocalDate end){
-		if( end.isBefore(begin) || begin == null || end == null )
+		if(  begin == null || end == null || end.isBefore(begin) )
 			throw new CarException();
 
 		List<Vehicle> l = new ArrayList<>();
@@ -80,15 +74,19 @@ public class RentACar {
 	public void addVehicle(Vehicle v){
 		this._vehicles.add(v);
 	}
-
+	
 	public static RentingData getRentingData(String reference) {
-		Renting r = getRentingByReference(reference);
-		if (r != null) {
-			return new RentingData(r);
+		if (reference == null || reference.trim().equals("") ) {
+			throw new CarException();
+		}
+		for (RentACar rac : rents) {
+			for(Vehicle v : rac.getAllVehicles())
+				for(Renting r : v.getRentings())
+					if(r.getReference().equals(reference))
+						return new RentingData(reference, v.getPlate(), r.getLicense(), rac.getCode(), r.getBegin(), r.getEnd());						
 		}
 		throw new CarException();
 	}
-
 	public String getCode(){
 		return this.code;
 	}
@@ -101,6 +99,9 @@ public class RentACar {
 		return RentACar.rents;
 	}
 	public boolean plateIsFree(String plate){
+		if (plate == null || plate.trim().equals("") ) {
+			throw new CarException();
+		}
 		for (RentACar rent : RentACar.rents) 
 			for(Vehicle v : rent.getAllVehicles())
 				if(v.getPlate().equals(plate))
