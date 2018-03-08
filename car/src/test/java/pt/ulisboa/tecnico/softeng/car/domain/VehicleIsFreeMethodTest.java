@@ -15,11 +15,12 @@ public class VehicleIsFreeMethodTest {
 	private static final String RENTACARNAME = "AlugamISTo";
 	private static final String DRIVINGLICENCE = "VC1234";
 	
-	RentACar r = new RentACar(RENTACARNAME);
+	RentACar r;
 	Vehicle c;
 
 	@Before
 	public void setUp() {
+		r = new RentACar(RENTACARNAME);
 		c = new Car(VEHICLE_PLATE, VEHICLE_KM, r);
 	}
 	
@@ -89,6 +90,7 @@ public class VehicleIsFreeMethodTest {
 	
 	@After
 	public void tearDown() {
+		RentACar.rents.clear();
 		c.getRentings().clear();
 	}
 }
