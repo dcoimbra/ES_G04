@@ -13,10 +13,9 @@ public class VehicleIsFreeMethodTest {
 	private static final String VEHICLE_PLATE = "XX-XX-XX";
 	private static final int VEHICLE_KM = 1;
 	private static final String RENTACARNAME = "AlugamISTo";
-	private static final String RENTACARCODE = "001";
 	private static final String DRIVINGLICENCE = "VC1234";
 	
-	RentACar r = new RentACar(RENTACARNAME, RENTACARCODE);
+	RentACar r = new RentACar(RENTACARNAME);
 	Vehicle c;
 
 	@Before

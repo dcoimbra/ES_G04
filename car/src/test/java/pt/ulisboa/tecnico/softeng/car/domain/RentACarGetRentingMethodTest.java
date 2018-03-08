@@ -12,7 +12,7 @@ public class RentACarGetRentingMethodTest {
 	private static final String PLATE = "XX-XX-XX";
 	private static final int KM = 100;
 
-	private RentACar _rentCar = new RentACar("Benecar", "01");
+	private RentACar _rentCar = new RentACar("Benecar");
 
 	@Test
 	public void success() {

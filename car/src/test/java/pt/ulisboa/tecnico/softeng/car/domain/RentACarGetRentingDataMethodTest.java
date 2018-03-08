@@ -12,12 +12,13 @@ public class RentACarGetRentingDataMethodTest {
 	private static final String DRIVINGLICENSE = "VN12345";
 	private static final LocalDate BEGIN = new LocalDate(2018,5,2);
 	private static final LocalDate END = new LocalDate(2018,5,12);
-	private static final String RENTACARCODE = "001";
+	private static final String RENTACARCODE = "1";
+	private static final String REFERENCE = "0012";
 	private static final String PLATE = "XX-XX-XX";
 
 	@Test
 	public void success() {
-		RentingData rd = RentingData(REFERENCE, PLATE, DRIVINGLICENSE, RENTACARCODE, BEGIN, END)
+		RentingData rd =  new RentingData(REFERENCE, PLATE, DRIVINGLICENSE, RENTACARCODE, BEGIN, END);
 		assertEquals(RentACar.getRentingData(REFERENCE), rd);
 	}
 
