@@ -8,7 +8,7 @@ import org.junit.Test;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class CarConstructorTest {
-	private static final String VEHICLE_PLATE = "XX-XX-XX";
+	private static final String VEHICLE_PLATE = "AB-CD-EF";
 	private static final int VEHICLE_KM = 1;
 	private static final String RENTACARNAME = "AlugamISTo";
 	private static final int PLATE_LEN = 8;
