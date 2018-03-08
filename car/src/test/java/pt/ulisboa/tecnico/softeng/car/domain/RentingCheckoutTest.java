@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.softeng.car.domain;
 
 import org.joda.time.LocalDate;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,8 +32,11 @@ public class RentingCheckoutTest {
 
 	@Test
 	public void positiveKilometers() {
-		_renting.checkout(3);
-		
+		try {
+			_renting.checkout(3);
+		}catch(Exception e) {
+			Assert.fail();
+		}
 	}
 	
 	@Test(expected = CarException.class)
@@ -42,12 +46,20 @@ public class RentingCheckoutTest {
 	
 	@Test
 	public void zeroReturn() {
-		_renting.checkout(2);
+		try {
+			_renting.checkout(2);	
+		}catch(Exception e) {
+			Assert.fail();
+		}
 	}
 	
 	@Test
 	public void positiveReturn() {
-		_renting.checkout(3);
+		try {
+			_renting.checkout(3);
+		}catch(Exception e) {
+			Assert.fail();
+		}
 	}
 	
 	

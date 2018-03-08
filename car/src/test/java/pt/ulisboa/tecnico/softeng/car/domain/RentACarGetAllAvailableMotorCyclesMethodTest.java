@@ -18,9 +18,10 @@ public class RentACarGetAllAvailableMotorCyclesMethodTest {
 	private static final String PLATE4 = "PP-PP-PP";
 	private static final String PLATE5 = "AA-AA-AA";
 	private static final String PLATE6 = "ZZ-ZZ-ZZ";
+	private static final String PLATE7 = "BB-BB-BB";
 	private static final int KM = 100;
 	private static final String DRIVING_LICENSE = "VC1";
-	private RentACar _rentCar = new RentACar("Benecar", "01");
+	private RentACar _rentCar = new RentACar("Benecar");
 
 
 	@Test
@@ -30,29 +31,22 @@ public class RentACarGetAllAvailableMotorCyclesMethodTest {
 		Vehicle m3 = new Motorcycle(PLATE3, KM, this._rentCar);
 		Vehicle m4 = new Motorcycle(PLATE4, KM, this._rentCar);
 		Vehicle m5 = new Motorcycle(PLATE5, KM, this._rentCar);
-		Vehicle c1 = new Car(PLATE6, KM, this._rentCar);
+		Vehicle m6 = new Motorcycle(PLATE6, KM, this._rentCar);
+		Vehicle c1 = new Car(PLATE7, KM, this._rentCar);
 
-		List<Vehicle> availableMotors = new ArrayList<>();
+		List<Vehicle> availableMotorcycles = new ArrayList<>();
 
-		m1.rent(DRIVING_LICENSE, new LocalDate(2014,1,1) ,  new LocalDate(2014, 1, 2));
-		availableMotors.add(m1);
-		m1.rent(DRIVING_LICENSE, new LocalDate(2014,1,3) ,  new LocalDate(2014, 1, 4));
-		m1.rent(DRIVING_LICENSE, new LocalDate(2014,1,3) ,  new LocalDate(2014, 1, 5));
-		m1.rent(DRIVING_LICENSE, new LocalDate(2014,1,4) ,  new LocalDate(2014, 1, 5));
-		m1.rent(DRIVING_LICENSE, new LocalDate(2014,1,5) ,  new LocalDate(2014, 1, 6));
-		m1.rent(DRIVING_LICENSE, new LocalDate(2014,1,9) ,  new LocalDate(2014, 1,10));
-		m1.rent(DRIVING_LICENSE, new LocalDate(2014,1,9) ,  new LocalDate(2014, 1,11));
-		m1.rent(DRIVING_LICENSE, new LocalDate(2014,1,10),  new LocalDate(2014, 1,11));
-		m1.rent(DRIVING_LICENSE, new LocalDate(2014,1,11),  new LocalDate(2014, 1,12));
-		m2.rent(DRIVING_LICENSE, new LocalDate(2014,1,1) ,  new LocalDate(2014, 1, 2));
-		availableMotors.add(m2);
-		m3.rent(DRIVING_LICENSE, new LocalDate(2014,1,11),  new LocalDate(2014, 1, 11));
-		availableMotors.add(m3);
-		m4.rent(DRIVING_LICENSE, new LocalDate(2014,1,4) ,  new LocalDate(2014, 1, 4));
-		m5.rent(DRIVING_LICENSE, new LocalDate(2014,1,10),  new LocalDate(2014, 1, 10));
+		m1.rent(DRIVING_LICENSE, new LocalDate(2014,1,1) ,  new LocalDate(2014, 1, 3));
+		availableMotorcycles.add(m1);
+		m2.rent(DRIVING_LICENSE, new LocalDate(2014,1,4) ,  new LocalDate(2014, 1, 4));
+		m3.rent(DRIVING_LICENSE, new LocalDate(2014,1,3) ,  new LocalDate(2014, 1, 5));
+		m4.rent(DRIVING_LICENSE, new LocalDate(2014,1,10) ,  new LocalDate(2014, 1, 10));
+		m5.rent(DRIVING_LICENSE, new LocalDate(2014,1,8) ,  new LocalDate(2014, 1, 11));
+		m6.rent(DRIVING_LICENSE, new LocalDate(2014,1,11) ,  new LocalDate(2014, 1, 12));
+		availableMotorcycles.add(m6);
 		c1.rent(DRIVING_LICENSE, new LocalDate(2014,1,1) ,  new LocalDate(2014, 1, 2));
-
-		Assert.assertEquals(availableMotors, this._rentCar.getAllAvailableMotorCycles(new LocalDate(2014,1,4), new LocalDate(2014, 1, 10)));
+		
+		Assert.assertEquals(availableMotorcycles, this._rentCar.getAllAvailableMotorCycles(new LocalDate(2014,1,4), new LocalDate(2014, 1, 10)));
 	}
 
 	@Test(expected = CarException.class)
