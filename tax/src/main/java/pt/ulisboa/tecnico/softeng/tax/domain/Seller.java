@@ -1,7 +1,6 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxPayerException;
-import pt.ulisboa.tecnico.softeng.tax.exception.InvoiceException;
 
 
 public class Seller extends TaxPayer {
@@ -34,14 +33,6 @@ public class Seller extends TaxPayer {
 		
 	}
 	
-	public Invoice getInvoiceByReference(String INVOICE_REFERENCE) {
-		for (Invoice i : Invoice._invoices) {
-			if (i.getREFERENCE() == INVOICE_REFERENCE) {
-				return i;
-			}
-		}
-		throw new InvoiceException("There is no Invoice with the given Reference");
-	}
-	
+		
 	
 }
