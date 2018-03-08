@@ -8,9 +8,10 @@ import org.junit.Test;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class MotorcycleConstructorTest {
-	private static final String VEHICLE_PLATE = "XX-XX-XX";
+	private static final String VEHICLE_PLATE = "GH-IJ-KL";
 	private static final int VEHICLE_KM = 1;
 	private static final String RENTACARNAME = "AlugamISTo";
+	private static final int PLATE_LEN = 8;
 
 	private RentACar _rentACar;
 	
@@ -46,15 +47,20 @@ public class MotorcycleConstructorTest {
 	public void invalidPlate4() {
 		new Motorcycle("XX-XX-X", VEHICLE_KM, this._rentACar);
 	}
-	
+
+	@Test(expected = CarException.class)
+	public void invalidPlate5() {
+		new Car("**-**-**", VEHICLE_KM, this._rentACar);
+	}
+
 	@Test(expected = CarException.class)
 	public void blankPlate() {
-		new Car("    ", VEHICLE_KM, this._rentACar);
+		new Motorcycle("    ", VEHICLE_KM, this._rentACar);
 	}
 
 	@Test(expected = CarException.class)
 	public void emptyPlate() {
-		new Car("", VEHICLE_KM, this._rentACar);
+		new Motorcycle("", VEHICLE_KM, this._rentACar);
 	}
 	
 	@Test(expected = CarException.class)
@@ -67,10 +73,10 @@ public class MotorcycleConstructorTest {
 	public void nullPlate() {
 		new Motorcycle(null, VEHICLE_KM, this._rentACar);
 	}
-
+	
 	@Test(expected = CarException.class)
-	public void negativeKilometers() {
-		new Motorcycle(VEHICLE_PLATE, -VEHICLE_KM, this._rentACar);
+	public void nullRentACar() {
+		new Motorcycle(VEHICLE_PLATE, VEHICLE_KM, null);
 	}
 	
 	@Test
@@ -83,8 +89,25 @@ public class MotorcycleConstructorTest {
 	}
 	
 	@Test(expected = CarException.class)
-	public void nullRentACar() {
-		new Car(VEHICLE_PLATE, VEHICLE_KM, null);
+	public void negativeKilometers() {
+		new Motorcycle(VEHICLE_PLATE, -VEHICLE_KM, this._rentACar);
+	}
+	
+	@Test
+	public void edgeValidPlate() {
+		try {
+			new Motorcycle("AA-09-ZZ", VEHICLE_KM, this._rentACar);
+		} catch (Exception e) {Assert.fail();}
+	}
+	
+	@Test(expected = CarException.class)
+	public void edgeInvalidPlate() {
+		StringBuilder sb = new StringBuilder(PLATE_LEN);
+		char ch = (char) 64;
+		sb.append(ch);sb.append(ch);
+		sb.append("-/:-[[");
+		
+		new Motorcycle(sb.toString(), VEHICLE_KM, this._rentACar);
 	}
 	
 	@After

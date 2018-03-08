@@ -19,6 +19,7 @@ public class RentACarConstructorTest {
 		new Motorcycle(VEHICLE_PLATE, VEHICLE_KM, this._rentacar);
 		Assert.assertTrue(_rentacar.plateIsFree("YY-YY-YY"));
 		Assert.assertEquals(_rentacar.getAllVehicles().size(), 1);
+		Assert.assertEquals(RENT_A_CAR_NAME, _rentacar.getName());
 	}
 
 	@Test(expected = CarException.class)
@@ -31,11 +32,11 @@ public class RentACarConstructorTest {
 		new RentACar("  ");
 	}
 
-	@Test(expected = CarException.class)
+	@Test
 	public void plateAlreadyExists() {
 		this._rentacar = new RentACar(RENT_A_CAR_NAME);
 		new Motorcycle(VEHICLE_PLATE, VEHICLE_KM, this._rentacar);
-		_rentacar.plateIsFree("XX-XX-XX");
+		Assert.assertFalse(_rentacar.plateIsFree("XX-XX-XX"));
 	}
 
 	@After
