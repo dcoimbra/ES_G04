@@ -94,10 +94,6 @@ public class RentACar {
 	public String getName(){
 		return this.name;
 	}
-
-	public Set<RentACar> getRents(){
-		return RentACar.rents;
-	}
 	
 	public boolean plateIsFree(String plate){
 		if (plate == null || plate.trim().equals("") )
@@ -111,7 +107,7 @@ public class RentACar {
 			
 			for(Vehicle v : list) {				
 				if((v.getPlate()).equals(plate)) {
-					throw new CarException();
+					return false;
 				}
 			}
 		}
