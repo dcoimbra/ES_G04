@@ -9,7 +9,7 @@ import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 import org.joda.time.LocalDate;
 
-public class PlateIsFreeMethodTest {
+public class RentACarPlateIsFreeMethodTest {
 	private RentACar _rentacar;
 	private static final String RENTACARNAME = "Benecar";
 	
