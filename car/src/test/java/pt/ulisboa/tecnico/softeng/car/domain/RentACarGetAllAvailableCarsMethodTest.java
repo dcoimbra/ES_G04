@@ -2,7 +2,7 @@ package pt.ulisboa.tecnico.softeng.car.domain;
 
 import org.junit.Assert;
 import org.junit.Test;
-
+import org.junit.After;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +61,10 @@ public class RentACarGetAllAvailableCarsMethodTest {
 	@Test(expected = CarException.class)
 	public void invalidPeriod() {
 		this._rentCar.getAllAvailableCars(new LocalDate(2014,1,8), new LocalDate(2014,1,7));
+	}
+	@After
+	public void tearDown() {
+		RentACar.rents.clear();
 	}
 
 }
