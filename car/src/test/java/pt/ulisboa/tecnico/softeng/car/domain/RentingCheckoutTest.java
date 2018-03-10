@@ -13,7 +13,7 @@ public class RentingCheckoutTest {
 	private static final String DRIVINGLICENSE = "VN12345";
 	private static final LocalDate BEGIN = new LocalDate(2018,5,2);
 	private static final LocalDate END = new LocalDate(2018,5,12);
-	private static final int KILOMETERS = 1;
+	private static final int KILOMETERS = 2;
 	private static final String RENTACARNAME = "AlugamISTo";
 	private RentACar _rentacar;
 	private Renting _renting;
@@ -41,7 +41,7 @@ public class RentingCheckoutTest {
 	
 	@Test(expected = CarException.class)
 	public void negativeReturn() {
-		_renting.checkout(-1);
+		_renting.checkout(1);
 	}
 	
 	@Test
