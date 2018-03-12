@@ -10,7 +10,7 @@ import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 public class RentACarGetRentingDataMethodTest {
 	private static final String DRIVINGLICENSE = "VN12345";
 	private static final String PLATE1 = "XX-XX-XX";
-	private static final String PLATE2 = "XX-XX-XX";
+	private static final String PLATE2 = "YY-YY-YY";
 	private static final int KM = 1;
 
 	@Test
