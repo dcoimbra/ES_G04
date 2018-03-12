@@ -11,6 +11,10 @@ public class RentingData{
 	private String _rentACarCode;
 	private LocalDate _begin;
 	private LocalDate _end;
+	
+	public RentingData() {
+		
+	}
 
 	public RentingData(String reference, String plate, String drivingLicense, String rentACarCode, LocalDate begin, LocalDate end) {
 		
