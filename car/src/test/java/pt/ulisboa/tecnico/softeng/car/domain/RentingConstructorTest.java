@@ -66,6 +66,11 @@ public class RentingConstructorTest {
 	}
 	
 	@Test(expected = CarException.class)
+	public void invalidLastLetterLicense2() {
+		new Renting(this._rentacar, "AAAAAa", BEGIN, END, KILOMETERS);
+	}
+	
+	@Test(expected = CarException.class)
 	public void mixedNumbersLettersLicense() {
 		new Renting(this._rentacar, "N4A8Z5", BEGIN, END, KILOMETERS);
 	}
