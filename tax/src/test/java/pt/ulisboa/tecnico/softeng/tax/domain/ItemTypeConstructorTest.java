@@ -12,6 +12,10 @@ public class ItemTypeConstructorTest {
 	private static final String ITEM_TYPE = "TOKEN";
 	private static final int TAX = 31;
 
+	@Before
+	public void setUp() {
+		IRS.getIRS()._itemtypes.clear();
+	}
 
 	@Test
 	public void success() {
@@ -48,7 +52,7 @@ public class ItemTypeConstructorTest {
 
 	@After 
 	public void tearDown() {
-		IRS._itemtypes.clear();
+		IRS.getIRS()._itemtypes.clear();
 	}
 	
 }

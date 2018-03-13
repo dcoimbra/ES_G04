@@ -16,7 +16,7 @@ public class ItemType {
 		_itemtype = ITEM_TYPE;
 		_tax = TAX;
 
-		IRS._itemtypes.add(this);
+		IRS.getIRS().addItemType(this);
 	}
 
 	private void checkArguments(String ITEM_TYPE, int TAX){
@@ -45,7 +45,7 @@ public class ItemType {
 
 	public static ItemType getItemTypeByName(String ITEM_TYPE) {
 
-		for (ItemType it : IRS._itemtypes) {
+		for (ItemType it : IRS.getIRS()._itemtypes) {
 
 			if (it.getITEM_TYPE().equals(ITEM_TYPE)) {
 

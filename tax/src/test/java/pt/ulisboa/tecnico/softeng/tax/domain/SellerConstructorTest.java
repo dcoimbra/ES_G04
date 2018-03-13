@@ -13,6 +13,10 @@ public class SellerConstructorTest {
 	private static final String SELLER_NAME = "Jose Toni";
 	private static final String SELLER_ADDRESS = "Quinta das Lagrimas";
 
+	@Before 
+	public void setUp() {
+		IRS.getIRS()._taxpayers.clear();
+	}
 
 	@Test
 	public void success() {

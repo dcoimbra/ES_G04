@@ -12,6 +12,7 @@ public class ItemTypegetItemTypeByNameMethodTest {
 
 	@Before
 	public void setUp() {
+		IRS.getIRS()._itemtypes.clear();
 		ItemType it = new ItemType("Desporto", 30);
 	}
 
@@ -27,6 +28,6 @@ public class ItemTypegetItemTypeByNameMethodTest {
 
 	@After 
 	public void tearDown() {
-		IRS._itemtypes.clear();
+		IRS.getIRS()._itemtypes.clear();
 	}
 }

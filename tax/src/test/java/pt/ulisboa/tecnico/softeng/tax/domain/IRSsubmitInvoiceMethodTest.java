@@ -13,6 +13,12 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxPayerException;
 
 public class IRSsubmitInvoiceMethodTest {
 
+	@Before 
+	public void setUp() {
+		IRS._itemtypes.clear();
+		IRS.getIRS()._taxpayers.clear();
+	}
+
 
 	@Test
 	public void success(){
@@ -45,7 +51,7 @@ public class IRSsubmitInvoiceMethodTest {
 
 	@After 
 	public void tearDown() {
-		IRS._itemtypes.clear();
+		IRS.getIRS()._itemtypes.clear();
 		IRS.getIRS()._taxpayers.clear();
 	}
 }

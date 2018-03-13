@@ -17,6 +17,8 @@ public class SellerToPayMethodTest {
 	@Before
 	public void setUp() {
 		IRS.getIRS()._taxpayers.clear();
+		IRS.getIRS()._itemtypes.clear();
+		Invoice._invoices.clear();
 		
 		this.seller = new Seller("123456789", "Antonio", "Quinta das Lagrimas");
 		ItemType it = new ItemType("token1", 29);
@@ -46,10 +48,7 @@ public class SellerToPayMethodTest {
 	@After 
 	public void tearDown() {
 		IRS.getIRS()._taxpayers.clear();
-		IRS._itemtypes.clear();
+		IRS.getIRS()._itemtypes.clear();
 		Invoice._invoices.clear();
 	}
-	
-	
-
 }

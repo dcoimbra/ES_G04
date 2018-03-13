@@ -15,7 +15,7 @@ public class IRSgetItemTypeByNameMethodTest {
 	@Before
 	public void setUp() {
 		IRS._itemtypes.clear();
-		IRS._itemtypes.add(it1);
+		IRS.getIRS().addItemType(it1);
 		
 	}
 
