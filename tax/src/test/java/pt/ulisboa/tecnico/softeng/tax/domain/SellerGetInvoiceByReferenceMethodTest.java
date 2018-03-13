@@ -62,8 +62,9 @@ public class SellerGetInvoiceByReferenceMethodTest {
 
 	@After 
 	public void tearDown() {
-		ItemType._itemtypes.clear();
 		Invoice._invoices.clear();
 		IRS.getIRS()._taxpayers.clear();
+		IRS._itemtypes.clear();
+
 	}
 }

@@ -30,7 +30,7 @@ public class ItemTypeConstructorTest {
 			new ItemType(ITEM_TYPE, TAX);
 			Assert.fail();
 		} catch (ItemTypeException tpe) {
-			Assert.assertEquals(1, ItemType._itemtypes.size());
+			Assert.assertEquals(1, IRS._itemtypes.size());
 		}
 	}
 
@@ -48,7 +48,7 @@ public class ItemTypeConstructorTest {
 
 	@After 
 	public void tearDown() {
-		ItemType._itemtypes.clear();
+		IRS._itemtypes.clear();
 	}
 	
 }

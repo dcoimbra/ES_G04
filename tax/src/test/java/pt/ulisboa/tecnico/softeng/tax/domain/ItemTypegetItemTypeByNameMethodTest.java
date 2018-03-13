@@ -27,6 +27,6 @@ public class ItemTypegetItemTypeByNameMethodTest {
 
 	@After 
 	public void tearDown() {
-		ItemType._itemtypes.clear();
+		IRS._itemtypes.clear();
 	}
 }

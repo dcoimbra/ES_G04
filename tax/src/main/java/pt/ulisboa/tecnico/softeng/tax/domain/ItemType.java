@@ -5,9 +5,7 @@ import java.util.Set;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.ItemTypeException;
 
-public class ItemType {
-
-	public static Set<ItemType> _itemtypes = new HashSet<>(); 
+public class ItemType { 
 
 	private String _itemtype;
 	private int _tax; 
@@ -18,7 +16,7 @@ public class ItemType {
 		_itemtype = ITEM_TYPE;
 		_tax = TAX;
 
-		_itemtypes.add(this);
+		IRS._itemtypes.add(this);
 	}
 
 	private void checkArguments(String ITEM_TYPE, int TAX){
@@ -27,7 +25,7 @@ public class ItemType {
 			throw new ItemTypeException();
 		}
 
-		for(ItemType it : _itemtypes){
+		for(ItemType it : IRS._itemtypes){
 			
 			if(it.getITEM_TYPE() == ITEM_TYPE)
 				
@@ -47,7 +45,7 @@ public class ItemType {
 
 	public static ItemType getItemTypeByName(String ITEM_TYPE) {
 
-		for (ItemType it : _itemtypes) {
+		for (ItemType it : IRS._itemtypes) {
 
 			if (it.getITEM_TYPE().equals(ITEM_TYPE)) {
 

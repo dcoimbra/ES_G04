@@ -46,8 +46,8 @@ public class SellerToPayMethodTest {
 	@After 
 	public void tearDown() {
 		IRS.getIRS()._taxpayers.clear();
+		IRS._itemtypes.clear();
 		Invoice._invoices.clear();
-		ItemType._itemtypes.clear();
 	}
 	
 	

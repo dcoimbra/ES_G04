@@ -84,7 +84,7 @@ public class InvoiceConstructorTest {
 
 	@After 
 	public void tearDown() {
-		ItemType._itemtypes.clear();
+		IRS._itemtypes.clear();
 		Invoice._invoices.clear();
 	}
 }

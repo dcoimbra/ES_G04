@@ -15,7 +15,6 @@ public class IRSgetItemTypeByNameMethodTest {
 	@Before
 	public void setUp() {
 		IRS._itemtypes.clear();
-		ItemType._itemtypes.clear();
 		IRS._itemtypes.add(it1);
 		
 	}
@@ -33,6 +32,5 @@ public class IRSgetItemTypeByNameMethodTest {
 	@After 
 	public void tearDown() {
 		IRS._itemtypes.clear();
-		ItemType._itemtypes.clear();
 	}
 }
