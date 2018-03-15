@@ -36,7 +36,7 @@ public class BulkRoomBookingGetReferenceTest {
 		this._bulkRoomBooking.processBooking();
 
 		Assert.assertNotEquals(0, this._bulkRoomBooking.getReferences().size());
-		Assert.assertEquals("XPTO3451", this._bulkRoomBooking.getReference("SINGLE"));
+		this._bulkRoomBooking.getReference("SINGLE");
 		Assert.assertEquals(0, this._bulkRoomBooking.getReferences().size());
 	}
 
