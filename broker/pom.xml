@@ -12,6 +12,30 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<artifactId>broker</artifactId>
 	<packaging>jar</packaging>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<maven.compiler.plugin>3.6.0</maven.compiler.plugin>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+
+		<version.junit.junit>4.12</version.junit.junit>
+
+		<version.org.slf4j>1.7.12</version.org.slf4j>
+		<version.ch.qos.logback>1.1.3</version.ch.qos.logback>
+
+		<version.joda.time>2.9.7</version.joda.time>
+
+		<!-- Coverage -->
+		<version.jacoco.maven.plugin>0.8.0</version.jacoco.maven.plugin>
+		<coverage.class.ratio>0.70</coverage.class.ratio>
+		<coverage.instruction.ratio>0.70</coverage.instruction.ratio>
+		<coverage.method.ratio>0.70</coverage.method.ratio>
+		<coverage.branch.ratio>0.70</coverage.branch.ratio>
+		<coverage.complexity.ratio>0.70</coverage.complexity.ratio>
+		<coverage.line.ratio>0.70</coverage.line.ratio>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
