@@ -8,7 +8,6 @@
 	<packaging>pom</packaging>
 
 	<name>Adventure Builder</name>
-	<!-- test pull request -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
