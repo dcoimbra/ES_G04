@@ -13,4 +13,4 @@ To see the coverage reports, go to module_name/target/site/jacoco/index.html.
 |   84766    |     Samuel Santos       | samuel.c.santos@tecnico.ulisboa.pt     |  santos-samuel |   4   | Remaining      |
 |   84708    |     David Coimbra       | david.coimbra@tecnico.ulisboa.pt       |  HiveMindize   |   4   | Broker         |
 |   84727    |     Ivan Zarro          | ivan.zarro@tecnico.ulisboa.pt          |   ivancivel    |   4   | Broker         |
-|   84842    | 	   Jose Ferrao	       | jozeus.alves@gmail.com                 |   jozeus	     |   4   | Remaining      |
+|   84842    | 	   Jose Ferrao	       | jozeus.alves@gmail.com                 |   jozeus	 |   4   | Remaining      |
