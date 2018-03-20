@@ -11,14 +11,14 @@ import pt.ulisboa.tecnico.softeng.tax.exception.ItemTypeException;
 
 
 
-/* IRS class implements the Singleton design pattern. */ 
+/* IRS class implements the Singleton design pattern. */
 public class IRS {
-	
+
 	private static final IRS _irs = new IRS();
-	
+
 	public static Set<TaxPayer> _taxpayers = new HashSet<>();
 	public static Set<ItemType> _itemtypes = new HashSet<>();
-	
+
 
 	private IRS() {}
 
@@ -58,8 +58,9 @@ public class IRS {
 
 		throw new ItemTypeException("No such item type");
 	}
-	
+
 	public void submitInvoice(InvoiceData invoiceData) {
+		//@rui: complex, could be simpler. Too double checks. 
 		TaxPayer tpseller = null;
 		for(TaxPayer tp : _taxpayers){
 			if(tp.getNIF() == invoiceData.getSellerNIF()) {
@@ -80,6 +81,6 @@ public class IRS {
 		else {
 			throw new TaxPayerException("No such tax payer");
 		}
-		
+
 	}
 }

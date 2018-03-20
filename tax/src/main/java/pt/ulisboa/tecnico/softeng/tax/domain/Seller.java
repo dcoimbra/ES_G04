@@ -4,9 +4,9 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxPayerException;
 
 
 public class Seller extends TaxPayer {
-	
+
 	public Seller(String NIF, String NAME, String ADDRESS) {
-		
+
 		super(NIF, NAME, ADDRESS);
 	}
 
@@ -14,10 +14,11 @@ public class Seller extends TaxPayer {
 		checkArgumentstoPay(YEAR);
 
 		float amount = 0;
-		
+
 		for (Invoice i : Invoice._invoices) {
 			if (i.getSELLER().getNIF() == this.getNIF()) {
 				if (i.getDATE().getYear() == YEAR) {
+					//@rui: amount += invoice.getIva();
 					amount += i.getVALUE()*i.getIVA();
 				}
 			}
@@ -30,9 +31,9 @@ public class Seller extends TaxPayer {
 		if (YEAR < 1970) {
 			throw new TaxPayerException("Year must be before 1970");
 		}
-		
+
 	}
-	
-		
-	
+
+
+
 }
