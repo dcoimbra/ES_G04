@@ -7,6 +7,7 @@ import pt.ulisboa.tecnico.softeng.bank.domain.Bank;
 import pt.ulisboa.tecnico.softeng.bank.domain.Client;
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure;
 import pt.ulisboa.tecnico.softeng.broker.domain.Broker;
+import pt.ulisboa.tecnico.softeng.broker.domain.BrokerClient;
 
 public class Application {
 
@@ -18,7 +19,7 @@ public class Application {
 		account.deposit(1000);
 
 		Broker broker = new Broker("BR01", "Fun");
-		Adventure adventure = new Adventure(broker, new LocalDate(), new LocalDate(), 33, account.getIBAN(), 50);
+		Adventure adventure = new Adventure(broker, new LocalDate(), new LocalDate(), new BrokerClient(account.getIBAN(), "123456789", 33), 50);
 
 		adventure.process();
 

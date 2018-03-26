@@ -10,7 +10,7 @@ public class Adventure {
 	private static Logger logger = LoggerFactory.getLogger(Adventure.class);
 
 	public static enum State {
-		PROCESS_PAYMENT, RESERVE_ACTIVITY, BOOK_ROOM, UNDO, CONFIRMED, CANCELLED
+		PROCESS_PAYMENT, RESERVE_ACTIVITY, BOOK_ROOM, UNDO, CONFIRMED, CANCELLED, RENT_VEHICLE
 	}
 
 	private static int counter = 0;
@@ -19,27 +19,27 @@ public class Adventure {
 	private final Broker broker;
 	private final LocalDate begin;
 	private final LocalDate end;
-	private final int age;
-	private final String IBAN;
+	private final BrokerClient client;
 	private final int amount;
 	private String paymentConfirmation;
 	private String paymentCancellation;
 	private String roomConfirmation;
 	private String roomCancellation;
+	//private String vehicleConfirmation;
+	//private String vehicleCancellation;
 	private String activityConfirmation;
 	private String activityCancellation;
 
 	private AdventureState state;
 
-	public Adventure(Broker broker, LocalDate begin, LocalDate end, int age, String IBAN, int amount) {
-		checkArguments(broker, begin, end, age, IBAN, amount);
+	public Adventure(Broker broker, LocalDate begin, LocalDate end, BrokerClient client, int amount) {
+		checkArguments(broker, begin, end, amount);
 
 		this.ID = broker.getCode() + Integer.toString(++counter);
 		this.broker = broker;
 		this.begin = begin;
 		this.end = end;
-		this.age = age;
-		this.IBAN = IBAN;
+		this.client = client;
 		this.amount = amount;
 
 		broker.addAdventure(this);
@@ -47,16 +47,12 @@ public class Adventure {
 		setState(State.PROCESS_PAYMENT);
 	}
 
-	private void checkArguments(Broker broker, LocalDate begin, LocalDate end, int age, String IBAN, int amount) {
-		if (broker == null || begin == null || end == null || IBAN == null || IBAN.trim().length() == 0) {
+	private void checkArguments(Broker broker, LocalDate begin, LocalDate end, int amount) {
+		if (broker == null || begin == null || end == null) {
 			throw new BrokerException();
 		}
 
 		if (end.isBefore(begin)) {
-			throw new BrokerException();
-		}
-
-		if (age < 18 || age > 100) {
 			throw new BrokerException();
 		}
 
@@ -82,11 +78,11 @@ public class Adventure {
 	}
 
 	public int getAge() {
-		return this.age;
+		return this.client.getAGE();
 	}
 
 	public String getIBAN() {
-		return this.IBAN;
+		return this.client.getIBAN();
 	}
 
 	public int getAmount() {
@@ -141,6 +137,22 @@ public class Adventure {
 		this.roomCancellation = roomCancellation;
 	}
 
+	/*public String getVehicleConfirmation() {
+		return this.vehicleConfirmation;
+	}
+
+	public void setVehicleConfirmation(String vehicleConfirmation) {
+		this.vehicleConfirmation = vehicleConfirmation;
+	}
+
+	public String getVehicleCancellation() {
+		return this.vehicleCancellation;
+	}
+
+	public void setVehicleCancellation(String vehicleCancellation) {
+		this.vehicleCancellation = vehicleCancellation;
+	}*/
+
 	public State getState() {
 		return this.state.getState();
 	}
@@ -156,6 +168,9 @@ public class Adventure {
 		case BOOK_ROOM:
 			this.state = new BookRoomState();
 			break;
+		/*case RENT_VEHICLE:
+			this.state = new RentVehicleState();
+			break;*/
 		case UNDO:
 			this.state = new UndoState();
 			break;
