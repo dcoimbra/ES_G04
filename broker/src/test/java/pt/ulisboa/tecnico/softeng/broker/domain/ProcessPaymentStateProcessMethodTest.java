@@ -19,18 +19,22 @@ import pt.ulisboa.tecnico.softeng.broker.interfaces.BankInterface;
 @RunWith(JMockit.class)
 public class ProcessPaymentStateProcessMethodTest {
 	private static final String IBAN = "BK01987654321";
+	private static final String NIF = "123456789";
+	private static final int AGE = 20;
 	private static final int AMOUNT = 300;
 	private static final String PAYMENT_CONFIRMATION = "PaymentConfirmation";
 	private final LocalDate begin = new LocalDate(2016, 12, 19);
 	private final LocalDate end = new LocalDate(2016, 12, 21);
 	private Adventure adventure;
+	private BrokerClient client = new BrokerClient(IBAN, NIF, AGE);
 
 	@Injectable
 	private Broker broker;
 
+
 	@Before
 	public void setUp() {
-		this.adventure = new Adventure(this.broker, this.begin, this.end, 20, IBAN, AMOUNT);
+		this.adventure = new Adventure(this.broker, this.begin, this.end, this.client, AMOUNT);
 		this.adventure.setState(State.PROCESS_PAYMENT);
 	}
 
