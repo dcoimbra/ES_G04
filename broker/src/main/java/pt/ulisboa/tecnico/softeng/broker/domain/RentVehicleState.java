@@ -19,7 +19,6 @@ public class RentVehicleState extends AdventureState {
 			adventure.setVehicleConfirmation(
 					CarInterface.rentVehicle("plate","license", adventure.getBegin(), adventure.getEnd()));
 		} catch (CarException ce) {
-			incNumOfRemoteErrors();
 			adventure.setState(State.UNDO);
 			return;
 		} catch (RemoteAccessException rae) {
