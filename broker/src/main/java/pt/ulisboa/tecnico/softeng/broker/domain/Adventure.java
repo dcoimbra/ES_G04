@@ -29,6 +29,8 @@ public class Adventure {
 	private String vehicleCancellation;
 	private String activityConfirmation;
 	private String activityCancellation;
+	private String taxConfirmation;
+	private String taxCancellation;
 
 	private AdventureState state;
 
@@ -151,6 +153,22 @@ public class Adventure {
 
 	public void setVehicleCancellation(String vehicleCancellation) {
 		this.vehicleCancellation = vehicleCancellation;
+	}
+
+	public String getTaxConfirmation() {
+		return this.taxConfirmation;
+	}
+
+	public void setTaxConfirmation(String taxConfirmation) {
+		this.taxConfirmation = taxConfirmation;
+	}
+
+	public String getTaxCancellation() {
+		return this.taxCancellation;
+	}
+
+	public void setTaxCancellation(String taxCancellation) {
+		this.taxCancellation = taxCancellation;
 	}
 
 	public State getState() {
