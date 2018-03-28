@@ -8,6 +8,9 @@ import pt.ulisboa.tecnico.softeng.bank.domain.Client;
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure;
 import pt.ulisboa.tecnico.softeng.broker.domain.Broker;
 import pt.ulisboa.tecnico.softeng.broker.domain.BrokerClient;
+import pt.ulisboa.tecnico.softeng.tax.domain.Buyer;
+import pt.ulisboa.tecnico.softeng.tax.domain.IRS;
+import pt.ulisboa.tecnico.softeng.tax.domain.Seller;
 
 public class Application {
 
@@ -18,7 +21,18 @@ public class Application {
 		Account account = new Account(bank, new Client(bank, "José dos Anzóis"));
 		account.deposit(1000);
 
-		Broker broker = new Broker("BR01", "Fun");
+        String sellerAddress = "Somewhere";
+        String sellerName = "José Vendido";
+        String sellerNif = "123456789";
+
+        String buyerAddress = "Narnia";
+        String buyerName = "Jacinto Costa";
+        String buyerNif = "987654321";
+
+        Seller seller = new Seller(IRS.getIRS(), sellerNif, sellerName, sellerAddress);
+        Buyer buyer = new Buyer(IRS.getIRS(), buyerNif, buyerName, buyerAddress);
+
+		Broker broker = new Broker("BR01", "Fun", sellerNif, buyerNif);
 		Adventure adventure = new Adventure(broker, new LocalDate(), new LocalDate(), new BrokerClient(account.getIBAN(), "123456789", 33), 50);
 
 		adventure.process();

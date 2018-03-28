@@ -22,17 +22,19 @@ public class BookRoomStateMethodTest {
 	private static final String IBAN = "BK01987654321";
 	private static final int AMOUNT = 300;
 	private static final int AGE = 20;
-	private static final String ROOM_CONFIRMATION = "RoomConfirmation";
+    private static final String NIF = "123456789";
+    private static final String ROOM_CONFIRMATION = "RoomConfirmation";
 	private static final LocalDate arrival = new LocalDate(2016, 12, 19);
 	private static final LocalDate departure = new LocalDate(2016, 12, 21);
 	private Adventure adventure;
+    private BrokerClient client = new BrokerClient(IBAN, NIF, AGE);
 
-	@Injectable
+    @Injectable
 	private Broker broker;
 
 	@Before
 	public void setUp() {
-		this.adventure = new Adventure(this.broker, arrival, departure, AGE, IBAN, AMOUNT);
+		this.adventure = new Adventure(this.broker, arrival, departure, this.client, AMOUNT);
 		this.adventure.setState(State.BOOK_ROOM);
 	}
 

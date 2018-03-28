@@ -46,7 +46,7 @@ public class BrokerClientConstructorMethodTest {
 
 		Assert.assertEquals(100, client.getAGE());
 		Assert.assertEquals(IBAN, client.getIBAN());
-		Assert.assertEquals(300, client.getNIF());
+		Assert.assertEquals(NIF, client.getNIF());
 	}
 
 	@Test(expected = BrokerException.class)

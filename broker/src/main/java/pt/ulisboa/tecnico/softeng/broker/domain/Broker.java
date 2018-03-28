@@ -49,19 +49,19 @@ public class Broker {
 		}
 	}
 	
-	private void checkSeller(String code) {
+	private void checkSeller(String seller) {
 		if (seller == null || seller.trim().length() == 0) {
-			throw new BrokerException();
+			throw new BrokerException("1");
 		}
 
 		for (Broker broker : Broker.brokers) {
 			if (broker.getSeller().equals(seller)) {
-				throw new BrokerException();
+				throw new BrokerException("2");
 			}
 		}
 	}
 	
-	private void checkBuyer(String code) {
+	private void checkBuyer(String buyer) {
 		if (buyer== null || buyer.trim().length() == 0) {
 			throw new BrokerException();
 		}
