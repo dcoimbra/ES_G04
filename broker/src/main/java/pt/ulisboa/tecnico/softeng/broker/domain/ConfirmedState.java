@@ -43,7 +43,10 @@ public class ConfirmedState extends AdventureState {
 		try {
 			ActivityInterface.getActivityReservationData(adventure.getActivityConfirmation());
 		} catch (ActivityException ae) {
-			adventure.setState(State.UNDO);
+			this.numberOfBankExceptions++;
+			if (this.numberOfBankExceptions == MAX_BANK_EXCEPTIONS) {
+				adventure.setState(State.UNDO);
+			}
 			return;
 		} catch (RemoteAccessException rae) {
 			incNumOfRemoteErrors();
@@ -53,12 +56,16 @@ public class ConfirmedState extends AdventureState {
 			return;
 		}
 		resetNumOfRemoteErrors();
+		this.numberOfBankExceptions = 0;
 
 		if (adventure.getRoomConfirmation() != null) {
 			try {
 				HotelInterface.getRoomBookingData(adventure.getRoomConfirmation());
 			} catch (HotelException he) {
-				adventure.setState(State.UNDO);
+				this.numberOfBankExceptions++;
+				if (this.numberOfBankExceptions == MAX_BANK_EXCEPTIONS) {
+					adventure.setState(State.UNDO);
+				}
 				return;
 			} catch (RemoteAccessException rae) {
 				incNumOfRemoteErrors();
@@ -68,6 +75,7 @@ public class ConfirmedState extends AdventureState {
 				return;
 			}
 			resetNumOfRemoteErrors();
+			this.numberOfBankExceptions = 0;
 		}
 
 		// TODO: prints the complete Adventure file, the info in operation,

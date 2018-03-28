@@ -10,29 +10,29 @@ import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 
 public class BrokerClientConstructorMethodTest {
 	private static final int AGE = 20;
-	private static final String NIF = "123456789"
+	private static final String NIF = "123456789";
 	private static final String IBAN = "BK011234567";
-	private static final BrokerClient client;
+	private static  BrokerClient client;
 
 	@Before
 	public void setUp() {
-		this.client = new BrokerClient(IBAN, NIF, AGE);
+		client = new BrokerClient(IBAN, NIF, AGE);
 	}
 
 	@Test
 	public void success() {
-		Assert.assertEquals(20, this.client.getAge());
-		Assert.assertEquals(IBAN, this.client.getIBAN());
-		Assert.assertEquals(NIF, this.client.getNIF());
+		Assert.assertEquals(20, client.getAGE());
+		Assert.assertEquals(IBAN, client.getIBAN());
+		Assert.assertEquals(NIF, client.getNIF());
 	}
 
 	@Test
 	public void successEqual18() {
-		this.client = new Client(IBAN, NIF, 18);
+		client = new BrokerClient(IBAN, NIF, 18);
 
-		Assert.assertEquals(18, this.client.getAGE());
-		Assert.assertEquals(IBAN, this.client.getIBAN());
-		Assert.assertEquals(NIF, this.client.getNIF());
+		Assert.assertEquals(18, client.getAGE());
+		Assert.assertEquals(IBAN, client.getIBAN());
+		Assert.assertEquals(NIF, client.getNIF());
 	}
 
 	@Test(expected = BrokerException.class)
@@ -42,11 +42,11 @@ public class BrokerClientConstructorMethodTest {
 
 	@Test
 	public void successEqual100() {
-		this.client = new BrokerClient(IBAN,NIF,100);
+		client = new BrokerClient(IBAN,NIF,100);
 
-		Assert.assertEquals(100, this.client.getAGE()));
-		Assert.assertEquals(IBAN, this.client.getIBAN());
-		Assert.assertEquals(300, this.client.getNIF());
+		Assert.assertEquals(100, client.getAGE());
+		Assert.assertEquals(IBAN, client.getIBAN());
+		Assert.assertEquals(300, client.getNIF());
 	}
 
 	@Test(expected = BrokerException.class)
