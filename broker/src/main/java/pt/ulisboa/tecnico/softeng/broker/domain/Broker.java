@@ -16,15 +16,23 @@ public class Broker {
 
 	private final String code;
 	private final String name;
+	private final String seller;
+	private final String buyer;
 	private final Set<Adventure> adventures = new HashSet<>();
 	private final Set<BulkRoomBooking> bulkBookings = new HashSet<>();
 
-	public Broker(String code, String name) {
+	public Broker(String code, String name, String seller, String buyer) {
 		checkCode(code);
 		this.code = code;
 
 		checkName(name);
 		this.name = name;
+		
+		checkSeller(code);
+		this.seller = seller;
+		
+		checkBuyer(code);
+		this.buyer = buyer;
 
 		Broker.brokers.add(this);
 	}
@@ -40,6 +48,31 @@ public class Broker {
 			}
 		}
 	}
+	
+	private void checkSeller(String code) {
+		if (seller == null || seller.trim().length() == 0) {
+			throw new BrokerException();
+		}
+
+		for (Broker broker : Broker.brokers) {
+			if (broker.getSeller().equals(seller)) {
+				throw new BrokerException();
+			}
+		}
+	}
+	
+	private void checkBuyer(String code) {
+		if (buyer== null || buyer.trim().length() == 0) {
+			throw new BrokerException();
+		}
+
+		for (Broker broker : Broker.brokers) {
+			if (broker.getBuyer().equals(buyer)) {
+				throw new BrokerException();
+			}
+		}
+	}
+
 
 	private void checkName(String name) {
 		if (name == null || name.trim().length() == 0) {
@@ -54,7 +87,16 @@ public class Broker {
 	String getName() {
 		return this.name;
 	}
+    
+	String getSeller() {
+		return this.seller;
+	}
+	
+	String getBuyer() {
+		return this.buyer;
+	}
 
+	
 	public int getNumberOfAdventures() {
 		return this.adventures.size();
 	}
