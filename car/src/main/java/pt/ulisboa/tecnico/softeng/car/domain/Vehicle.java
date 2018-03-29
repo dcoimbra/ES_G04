@@ -18,14 +18,16 @@ public abstract class Vehicle {
 	static Set<String> plates = new HashSet<>();
 
 	private final String plate;
+	private float price;
 	private int kilometers;
 	private final RentACar rentACar;
 	public final Map<String, Renting> rentings = new HashMap<>();
 
-	public Vehicle(String plate, int kilometers, RentACar rentACar) {
+	public Vehicle(String plate, int kilometers, RentACar rentACar, float price) {
 		logger.debug("Vehicle plate: {}", plate);
-		checkArguments(plate, kilometers, rentACar);
+		checkArguments(plate, kilometers, rentACar, price);
 
+		this.price = price;
 		this.plate = plate;
 		this.kilometers = kilometers;
 		this.rentACar = rentACar;
@@ -34,8 +36,8 @@ public abstract class Vehicle {
 		rentACar.addVehicle(this);
 	}
 
-	private void checkArguments(String plate, int kilometers, RentACar rentACar) {
-		if (plate == null || !plate.matches(plateFormat) || plates.contains(plate.toUpperCase())) {
+	private void checkArguments(String plate, int kilometers, RentACar rentACar, float price) {
+		if (plate == null || !plate.matches(plateFormat) || plates.contains(plate.toUpperCase()) || (price <= 0)) {
 			throw new CarException();
 		} else if (kilometers < 0) {
 			throw new CarException();
@@ -49,6 +51,13 @@ public abstract class Vehicle {
 	 */
 	public String getPlate() {
 		return this.plate;
+	}
+
+	/**
+	 * @return the price
+	 */
+	public float getPrice() {
+		return this.price;
 	}
 
 	/**
