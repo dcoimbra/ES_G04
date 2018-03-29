@@ -16,12 +16,13 @@ public class VehicleIsFreeTest {
 	private static final LocalDate date2 = LocalDate.parse("2018-01-07");
 	private static final LocalDate date3 = LocalDate.parse("2018-01-08");
 	private static final LocalDate date4 = LocalDate.parse("2018-01-09");
+	private static final float PRICE = 20;
 	private Car car;
 
 	@Before
 	public void setUp() {
 		RentACar rentACar = new RentACar(RENT_A_CAR_NAME);
-		this.car = new Car(PLATE_CAR, 10, rentACar);
+		this.car = new Car(PLATE_CAR, 10, rentACar, PRICE);
 	}
 
 	@Test

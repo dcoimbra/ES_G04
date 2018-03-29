@@ -13,12 +13,13 @@ public class VehicleRentTest {
 	private static final String DRIVING_LICENSE = "lx1423";
 	private static final LocalDate date1 = LocalDate.parse("2018-01-06");
 	private static final LocalDate date2 = LocalDate.parse("2018-01-09");
+	private static final float PRICE = 20;
 	private Car car;
 
 	@Before
 	public void setUp() {
 		RentACar rentACar = new RentACar(RENT_A_CAR_NAME);
-		this.car = new Car(PLATE_CAR, 10, rentACar);
+		this.car = new Car(PLATE_CAR, 10, rentACar, PRICE);
 	}
 
 	@Test(expected = CarException.class)
@@ -30,14 +31,14 @@ public class VehicleRentTest {
 	@Test(expected = CarException.class)
 	public void beginIsNull() {
 		RentACar rentACar = new RentACar(RENT_A_CAR_NAME);
-		Vehicle car = new Car(PLATE_CAR, 10, rentACar);
+		Vehicle car = new Car(PLATE_CAR, 10, rentACar, PRICE);
 		car.rent(DRIVING_LICENSE, null, date2);
 	}
 
 	@Test(expected = CarException.class)
 	public void endIsNull() {
 		RentACar rentACar = new RentACar(RENT_A_CAR_NAME);
-		Vehicle car = new Car(PLATE_CAR, 10, rentACar);
+		Vehicle car = new Car(PLATE_CAR, 10, rentACar, PRICE);
 		car.rent(DRIVING_LICENSE, date1, null);
 	}
 
