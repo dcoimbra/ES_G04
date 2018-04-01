@@ -13,6 +13,7 @@ import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 public class RoomGetBookingMethodTest {
 	private final LocalDate arrival = new LocalDate(2016, 12, 19);
 	private final LocalDate departure = new LocalDate(2016, 12, 24);
+	private static final float PRICE = 20;
 	private Hotel hotel;
 	private Room room;
 	private Booking booking;
@@ -20,7 +21,7 @@ public class RoomGetBookingMethodTest {
 	@Before
 	public void setUp() {
 		this.hotel = new Hotel("XPTO123", "Lisboa");
-		this.room = new Room(this.hotel, "01", Type.SINGLE);
+		this.room = new Room(this.hotel, "01", Type.SINGLE, PRICE);
 		this.booking = this.room.reserve(Type.SINGLE, this.arrival, this.departure);
 	}
 

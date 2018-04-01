@@ -20,44 +20,45 @@ public class RoomConstructorMethodTest {
 
 	@Test
 	public void success() {
-		Room room = new Room(this.hotel, "01", Type.DOUBLE);
+		Room room = new Room(this.hotel, "01", Type.DOUBLE, 20);
 
 		Assert.assertEquals(this.hotel, room.getHotel());
 		Assert.assertEquals("01", room.getNumber());
 		Assert.assertEquals(Type.DOUBLE, room.getType());
 		Assert.assertEquals(1, this.hotel.getNumberOfRooms());
+		Assert.assertEquals(20, room.getPrice(), 0.0);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullHotel() {
-		new Room(null, "01", Type.DOUBLE);
+		new Room(null, "01", Type.DOUBLE, 20);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullRoomNumber() {
-		new Room(this.hotel, null, Type.DOUBLE);
+		new Room(this.hotel, null, Type.DOUBLE, 20);
 	}
 
 	@Test(expected = HotelException.class)
 	public void emptyRoomNumber() {
-		new Room(this.hotel, "", Type.DOUBLE);
+		new Room(this.hotel, "", Type.DOUBLE, 20);
 	}
 
 	@Test(expected = HotelException.class)
 	public void blankRoomNumber() {
-		new Room(this.hotel, "     ", Type.DOUBLE);
+		new Room(this.hotel, "     ", Type.DOUBLE, 20);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nonAlphanumericRoomNumber() {
-		new Room(this.hotel, "JOSE", Type.DOUBLE);
+		new Room(this.hotel, "JOSE", Type.DOUBLE, 20);
 	}
 
 	@Test
 	public void nonUniqueRoomNumber() {
-		new Room(this.hotel, "01", Type.SINGLE);
+		new Room(this.hotel, "01", Type.SINGLE, 20);
 		try {
-			new Room(this.hotel, "01", Type.DOUBLE);
+			new Room(this.hotel, "01", Type.DOUBLE, 20);
 			fail();
 		} catch (HotelException he) {
 			Assert.assertEquals(1, this.hotel.getNumberOfRooms());
@@ -66,7 +67,21 @@ public class RoomConstructorMethodTest {
 
 	@Test(expected = HotelException.class)
 	public void nullType() {
-		new Room(this.hotel, "01", null);
+		new Room(this.hotel, "01", null, 20);
+	}
+
+	@Test(expected = HotelException.class)
+	public void negativePrice(){
+		new Room(this.hotel, "01", Type.DOUBLE, -1);
+	}
+
+	@Test(expected = HotelException.class)
+	public void nullPrice(){
+		new Room(this.hotel, "01", Type.DOUBLE, 0);
+	}
+
+	public void positivePrice(){
+		new Room(this.hotel, "01", Type.DOUBLE, 1);
 	}
 
 	@After

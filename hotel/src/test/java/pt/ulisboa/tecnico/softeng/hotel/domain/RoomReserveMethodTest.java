@@ -14,12 +14,13 @@ import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 public class RoomReserveMethodTest {
 	private final LocalDate arrival = new LocalDate(2016, 12, 19);
 	private final LocalDate departure = new LocalDate(2016, 12, 24);
+	private static final float PRICE = 20;
 	private Room room;
 
 	@Before
 	public void setUp() {
 		Hotel hotel = new Hotel("XPTO123", "Lisboa");
-		this.room = new Room(hotel, "01", Type.SINGLE);
+		this.room = new Room(hotel, "01", Type.SINGLE, PRICE);
 	}
 
 	@Test
