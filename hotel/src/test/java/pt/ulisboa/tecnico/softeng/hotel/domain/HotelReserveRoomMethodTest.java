@@ -9,6 +9,8 @@ import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 import static junit.framework.TestCase.assertTrue;
 
 public class HotelReserveRoomMethodTest {
+	private static final String IBAN = "IBAN";
+	private static final String NIF = "NIF";
     private final LocalDate arrival = new LocalDate(2016, 12, 19);
     private final LocalDate departure = new LocalDate(2016, 12, 24);
     private static final float PRICE = 20;
@@ -17,7 +19,7 @@ public class HotelReserveRoomMethodTest {
 
     @Before
     public void setUp() {
-        hotel = new Hotel("XPTO123", "Lisboa");
+        hotel = new Hotel("XPTO123", "Lisboa", NIF, IBAN);
         this.room = new Room(hotel, "01", Room.Type.SINGLE, PRICE);
     }
 

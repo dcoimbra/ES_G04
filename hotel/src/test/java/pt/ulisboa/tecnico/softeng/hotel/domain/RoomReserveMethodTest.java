@@ -12,6 +12,8 @@ import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class RoomReserveMethodTest {
+	private static final String IBAN = "IBAN";
+	private static final String NIF = "NIF";
 	private final LocalDate arrival = new LocalDate(2016, 12, 19);
 	private final LocalDate departure = new LocalDate(2016, 12, 24);
 	private static final float PRICE = 20;
@@ -19,7 +21,7 @@ public class RoomReserveMethodTest {
 
 	@Before
 	public void setUp() {
-		Hotel hotel = new Hotel("XPTO123", "Lisboa");
+		Hotel hotel = new Hotel("XPTO123", "Lisboa", NIF, IBAN);
 		this.room = new Room(hotel, "01", Type.SINGLE, PRICE);
 	}
 
