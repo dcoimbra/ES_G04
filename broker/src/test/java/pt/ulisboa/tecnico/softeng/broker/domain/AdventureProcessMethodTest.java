@@ -41,6 +41,9 @@ public class AdventureProcessMethodTest {
     private static final String BUYER_ADDRESS = "Narnia";
     private static final String BUYER_NAME = "Jacinto Costa";
     private static final String BUYER_NIF = "987654321";
+    
+    private static final double PRICE_SINGLE = 20.0;
+	private static final double PRICE_DOUBLE = 30.0;
 
     IRS irs;
 
@@ -63,7 +66,7 @@ public class AdventureProcessMethodTest {
 
         this.brokerClient = new BrokerClient(IBAN, NIF, AGE);
 
-		Hotel hotel = new Hotel("XPTO123", "Paris");
+		Hotel hotel = new Hotel("XPTO123", "Paris", "NIF_HOTEL", "IBAN_HOTEL", PRICE_SINGLE, PRICE_DOUBLE);
 		new Room(hotel, "01", Type.SINGLE);
 
 		ActivityProvider provider = new ActivityProvider("XtremX", "ExtremeAdventure", "NIF", "IBAN");

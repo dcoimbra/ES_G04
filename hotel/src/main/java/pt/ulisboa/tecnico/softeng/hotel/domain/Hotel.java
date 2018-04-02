@@ -17,21 +17,26 @@ public class Hotel {
 	private final String name;
 	private final String nif;
 	private final String iban;
+	private final double priceSingle;
+	private final double priceDouble;
 	private final Set<Room> rooms = new HashSet<>();
 
-	public Hotel(String code, String name, String nif, String iban) {
-		checkArguments(code, name, nif, iban);
+	public Hotel(String code, String name, String nif, String iban, double priceSingle, double priceDouble) {
+		checkArguments(code, name, nif, iban, priceSingle, priceDouble);
 
 		this.code = code;
 		this.name = name;
 		this.nif = nif;
 		this.iban = iban;
+		this.priceSingle = priceSingle;
+		this.priceDouble = priceDouble;
 		Hotel.hotels.add(this);
 	}
 
-	private void checkArguments(String code, String name, String nif, String iban) {
+	private void checkArguments(String code, String name, String nif, String iban, double priceSingle, double priceDouble) {
 		if (code == null || name == null || code.trim().length() == 0 || name.trim().length() == 0 ||
-			nif == null	|| nif.trim().length() == 0 || iban == null || iban.trim().length() == 0) {
+			nif == null	|| nif.trim().length() == 0 || iban == null || iban.trim().length() == 0 ||
+			priceSingle <= 0 || priceDouble <= 0) {
 			throw new HotelException();
 		}
 
@@ -73,6 +78,14 @@ public class Hotel {
 
 	public String getIban() {
 		return this.iban;
+	}
+	
+	public double getPriceSingle() {
+		return this.priceSingle;
+	}
+	
+	public double getPriceDouble() {
+		return this.priceDouble;
 	}
 	
 	void addRoom(Room room) {

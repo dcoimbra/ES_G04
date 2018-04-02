@@ -13,54 +13,55 @@ import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 public class RoomConstructorMethodTest {
 	private static final String IBAN = "IBAN";
 	private static final String NIF = "NIF";
+	private static final double PRICE_SINGLE = 20.0;
+	private static final double PRICE_DOUBLE = 30.0;
 	private Hotel hotel;
 
 	@Before
 	public void setUp() {
-		this.hotel = new Hotel("XPTO123", "Lisboa", NIF, IBAN);
+		this.hotel = new Hotel("XPTO123", "Lisboa", NIF, IBAN, PRICE_SINGLE, PRICE_DOUBLE);
 	}
 
 	@Test
 	public void success() {
-		Room room = new Room(this.hotel, "01", Type.DOUBLE, 20);
+		Room room = new Room(this.hotel, "01", Type.DOUBLE);
 
 		Assert.assertEquals(this.hotel, room.getHotel());
 		Assert.assertEquals("01", room.getNumber());
 		Assert.assertEquals(Type.DOUBLE, room.getType());
 		Assert.assertEquals(1, this.hotel.getNumberOfRooms());
-		Assert.assertEquals(20, room.getPrice(), 0.0);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullHotel() {
-		new Room(null, "01", Type.DOUBLE, 20);
+		new Room(null, "01", Type.DOUBLE);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullRoomNumber() {
-		new Room(this.hotel, null, Type.DOUBLE, 20);
+		new Room(this.hotel, null, Type.DOUBLE);
 	}
 
 	@Test(expected = HotelException.class)
 	public void emptyRoomNumber() {
-		new Room(this.hotel, "", Type.DOUBLE, 20);
+		new Room(this.hotel, "", Type.DOUBLE);
 	}
 
 	@Test(expected = HotelException.class)
 	public void blankRoomNumber() {
-		new Room(this.hotel, "     ", Type.DOUBLE, 20);
+		new Room(this.hotel, "     ", Type.DOUBLE);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nonAlphanumericRoomNumber() {
-		new Room(this.hotel, "JOSE", Type.DOUBLE, 20);
+		new Room(this.hotel, "JOSE", Type.DOUBLE);
 	}
 
 	@Test
 	public void nonUniqueRoomNumber() {
-		new Room(this.hotel, "01", Type.SINGLE, 20);
+		new Room(this.hotel, "01", Type.SINGLE);
 		try {
-			new Room(this.hotel, "01", Type.DOUBLE, 20);
+			new Room(this.hotel, "01", Type.DOUBLE);
 			fail();
 		} catch (HotelException he) {
 			Assert.assertEquals(1, this.hotel.getNumberOfRooms());
@@ -69,21 +70,7 @@ public class RoomConstructorMethodTest {
 
 	@Test(expected = HotelException.class)
 	public void nullType() {
-		new Room(this.hotel, "01", null, 20);
-	}
-
-	@Test(expected = HotelException.class)
-	public void negativePrice(){
-		new Room(this.hotel, "01", Type.DOUBLE, -1);
-	}
-
-	@Test(expected = HotelException.class)
-	public void nullPrice(){
-		new Room(this.hotel, "01", Type.DOUBLE, 0);
-	}
-
-	public void positivePrice(){
-		new Room(this.hotel, "01", Type.DOUBLE, 1);
+		new Room(this.hotel, "01", null);
 	}
 
 	@After

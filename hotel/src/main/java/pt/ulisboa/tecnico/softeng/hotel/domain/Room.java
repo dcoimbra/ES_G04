@@ -15,22 +15,20 @@ public class Room {
 	private final Hotel hotel;
 	private final String number;
 	private final Type type;
-	private float price;
 	private final Set<Booking> bookings = new HashSet<>();
 
-	public Room(Hotel hotel, String number, Type type, float price) {
-		checkArguments(hotel, number, type, price);
+	public Room(Hotel hotel, String number, Type type) {
+		checkArguments(hotel, number, type);
 
 		this.hotel = hotel;
 		this.number = number;
 		this.type = type;
-		this.price = price;
-
+		
 		this.hotel.addRoom(this);
 	}
 
-	private void checkArguments(Hotel hotel, String number, Type type, float price) {
-		if (hotel == null || number == null || number.trim().length() == 0 || type == null || price <= 0) {
+	private void checkArguments(Hotel hotel, String number, Type type) {
+		if (hotel == null || number == null || number.trim().length() == 0 || type == null) {
 			throw new HotelException();
 		}
 
@@ -49,13 +47,6 @@ public class Room {
 
 	public Type getType() {
 		return this.type;
-	}
-
-	/**
-	 * @return the price
-	 */
-	public float getPrice() {
-		return this.price;
 	}
 
 	int getNumberOfBookings() {
