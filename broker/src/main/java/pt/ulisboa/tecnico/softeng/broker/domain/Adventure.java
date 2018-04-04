@@ -25,12 +25,13 @@ public class Adventure {
 	private String paymentCancellation;
 	private String roomConfirmation;
 	private String roomCancellation;
-	//private String vehicleConfirmation;
-	//private String vehicleCancellation;
+	private String vehicleConfirmation;
+	private String vehicleCancellation;
 	private String activityConfirmation;
 	private String activityCancellation;
 
 	private AdventureState state;
+
 
 	public Adventure(Broker broker, LocalDate begin, LocalDate end, BrokerClient client, int amount) {
 		checkArguments(broker, begin, end, amount);
@@ -137,7 +138,7 @@ public class Adventure {
 		this.roomCancellation = roomCancellation;
 	}
 
-	/*public String getVehicleConfirmation() {
+	public String getVehicleConfirmation() {
 		return this.vehicleConfirmation;
 	}
 
@@ -151,7 +152,7 @@ public class Adventure {
 
 	public void setVehicleCancellation(String vehicleCancellation) {
 		this.vehicleCancellation = vehicleCancellation;
-	}*/
+	}
 
 	public State getState() {
 		return this.state.getState();
@@ -168,9 +169,9 @@ public class Adventure {
 		case BOOK_ROOM:
 			this.state = new BookRoomState();
 			break;
-		/*case RENT_VEHICLE:
+		case RENT_VEHICLE:
 			this.state = new RentVehicleState();
-			break;*/
+			break;
 		case UNDO:
 			this.state = new UndoState();
 			break;
