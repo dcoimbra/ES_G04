@@ -1,4 +1,4 @@
-package pt.ulisboa.tecnico.softeng.hotel.domain;
+package pt.ulisboa.tecnico.softeng.car.domain;
 
 import org.joda.time.LocalDate;
 import org.junit.After;
@@ -27,7 +27,7 @@ public class RentACarCancelRentingTest {
 
     @Before
     public void setUp() {
-        this.rentACar = new RentACar(NAME);
+        this.rentACar = new RentACar(NAME, NIF, IBAN);
     }
 
     @Test

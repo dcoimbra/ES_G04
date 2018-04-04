@@ -17,12 +17,17 @@ public class RentACar {
 
 	private final String name;
 	private final String code;
+    private final String nif;
+    private final String iban;
 	private final Map<String, Vehicle> vehicles = new HashMap<>();
 
-	public RentACar(String name) {
+	public RentACar(String name, String nif, String iban) {
 		checkArguments(name);
 		this.name = name;
 		this.code = Integer.toString(++RentACar.counter);
+
+        this.nif = nif;
+        this.iban = iban;
 
 		rentACars.add(this);
 	}
@@ -46,6 +51,14 @@ public class RentACar {
 	public String getCode() {
 		return code;
 	}
+
+    public String getNif() {
+        return this.nif;
+    }
+
+    public String getIban() {
+        return this.iban;
+    }
 
 	void addVehicle(Vehicle vehicle) {
 		this.vehicles.put(vehicle.getPlate(), vehicle);

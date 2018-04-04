@@ -14,6 +14,8 @@ public class RentACarRentVehicleTest {
     private static final String NAME = "eartz";
     private static final String PLATE_CAR = "22-33-HZ";
     private static final String DRIVING_LICENSE = "br123";
+    private static final String IBAN = "IBAN";
+    private static final String NIF = "NIF";
     private static final float PRICE = 20;
     private static final LocalDate date1 = LocalDate.parse("2018-01-06");
     private static final LocalDate date2 = LocalDate.parse("2018-01-07");
@@ -22,7 +24,7 @@ public class RentACarRentVehicleTest {
 
     @Before
     public void setUp() {
-        this.rentACar = new RentACar(NAME);
+        this.rentACar = new RentACar(NAME, NIF, IBAN);
     }
 
     @Test
