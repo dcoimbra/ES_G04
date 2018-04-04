@@ -99,6 +99,42 @@ public class RentACar {
 		return null;
 	}
 
+    public static String rentVehicle(String plate, String drivingLicense, LocalDate begin, LocalDate end) {
+
+        Set<Vehicle> vehicles = getAllAvailableMotorcycles(begin, end);
+        Set<Vehicle> cars = getAllAvailableCars(begin, end);
+
+        Renting renting = null;
+
+        vehicles.addAll(cars);
+
+        for (Vehicle vehicle : vehicles) {
+
+            if (plate.equals(vehicle.getPlate())) {
+
+                renting = vehicle.rent(drivingLicense, begin, end);
+            }
+        }
+
+        if (renting != null) {
+
+            return renting.getReference();
+        }
+
+        throw new CarException();
+    }
+
+    public static String cancelRenting(String reference) {
+        Renting renting = getRenting(reference);
+
+        if (renting != null) {
+
+            return renting.cancel();
+        }
+
+        throw new CarException();
+    }
+
 	public static RentingData getRentingData(String reference) {
 		Renting renting = getRenting(reference);
 		if (renting == null) {
@@ -113,4 +149,9 @@ public class RentACar {
 			renting.getEnd()
 		);
 	}
+
+    public void removeVehicles() {
+
+	    vehicles.clear();
+    }
 }
