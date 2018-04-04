@@ -13,6 +13,10 @@ import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class HotelGetRoomBookingDataMethodTest {
+	private static final String IBAN = "IBAN";
+	private static final String NIF = "NIF";
+	private static final double PRICE_SINGLE = 20.0;
+	private static final double PRICE_DOUBLE = 30.0;
 	private final LocalDate arrival = new LocalDate(2016, 12, 19);
 	private final LocalDate departure = new LocalDate(2016, 12, 24);
 	private Hotel hotel;
@@ -21,7 +25,7 @@ public class HotelGetRoomBookingDataMethodTest {
 
 	@Before
 	public void setUp() {
-		this.hotel = new Hotel("XPTO123", "Lisboa");
+		this.hotel = new Hotel("XPTO123", "Lisboa", NIF, IBAN, PRICE_SINGLE, PRICE_DOUBLE);
 		this.room = new Room(this.hotel, "01", Type.SINGLE);
 		this.booking = this.room.reserve(Type.SINGLE, this.arrival, this.departure);
 	}

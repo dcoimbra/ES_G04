@@ -14,6 +14,8 @@ public class Renting {
 	private final LocalDate end;
 	private int kilometers = -1;
 	private final Vehicle vehicle;
+	private String cancellation;
+	private LocalDate cancellationDate;
 
 	public Renting(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle) {
 		checkArguments(drivingLicense, begin, end, vehicle);
@@ -36,6 +38,10 @@ public class Renting {
 	public String getReference() {
 		return reference;
 	}
+
+    public String getCancellation() {
+        return this.cancellation;
+    }
 
 	/**
 	 * @return the drivingLicense
@@ -97,4 +103,14 @@ public class Renting {
 		this.vehicle.addKilometers(this.kilometers);
 	}
 
+
+	public String cancel() {
+		this.cancellation = this.reference + "CANCEL";
+		this.cancellationDate = new LocalDate();
+		return this.cancellation;
+	}
+
+	public boolean isCancelled() {
+		return this.cancellation != null;
+	}
 }

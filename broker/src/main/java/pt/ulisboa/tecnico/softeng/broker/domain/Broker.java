@@ -28,10 +28,10 @@ public class Broker {
 		checkName(name);
 		this.name = name;
 		
-		checkSeller(code);
+		checkSeller(seller);
 		this.seller = seller;
-		
-		checkBuyer(code);
+
+		checkBuyer(buyer);
 		this.buyer = buyer;
 
 		Broker.brokers.add(this);
@@ -48,7 +48,7 @@ public class Broker {
 			}
 		}
 	}
-	
+
 	private void checkSeller(String seller) {
 		if (seller == null || seller.trim().length() == 0) {
 			throw new BrokerException("1");
