@@ -7,6 +7,7 @@ import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 public class Renting {
 	private static String drivingLicenseFormat = "^[a-zA-Z]+\\d+$";
 	private static int counter;
+	private static final String type = "RENTCAR";
 
 	private final String reference;
 	private final String drivingLicense;
@@ -14,14 +15,25 @@ public class Renting {
 	private final LocalDate end;
 	private int kilometers = -1;
 	private final Vehicle vehicle;
+	private String nif;
+	private String iban;
+	private String cancel;
+	private LocalDate cancellationDate;
+	private String paymentReference;
+	private String invoiceReference;
+	private String cancelledPaymentReference;
 
-	public Renting(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle) {
+	private final Processor processor = new Processor();
+
+	public Renting(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle, String buyerIban, String buyerNif ) {
 		checkArguments(drivingLicense, begin, end, vehicle);
 		this.reference = Integer.toString(++Renting.counter);
 		this.drivingLicense = drivingLicense;
 		this.begin = begin;
 		this.end = end;
 		this.vehicle = vehicle;
+		this.iban = buyerIban;
+		this.nif = buyerNif;
 	}
 
 	private void checkArguments(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle) {
@@ -97,4 +109,56 @@ public class Renting {
 		this.vehicle.addKilometers(this.kilometers);
 	}
 
+	public String cancel() {
+		this.cancel = "CANCEL" + this.reference;
+		this.cancellationDate = new LocalDate();
+
+		this.getProcessor().submitRenting(this);
+
+		return this.cancel;
+	}
+
+	private Processor getProcessor() {
+		return this.processor;
+	}
+
+	public boolean isCancelled() {
+		return this.cancel != null;
+	}
+
+	public String getPaymentReference() {
+		return this.paymentReference;
+	}
+
+	public void setPaymentReference(String paymentReference) {
+		this.paymentReference = paymentReference;
+	}
+
+	public String getInvoiceReference() {
+		return this.invoiceReference;
+	}
+
+	public void setInvoiceReference(String invoiceReference) {
+		this.invoiceReference = invoiceReference;
+	}
+
+	public String getCancelledPaymentReference() {
+		return this.cancelledPaymentReference;
+	}
+
+	public void setCancelledPaymentReference(String cancelledPaymentReference) {
+		this.cancelledPaymentReference = cancelledPaymentReference;
+	}
+
+	public String getType() {
+		return this.type;
+	}
+
+	public String getNif() {
+		return this.nif;
+	}
+
+	public String getIban() {
+		return this.iban;
+	}
 }

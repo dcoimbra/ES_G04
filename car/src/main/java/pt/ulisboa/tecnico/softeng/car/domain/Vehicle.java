@@ -123,12 +123,12 @@ public abstract class Vehicle {
 	 * @param end
 	 * @return
 	 */
-	public Renting rent(String drivingLicense, LocalDate begin, LocalDate end) {
+	public Renting rent(String drivingLicense, LocalDate begin, LocalDate end, String buyerIban, String buyerNif) {
 		if (!isFree(begin, end)) {
 			throw new CarException();
 		}
 
-		Renting renting = new Renting(drivingLicense, begin, end, this);
+		Renting renting = new Renting(drivingLicense, begin, end, this, buyerIban, buyerNif);
 		this.addRenting(renting);
 
 		return renting;
