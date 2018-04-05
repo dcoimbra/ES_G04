@@ -17,6 +17,8 @@ public class RentACarGetRentingDataTest {
 	private static final String DRIVING_LICENSE = "br123";
 	private static final LocalDate date1 = LocalDate.parse("2018-01-06");
 	private static final LocalDate date2 = LocalDate.parse("2018-01-07");
+	private static final String IBAN = "BK123456789";
+	private static final String NIF = "123456789";
 	private static final float PRICE = 20;
 	private Car car;
 
@@ -28,7 +30,7 @@ public class RentACarGetRentingDataTest {
 
 	@Test
 	public void success() {
-		Renting renting = car.rent(DRIVING_LICENSE, date1, date2);
+		Renting renting = car.rent(DRIVING_LICENSE, date1, date2,IBAN, NIF);
 		RentingData rentingData = RentACar.getRentingData(renting.getReference());
 		assertEquals(renting.getReference(), rentingData.getReference());
 		assertEquals(DRIVING_LICENSE, rentingData.getDrivingLicense());

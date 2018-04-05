@@ -22,6 +22,8 @@ public class RentACarGetAllAvailableVehiclesTest {
 	private static final LocalDate date3 = LocalDate.parse("2018-01-08");
 	private static final LocalDate date4 = LocalDate.parse("2018-01-09");
 	private static final float PRICE = 20;
+	private static final String IBAN = "BK123456789";
+	private static final String NIF = "123456789";
 	private RentACar rentACar1;
 	private RentACar rentACar2;
 
@@ -34,7 +36,7 @@ public class RentACarGetAllAvailableVehiclesTest {
 	@Test
 	public void onlyCars() {
 		Vehicle car1 = new Car(PLATE_CAR1, 10, rentACar1, PRICE );
-		car1.rent(DRIVING_LICENSE, date1, date2);
+		car1.rent(DRIVING_LICENSE, date1, date2, IBAN, NIF);
 		Vehicle car2 = new Car(PLATE_CAR2, 10, rentACar2, PRICE);
 		Vehicle motorcycle = new Motorcycle(PLATE_MOTORCYCLE, 10, rentACar1, PRICE);
 
@@ -49,7 +51,7 @@ public class RentACarGetAllAvailableVehiclesTest {
 		Vehicle car1 = new Car(PLATE_CAR1, 10, rentACar1, PRICE);
 		Vehicle car2 = new Car(PLATE_CAR2, 10, rentACar2, PRICE);
 
-		car1.rent(DRIVING_LICENSE, date1, date2);
+		car1.rent(DRIVING_LICENSE, date1, date2, IBAN, NIF);
 		Set<Vehicle> cars = RentACar.getAllAvailableCars(date1, date2);
 
 		assertFalse(cars.contains(car1));

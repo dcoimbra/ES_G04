@@ -15,6 +15,8 @@ public class RentACarGetRentingTest {
 	private static final LocalDate date2 = LocalDate.parse("2018-01-07");
 	private static final LocalDate date3 = LocalDate.parse("2018-01-08");
 	private static final LocalDate date4 = LocalDate.parse("2018-01-09");
+	private static final String IBAN = "BK123456789";
+	private static final String NIF = "123456789";
 	private static final float PRICE = 20;
 	private Renting renting;
 
@@ -22,8 +24,8 @@ public class RentACarGetRentingTest {
 	public void setUp() {
 		RentACar rentACar1 = new RentACar(NAME1);
 		Vehicle car1 = new Car(PLATE_CAR1, 10, rentACar1, PRICE);
-		this.renting = car1.rent(DRIVING_LICENSE, date1, date2);
-		car1.rent(DRIVING_LICENSE, date3, date4);
+		this.renting = car1.rent(DRIVING_LICENSE, date1, date2, IBAN, NIF);
+		car1.rent(DRIVING_LICENSE, date3, date4, IBAN, NIF);
 	}
 
 	@Test

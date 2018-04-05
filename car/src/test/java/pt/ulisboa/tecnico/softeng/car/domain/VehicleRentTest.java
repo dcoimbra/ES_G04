@@ -13,6 +13,8 @@ public class VehicleRentTest {
 	private static final String DRIVING_LICENSE = "lx1423";
 	private static final LocalDate date1 = LocalDate.parse("2018-01-06");
 	private static final LocalDate date2 = LocalDate.parse("2018-01-09");
+	private static final String IBAN = "BK123456789";
+	private static final String NIF = "123456789";
 	private static final float PRICE = 20;
 	private Car car;
 
@@ -24,22 +26,22 @@ public class VehicleRentTest {
 
 	@Test(expected = CarException.class)
 	public void doubleRent() {
-		car.rent(DRIVING_LICENSE, date1, date2);
-		car.rent(DRIVING_LICENSE, date1, date2);
+		car.rent(DRIVING_LICENSE, date1, date2, IBAN, NIF);
+		car.rent(DRIVING_LICENSE, date1, date2, IBAN, NIF);
 	}
 
 	@Test(expected = CarException.class)
 	public void beginIsNull() {
 		RentACar rentACar = new RentACar(RENT_A_CAR_NAME);
 		Vehicle car = new Car(PLATE_CAR, 10, rentACar, PRICE);
-		car.rent(DRIVING_LICENSE, null, date2);
+		car.rent(DRIVING_LICENSE, null, date2, IBAN, NIF);
 	}
 
 	@Test(expected = CarException.class)
 	public void endIsNull() {
 		RentACar rentACar = new RentACar(RENT_A_CAR_NAME);
 		Vehicle car = new Car(PLATE_CAR, 10, rentACar, PRICE);
-		car.rent(DRIVING_LICENSE, date1, null);
+		car.rent(DRIVING_LICENSE, date1, null, IBAN, NIF);
 	}
 
 	@After
