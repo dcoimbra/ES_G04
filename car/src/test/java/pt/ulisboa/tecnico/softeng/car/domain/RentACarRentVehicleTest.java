@@ -14,9 +14,9 @@ public class RentACarRentVehicleTest {
     private static final String NAME = "eartz";
     private static final String PLATE_CAR = "22-33-HZ";
     private static final String DRIVING_LICENSE = "br123";
-    private static final String IBAN = "IBAN";
-    private static final String NIF = "NIF";
-    private static final float PRICE = 20;
+    private static final String IBAN = "BK123456789";
+    private static final String NIF = "123456789";
+    private static final int PRICE = 20;
     private static final LocalDate date1 = LocalDate.parse("2018-01-06");
     private static final LocalDate date2 = LocalDate.parse("2018-01-07");
     private RentACar rentACar;
@@ -31,14 +31,14 @@ public class RentACarRentVehicleTest {
     public void success() {
 
         this.vehicle = new Car(PLATE_CAR, 10, this.rentACar, PRICE);
-        RentACar.rentVehicle(PLATE_CAR, DRIVING_LICENSE, date1, date2);
+        RentACar.rentVehicle(PLATE_CAR, DRIVING_LICENSE, date1, date2, IBAN, NIF);
     }
 
     @Test(expected = CarException.class)
     public void noRentACars() {
 
         RentACar.rentACars.clear();
-        RentACar.rentVehicle(PLATE_CAR, DRIVING_LICENSE, date1, date2);
+        RentACar.rentVehicle(PLATE_CAR, DRIVING_LICENSE, date1, date2, IBAN, NIF);
     }
 
 
@@ -46,7 +46,7 @@ public class RentACarRentVehicleTest {
     public void noVehicles() {
 
         rentACar.removeVehicles();
-        RentACar.rentVehicle(PLATE_CAR, DRIVING_LICENSE, date1, date2);
+        RentACar.rentVehicle(PLATE_CAR, DRIVING_LICENSE, date1, date2, IBAN, NIF);
     }
 
     @After

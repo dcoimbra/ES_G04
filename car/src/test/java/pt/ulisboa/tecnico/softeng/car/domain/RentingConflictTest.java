@@ -10,10 +10,8 @@ import org.junit.Test;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class RentingConflictTest {
-	private static final String PLATE_CAR = "22-33-HZ";
+	private static final String PLATE_CAR = "33-44-HZ";
 	private static final String DRIVING_LICENSE = "br112233";
-	private static final String IBAN = "IBAN";
-	private static final String NIF = "NIF";
 	private static final LocalDate date0 = LocalDate.parse("2018-01-05");
 	private static final LocalDate date1 = LocalDate.parse("2018-01-06");
 	private static final LocalDate date2 = LocalDate.parse("2018-01-07");
@@ -22,7 +20,7 @@ public class RentingConflictTest {
 	private static final String IBAN = "BK123456789";
 	private static final String NIF = "123456789";
 	private static final String RENT_A_CAR_NAME = "Eartz";
-	private static final float PRICE = 20;
+	private static final int PRICE = 20;
 	private Car car;
 
 	@Before

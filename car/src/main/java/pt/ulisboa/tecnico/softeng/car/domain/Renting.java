@@ -23,6 +23,7 @@ public class Renting {
 	private String paymentReference;
 	private String invoiceReference;
 	private String cancelledPaymentReference;
+	private boolean cancelledInvoice = false;
 
 	private final Processor processor = new Processor();
 
@@ -165,5 +166,9 @@ public class Renting {
 
 	public String getIban() {
 		return this.iban;
+	}
+
+	public void setCancelledInvoice(boolean cancelledInvoice) {
+		this.cancelledInvoice = cancelledInvoice;
 	}
 }

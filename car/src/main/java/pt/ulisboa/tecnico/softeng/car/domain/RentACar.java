@@ -112,7 +112,7 @@ public class RentACar {
 		return null;
 	}
 
-    public static String rentVehicle(String plate, String drivingLicense, LocalDate begin, LocalDate end) {
+    public static String rentVehicle(String plate, String drivingLicense, LocalDate begin, LocalDate end, String iban, String nif) {
 
         Set<Vehicle> vehicles = getAllAvailableMotorcycles(begin, end);
         Set<Vehicle> cars = getAllAvailableCars(begin, end);
@@ -125,7 +125,7 @@ public class RentACar {
 
             if (plate.equals(vehicle.getPlate())) {
 
-                renting = vehicle.rent(drivingLicense, begin, end);
+                renting = vehicle.rent(drivingLicense, begin, end, iban, nif);
             }
         }
 
