@@ -15,6 +15,7 @@ public class Renting {
 	private final LocalDate end;
 	private int kilometers = -1;
 	private final Vehicle vehicle;
+
 	private String nif;
 	private String iban;
 	private String cancel;
@@ -48,6 +49,10 @@ public class Renting {
 	public String getReference() {
 		return reference;
 	}
+
+    public String getCancellation() {
+        return this.cancel;
+    }
 
 	/**
 	 * @return the drivingLicense

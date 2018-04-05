@@ -17,6 +17,8 @@ public class RentACarGetAllAvailableVehiclesTest {
 	private static final String PLATE_CAR2 = "aa-00-22";
 	private static final String PLATE_MOTORCYCLE = "44-33-HZ";
 	private static final String DRIVING_LICENSE = "br123";
+	private static final String IBAN = "IBAN";
+	private static final String NIF = "NIF";
 	private static final LocalDate date1 = LocalDate.parse("2018-01-06");
 	private static final LocalDate date2 = LocalDate.parse("2018-01-07");
 	private static final LocalDate date3 = LocalDate.parse("2018-01-08");
@@ -29,8 +31,8 @@ public class RentACarGetAllAvailableVehiclesTest {
 
 	@Before
 	public void setUp() {
-		this.rentACar1 = new RentACar(NAME1);
-		this.rentACar2 = new RentACar(NAME2);
+		this.rentACar1 = new RentACar(NAME1, NIF, IBAN);
+		this.rentACar2 = new RentACar(NAME2, NIF, IBAN);
 	}
 
 	@Test

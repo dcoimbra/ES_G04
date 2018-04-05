@@ -17,12 +17,17 @@ public class RentACar {
 
 	private final String name;
 	private final String code;
+    private final String nif;
+    private final String iban;
 	private final Map<String, Vehicle> vehicles = new HashMap<>();
 
-	public RentACar(String name) {
+	public RentACar(String name, String nif, String iban) {
 		checkArguments(name);
 		this.name = name;
 		this.code = Integer.toString(++RentACar.counter);
+
+        this.nif = nif;
+        this.iban = iban;
 
 		rentACars.add(this);
 	}
@@ -46,6 +51,14 @@ public class RentACar {
 	public String getCode() {
 		return code;
 	}
+
+    public String getNif() {
+        return this.nif;
+    }
+
+    public String getIban() {
+        return this.iban;
+    }
 
 	void addVehicle(Vehicle vehicle) {
 		this.vehicles.put(vehicle.getPlate(), vehicle);
@@ -99,6 +112,42 @@ public class RentACar {
 		return null;
 	}
 
+    public static String rentVehicle(String plate, String drivingLicense, LocalDate begin, LocalDate end) {
+
+        Set<Vehicle> vehicles = getAllAvailableMotorcycles(begin, end);
+        Set<Vehicle> cars = getAllAvailableCars(begin, end);
+
+        Renting renting = null;
+
+        vehicles.addAll(cars);
+
+        for (Vehicle vehicle : vehicles) {
+
+            if (plate.equals(vehicle.getPlate())) {
+
+                renting = vehicle.rent(drivingLicense, begin, end);
+            }
+        }
+
+        if (renting != null) {
+
+            return renting.getReference();
+        }
+
+        throw new CarException();
+    }
+
+    public static String cancelRenting(String reference) {
+        Renting renting = getRenting(reference);
+
+        if (renting != null) {
+
+            return renting.cancel();
+        }
+
+        throw new CarException();
+    }
+
 	public static RentingData getRentingData(String reference) {
 		Renting renting = getRenting(reference);
 		if (renting == null) {
@@ -113,4 +162,9 @@ public class RentACar {
 			renting.getEnd()
 		);
 	}
+
+    public void removeVehicles() {
+
+	    vehicles.clear();
+    }
 }

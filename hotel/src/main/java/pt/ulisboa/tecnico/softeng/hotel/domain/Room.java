@@ -23,7 +23,7 @@ public class Room {
 		this.hotel = hotel;
 		this.number = number;
 		this.type = type;
-
+		
 		this.hotel.addRoom(this);
 	}
 

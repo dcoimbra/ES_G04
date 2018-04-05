@@ -9,13 +9,17 @@ import org.junit.Test;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class BookingConflictMethodTest {
+	private static final String IBAN = "IBAN";
+	private static final String NIF = "NIF";
+	private static final double PRICE_SINGLE = 20.0;
+	private static final double PRICE_DOUBLE = 30.0;
 	private final LocalDate arrival = new LocalDate(2016, 12, 19);
 	private final LocalDate departure = new LocalDate(2016, 12, 24);
 	private Booking booking;
 
 	@Before
 	public void setUp() {
-		Hotel hotel = new Hotel("XPTO123", "Londres");
+		Hotel hotel = new Hotel("XPTO123", "Londres", NIF, IBAN, PRICE_SINGLE, PRICE_DOUBLE);
 
 		this.booking = new Booking(hotel, this.arrival, this.departure);
 	}
