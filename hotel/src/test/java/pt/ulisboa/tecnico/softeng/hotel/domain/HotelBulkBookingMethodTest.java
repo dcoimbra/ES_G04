@@ -14,7 +14,7 @@ import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class HotelBulkBookingMethodTest {
-	private static final String IBAN = "IBAN";
+	private static final String IBAN = "BK01987654321";
 	private static final String NIF = "123456789";
 	private static final double PRICE_SINGLE = 20.0;
 	private static final double PRICE_DOUBLE = 30.0;
@@ -24,13 +24,13 @@ public class HotelBulkBookingMethodTest {
 
 	@Before
 	public void setUp() {
-		this.hotel = new Hotel("XPTO123", "Paris", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
+		this.hotel = new Hotel("XPTO123", "Paris", "NIF", "IBAN", PRICE_SINGLE, PRICE_DOUBLE);
 		new Room(this.hotel, "01", Type.DOUBLE);
 		new Room(this.hotel, "02", Type.SINGLE);
 		new Room(this.hotel, "03", Type.DOUBLE);
 		new Room(this.hotel, "04", Type.SINGLE);
 
-		this.hotel = new Hotel("XPTO124", "Paris", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
+		this.hotel = new Hotel("XPTO124", "Paris", "NIF", "IBAN", PRICE_SINGLE, PRICE_DOUBLE);
 		new Room(this.hotel, "01", Type.DOUBLE);
 		new Room(this.hotel, "02", Type.SINGLE);
 		new Room(this.hotel, "03", Type.DOUBLE);
@@ -39,44 +39,44 @@ public class HotelBulkBookingMethodTest {
 
 	@Test
 	public void success() {
-		Set<String> references = Hotel.bulkBooking(2, this.arrival, this.departure, NIF);
+		Set<String> references = Hotel.bulkBooking(2, this.arrival, this.departure, NIF, IBAN);
 
 		assertEquals(2, references.size());
 	}
 
 	@Test(expected = HotelException.class)
 	public void zeroNumber() {
-		Hotel.bulkBooking(0, this.arrival, this.departure, NIF);
+		Hotel.bulkBooking(0, this.arrival, this.departure, NIF, IBAN);
 	}
 
 	@Test(expected = HotelException.class)
 	public void noRooms() {
 		Hotel.hotels.clear();
-		this.hotel = new Hotel("XPTO124", "Paris", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
+		this.hotel = new Hotel("XPTO124", "Paris", "NIF", "IBAN", PRICE_SINGLE, PRICE_DOUBLE);
 
-		Hotel.bulkBooking(3, this.arrival, this.departure, NIF);
+		Hotel.bulkBooking(3, this.arrival, this.departure, NIF, IBAN);
 	}
 
 	@Test
 	public void OneNumber() {
-		Set<String> references = Hotel.bulkBooking(1, this.arrival, this.departure, NIF);
+		Set<String> references = Hotel.bulkBooking(1, this.arrival, this.departure, NIF, IBAN);
 
 		assertEquals(1, references.size());
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullArrival() {
-		Hotel.bulkBooking(2, null, this.departure, NIF);
+		Hotel.bulkBooking(2, null, this.departure, NIF, IBAN);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullDeparture() {
-		Hotel.bulkBooking(2, this.arrival, null, NIF);
+		Hotel.bulkBooking(2, this.arrival, null, NIF, IBAN);
 	}
 
 	@Test
 	public void reserveAll() {
-		Set<String> references = Hotel.bulkBooking(8, this.arrival, this.departure, NIF);
+		Set<String> references = Hotel.bulkBooking(8, this.arrival, this.departure, NIF, IBAN);
 
 		assertEquals(8, references.size());
 	}
@@ -84,7 +84,7 @@ public class HotelBulkBookingMethodTest {
 	@Test
 	public void reserveAllPlusOne() {
 		try {
-			Hotel.bulkBooking(9, this.arrival, this.departure, NIF);
+			Hotel.bulkBooking(9, this.arrival, this.departure, NIF, IBAN);
 			fail();
 		} catch (HotelException he) {
 			assertEquals(8, Hotel.getAvailableRooms(8, this.arrival, this.departure).size());

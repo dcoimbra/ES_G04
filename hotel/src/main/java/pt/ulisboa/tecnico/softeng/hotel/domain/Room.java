@@ -67,7 +67,7 @@ public class Room {
 		return true;
 	}
 
-	public Booking reserve(Type type, LocalDate arrival, LocalDate departure, String Nif) {
+	public Booking reserve(Type type, LocalDate arrival, LocalDate departure, String nif, String iban) {
 		if (type == null || arrival == null || departure == null) {
 			throw new HotelException();
 		}
@@ -76,7 +76,7 @@ public class Room {
 			throw new HotelException();
 		}
 
-		Booking booking = new Booking(type, this.hotel, arrival, departure, Nif);
+		Booking booking = new Booking(type, this.hotel, arrival, departure, nif, iban);
 		this.hotel.getProcessor().submitBooking(booking);
 		this.bookings.add(booking);
 

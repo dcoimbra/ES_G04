@@ -10,7 +10,7 @@ import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 
 public class BookingConflictMethodTest {
-	private static final String IBAN = "IBAN";
+	private static final String IBAN = "BK01987654321";
 	private static final String NIF = "123456789";
 	private static final double PRICE_SINGLE = 20.0;
 	private static final double PRICE_DOUBLE = 30.0;
@@ -20,9 +20,9 @@ public class BookingConflictMethodTest {
 
 	@Before
 	public void setUp() {
-		Hotel hotel = new Hotel("XPTO123", "Londres", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
+		Hotel hotel = new Hotel("XPTO123", "Londres", "NIF", "IBAN", PRICE_SINGLE, PRICE_DOUBLE);
 
-		this.booking = new Booking(Type.DOUBLE, hotel, this.arrival, this.departure, NIF);
+		this.booking = new Booking(Type.DOUBLE, hotel, this.arrival, this.departure, NIF, IBAN);
 	}
 
 	@Test

@@ -10,7 +10,7 @@ import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 
 public class BookingConstructorTest {
-	private static final String IBAN = "IBAN";
+	private static final String IBAN = "BK01987654321";
 	private static final String NIF = "123456789";
 	private static final double PRICE_SINGLE = 20.0;
 	private static final double PRICE_DOUBLE = 30.0;
@@ -20,12 +20,12 @@ public class BookingConstructorTest {
 
 	@Before
 	public void setUp() {
-		this.hotel = new Hotel("XPTO123", "Londres", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
+		this.hotel = new Hotel("XPTO123", "Londres", "NIF", "IBAN", PRICE_SINGLE, PRICE_DOUBLE);
 	}
 
 	@Test
 	public void success() {
-		Booking booking = new Booking(Type.DOUBLE, this.hotel, this.arrival, this.departure, NIF);
+		Booking booking = new Booking(Type.DOUBLE, this.hotel, this.arrival, this.departure, NIF, IBAN);
 
 		Assert.assertTrue(booking.getReference().startsWith(this.hotel.getCode()));
 		Assert.assertTrue(booking.getReference().length() > Hotel.CODE_SIZE);
@@ -35,32 +35,32 @@ public class BookingConstructorTest {
 
 	@Test(expected = HotelException.class)
 	public void nullType() {
-		new Booking(null, this.hotel, this.arrival, this.departure, NIF);
+		new Booking(null, this.hotel, this.arrival, this.departure, NIF, IBAN);
 	}
 	
 	@Test(expected = HotelException.class)
 	public void nullHotel() {
-		new Booking(Type.DOUBLE, null, this.arrival, this.departure, NIF);
+		new Booking(Type.DOUBLE, null, this.arrival, this.departure, NIF, IBAN);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullArrival() {
-		new Booking(Type.DOUBLE, this.hotel, null, this.departure, NIF);
+		new Booking(Type.DOUBLE, this.hotel, null, this.departure, NIF, IBAN);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullDeparture() {
-		new Booking(Type.DOUBLE, this.hotel, this.arrival, null, NIF);
+		new Booking(Type.DOUBLE, this.hotel, this.arrival, null, NIF, IBAN);
 	}
 
 	@Test(expected = HotelException.class)
 	public void departureBeforeArrival() {
-		new Booking(Type.DOUBLE, this.hotel, this.arrival, this.arrival.minusDays(1), NIF);
+		new Booking(Type.DOUBLE, this.hotel, this.arrival, this.arrival.minusDays(1), NIF, IBAN);
 	}
 
 	@Test
 	public void arrivalEqualDeparture() {
-		new Booking(Type.DOUBLE, this.hotel, this.arrival, this.arrival, NIF);
+		new Booking(Type.DOUBLE, this.hotel, this.arrival, this.arrival, NIF, IBAN);
 	}
 
 	@After

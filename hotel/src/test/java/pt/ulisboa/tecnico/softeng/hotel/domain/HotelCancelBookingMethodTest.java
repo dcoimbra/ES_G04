@@ -21,7 +21,7 @@ import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 
 @RunWith(JMockit.class)
 public class HotelCancelBookingMethodTest {
-	private static final String IBAN = "IBAN";
+	private static final String IBAN = "BK01987654321";
 	private static final String NIF = "123456789";
 	private static final double PRICE_SINGLE = 20.0;
 	private static final double PRICE_DOUBLE = 30.0;
@@ -33,8 +33,12 @@ public class HotelCancelBookingMethodTest {
 
 	@Before
 	public void setUp() {
-		this.hotel = new Hotel("XPTO123", "Paris", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
+		this.hotel = new Hotel("XPTO123", "Paris", "NIF", "IBAN", PRICE_SINGLE, PRICE_DOUBLE);
 		this.room = new Room(this.hotel, "01", Type.DOUBLE);
+<<<<<<< HEAD
+=======
+		this.booking = this.room.reserve(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
+>>>>>>> ee28afa8a430835fd5cdcfc8f1136dcec69a2427
 	}
 
 	@Test

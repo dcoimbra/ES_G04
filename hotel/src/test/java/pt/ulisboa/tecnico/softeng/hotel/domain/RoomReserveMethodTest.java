@@ -22,13 +22,13 @@ public class RoomReserveMethodTest {
 
 	@Before
 	public void setUp() {
-		Hotel hotel = new Hotel("XPTO123", "Lisboa", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
+		Hotel hotel = new Hotel("XPTO123", "Lisboa", "NIF", "IBAN", PRICE_SINGLE, PRICE_DOUBLE);
 		this.room = new Room(hotel, "01", Type.SINGLE);
 	}
 
 	@Test
 	public void success() {
-		Booking booking = this.room.reserve(Type.SINGLE, this.arrival, this.departure, NIF);
+		Booking booking = this.room.reserve(Type.SINGLE, this.arrival, this.departure, NIF, IBAN);
 
 		Assert.assertEquals(1, this.room.getNumberOfBookings());
 		Assert.assertTrue(booking.getReference().length() > 0);
@@ -38,30 +38,30 @@ public class RoomReserveMethodTest {
 
 	@Test(expected = HotelException.class)
 	public void noDouble() {
-		this.room.reserve(Type.DOUBLE, this.arrival, this.departure, NIF);
+		this.room.reserve(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullType() {
-		this.room.reserve(null, this.arrival, this.departure, NIF);
+		this.room.reserve(null, this.arrival, this.departure, NIF, IBAN);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullArrival() {
-		this.room.reserve(Type.SINGLE, null, this.departure, NIF);
+		this.room.reserve(Type.SINGLE, null, this.departure, NIF, IBAN);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullDeparture() {
-		this.room.reserve(Type.SINGLE, this.arrival, null, NIF);
+		this.room.reserve(Type.SINGLE, this.arrival, null, NIF, IBAN);
 	}
 
 	@Test
 	public void allConflict() {
-		this.room.reserve(Type.SINGLE, this.arrival, this.departure, NIF);
+		this.room.reserve(Type.SINGLE, this.arrival, this.departure, NIF, IBAN);
 
 		try {
-			this.room.reserve(Type.SINGLE, this.arrival, this.departure, NIF);
+			this.room.reserve(Type.SINGLE, this.arrival, this.departure, NIF, IBAN);
 			fail();
 		} catch (HotelException he) {
 			Assert.assertEquals(1, this.room.getNumberOfBookings());

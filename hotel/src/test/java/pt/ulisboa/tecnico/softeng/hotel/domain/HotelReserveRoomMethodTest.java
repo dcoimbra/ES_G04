@@ -20,33 +20,33 @@ public class HotelReserveRoomMethodTest {
 
     @Before
     public void setUp() {
-        hotel = new Hotel("XPTO123", "Lisboa", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
+        hotel = new Hotel("XPTO123", "Lisboa", "NIF", "IBAN", PRICE_SINGLE, PRICE_DOUBLE);
         this.room = new Room(hotel, "01", Room.Type.SINGLE);
     }
 
     @Test
     public void success() {
-        String ref = Hotel.reserveRoom(Room.Type.SINGLE, arrival, departure, NIF);
+        String ref = Hotel.reserveRoom(Room.Type.SINGLE, arrival, departure, NIF, IBAN);
         assertTrue(ref.startsWith("XPTO12"));
     }
 
     @Test(expected = HotelException.class)
     public void noHotels() {
         Hotel.hotels.clear();
-        Hotel.reserveRoom(Room.Type.SINGLE, arrival, departure, NIF);
+        Hotel.reserveRoom(Room.Type.SINGLE, arrival, departure, NIF, IBAN);
     }
 
     @Test(expected = HotelException.class)
     public void noVacancy() {
         hotel.removeRooms();
-        String ref = Hotel.reserveRoom(Room.Type.SINGLE, arrival, new LocalDate(2016, 12, 25), NIF);
+        String ref = Hotel.reserveRoom(Room.Type.SINGLE, arrival, new LocalDate(2016, 12, 25), NIF, IBAN);
         System.out.println(ref);
     }
 
     @Test(expected = HotelException.class)
     public void noRooms() {
         hotel.removeRooms();
-        Hotel.reserveRoom(Room.Type.SINGLE, arrival, new LocalDate(2016, 12, 25), NIF);
+        Hotel.reserveRoom(Room.Type.SINGLE, arrival, new LocalDate(2016, 12, 25), NIF, IBAN);
     }
 
     @After
