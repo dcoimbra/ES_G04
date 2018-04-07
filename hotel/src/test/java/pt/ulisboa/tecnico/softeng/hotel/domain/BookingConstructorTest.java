@@ -35,7 +35,7 @@ public class BookingConstructorTest {
 
 	@Test(expected = HotelException.class)
 	public void nullType() {
-		new Booking(Type.DOUBLE, this.hotel, this.arrival, this.departure);
+		new Booking(null, this.hotel, this.arrival, this.departure);
 	}
 	
 	@Test(expected = HotelException.class)
