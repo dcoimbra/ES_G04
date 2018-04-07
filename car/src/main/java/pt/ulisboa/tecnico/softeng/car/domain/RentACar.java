@@ -1,9 +1,6 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.joda.time.LocalDate;
 
@@ -20,6 +17,8 @@ public class RentACar {
     private final String nif;
     private final String iban;
 	private final Map<String, Vehicle> vehicles = new HashMap<>();
+
+	private final Processor processor = new Processor();
 
 	public RentACar(String name, String nif, String iban) {
 		checkArguments(name);
@@ -55,6 +54,10 @@ public class RentACar {
     public String getNif() {
         return this.nif;
     }
+
+    public Processor getProcessor(){
+		return this.processor;
+	}
 
     public String getIban() {
         return this.iban;
@@ -112,7 +115,7 @@ public class RentACar {
 		return null;
 	}
 
-    public static String rentVehicle(String plate, String drivingLicense, LocalDate begin, LocalDate end, String iban, String nif) {
+    public static String rentVehicle(String drivingLicense, LocalDate begin, LocalDate end, String iban, String nif) {
 
         Set<Vehicle> vehicles = getAllAvailableMotorcycles(begin, end);
         Set<Vehicle> cars = getAllAvailableCars(begin, end);
@@ -121,21 +124,30 @@ public class RentACar {
 
         vehicles.addAll(cars);
 
-        for (Vehicle vehicle : vehicles) {
+        Vehicle first = null;
 
-            if (plate.equals(vehicle.getPlate())) {
+		if(!vehicles.isEmpty()) {
 
-                renting = vehicle.rent(drivingLicense, begin, end, iban, nif);
-            }
-        }
+			Iterator iter = vehicles.iterator();
+
+			first = (Vehicle) iter.next();
+
+		}
+
+		if(first != null)
+			renting = first.rent(drivingLicense, begin, end, iban, nif);
 
         if (renting != null) {
-
+			first.getRentACar().getProcessor().submitRenting(renting);
             return renting.getReference();
         }
 
+        System.out.println();
+
         throw new CarException();
     }
+
+
 
     public static String cancelRenting(String reference) {
         Renting renting = getRenting(reference);

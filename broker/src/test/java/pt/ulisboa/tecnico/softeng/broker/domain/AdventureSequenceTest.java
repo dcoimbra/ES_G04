@@ -37,7 +37,7 @@ public class AdventureSequenceTest {
 	@Injectable
 	private Broker broker;
 
-	private Client client = new Client(broker, IBAN, NIF, DRIVING_LICENSE , AGE);
+	private Client client;
 
 
 	@Test
@@ -45,6 +45,7 @@ public class AdventureSequenceTest {
 			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		new Expectations() {
 			{
+			    System.out.println("SQ1");
 				BankInterface.processPayment(IBAN, AMOUNT);
 				this.result = PAYMENT_CONFIRMATION;
 
@@ -62,7 +63,8 @@ public class AdventureSequenceTest {
 			}
 		};
 
-		Adventure adventure = new Adventure(this.broker, arrival, departure, this.client, AMOUNT);
+		client = new Client(broker, IBAN, NIF, DRIVING_LICENSE , AGE);
+		Adventure adventure = new Adventure(this.broker, arrival, departure, this.client, AMOUNT, true);
 
 		adventure.process();
 		adventure.process();
@@ -74,9 +76,10 @@ public class AdventureSequenceTest {
 
 	@Test
 	public void successSequenceTwo(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+			@Mocked final ActivityInterface activityInterface) {
 		new Expectations() {
 			{
+                System.out.println("SQ2");
 				BankInterface.processPayment(IBAN, AMOUNT);
 				this.result = PAYMENT_CONFIRMATION;
 
@@ -89,7 +92,8 @@ public class AdventureSequenceTest {
 			}
 		};
 
-        Adventure adventure = new Adventure(this.broker, arrival, arrival, this.client, AMOUNT);
+		client = new Client(broker, IBAN, NIF, DRIVING_LICENSE , AGE);
+        Adventure adventure = new Adventure(this.broker, arrival, arrival, this.client, AMOUNT, false);
 
 		adventure.process();
 		adventure.process();
@@ -103,12 +107,14 @@ public class AdventureSequenceTest {
 			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		new Expectations() {
 			{
+                System.out.println("USQ1");
 				BankInterface.processPayment(IBAN, AMOUNT);
 				this.result = new BankException();
 			}
 		};
 
-        Adventure adventure = new Adventure(this.broker, arrival, departure, this.client, AMOUNT);
+		client = new Client(broker, IBAN, NIF, DRIVING_LICENSE , AGE);
+        Adventure adventure = new Adventure(this.broker, arrival, departure, this.client, AMOUNT, true);
 
 		adventure.process();
 
@@ -120,6 +126,7 @@ public class AdventureSequenceTest {
 			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		new Expectations() {
 			{
+                System.out.println("USQ2");
 				BankInterface.processPayment(IBAN, AMOUNT);
 				this.result = PAYMENT_CONFIRMATION;
 
@@ -131,7 +138,9 @@ public class AdventureSequenceTest {
 			}
 		};
 
-        Adventure adventure = new Adventure(this.broker, arrival, departure, this.client, AMOUNT);
+		client = new Client(broker, IBAN, NIF, DRIVING_LICENSE , AGE);
+
+        Adventure adventure = new Adventure(this.broker, arrival, departure, this.client, AMOUNT, true);
 
 		adventure.process();
 		adventure.process();
@@ -145,6 +154,7 @@ public class AdventureSequenceTest {
 			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		new Expectations() {
 			{
+                System.out.println("USQ3");
 				BankInterface.processPayment(IBAN, AMOUNT);
 				this.result = PAYMENT_CONFIRMATION;
 
@@ -162,7 +172,9 @@ public class AdventureSequenceTest {
 			}
 		};
 
-        Adventure adventure = new Adventure(this.broker, arrival, departure, this.client, AMOUNT);
+		client = new Client(broker, IBAN, NIF, DRIVING_LICENSE , AGE);
+
+        Adventure adventure = new Adventure(this.broker, arrival, departure, this.client, AMOUNT, true);
 
 		adventure.process();
 		adventure.process();
@@ -177,6 +189,7 @@ public class AdventureSequenceTest {
 			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		new Expectations() {
 			{
+                System.out.println("USQ4");
 				BankInterface.processPayment(IBAN, AMOUNT);
 				this.result = PAYMENT_CONFIRMATION;
 
@@ -201,7 +214,9 @@ public class AdventureSequenceTest {
 			}
 		};
 
-        Adventure adventure = new Adventure(this.broker, arrival, departure, this.client, AMOUNT);
+		client = new Client(broker, IBAN, NIF, DRIVING_LICENSE , AGE);
+
+        Adventure adventure = new Adventure(this.broker, arrival, departure, this.client, AMOUNT, true);
 
 		adventure.process();
 		adventure.process();

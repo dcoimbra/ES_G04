@@ -14,7 +14,7 @@ import pt.ulisboa.tecnico.softeng.tax.domain.TaxPayer;
 
 public class AdventureConstructorMethodTest {
 	private static final int AGE = 20;
-	private static final int AMOUNT = 300;
+	private static final double MARGIN = 0.3;
 	private static final String NIF = "123456789";
 	private static final String IBAN = "BK011234567";
 
@@ -48,14 +48,14 @@ public class AdventureConstructorMethodTest {
 
 	@Test
 	public void success() {
-		Adventure adventure = new Adventure(this.broker, this.begin, this.end, this.client, AMOUNT);
+		Adventure adventure = new Adventure(this.broker, this.begin, this.end, this.client, MARGIN, true);
 
 		Assert.assertEquals(this.broker, adventure.getBroker());
 		Assert.assertEquals(this.begin, adventure.getBegin());
 		Assert.assertEquals(this.end, adventure.getEnd());
 		Assert.assertEquals(20, adventure.getAge());
 		Assert.assertEquals(IBAN, adventure.getIBAN());
-		Assert.assertEquals(300, adventure.getAmount());
+		Assert.assertEquals(MARGIN, adventure.getMargin(),0.0f);
 		Assert.assertTrue(this.broker.hasAdventure(adventure));
 
 		Assert.assertNull(adventure.getPaymentConfirmation());
@@ -65,34 +65,34 @@ public class AdventureConstructorMethodTest {
 
 	@Test(expected = BrokerException.class)
 	public void nullBroker() {
-		new Adventure(null, this.begin, this.end, client, AMOUNT);
+		new Adventure(null, this.begin, this.end, client, MARGIN, true);
 	}
 
 	@Test(expected = BrokerException.class)
 	public void nullBegin() {
-		new Adventure(this.broker, null, this.end, client, AMOUNT);
+		new Adventure(this.broker, null, this.end, client, MARGIN, true);
 	}
 
 	@Test(expected = BrokerException.class)
 	public void nullEnd() {
-		new Adventure(this.broker, this.begin, null, client, AMOUNT);
+		new Adventure(this.broker, this.begin, null, client, MARGIN, true);
 	}
 
 	@Test(expected = BrokerException.class)
-	public void negativeAmount() {
-		new Adventure(this.broker, this.begin, this.end, client, -100);
+	public void negativeMargin() {
+		new Adventure(this.broker, this.begin, this.end, client, -1, true);
 	}
 
 	@Test
-	public void success1Amount() {
-		Adventure adventure = new Adventure(this.broker, this.begin, this.end, client, 1);
+	public void success1Margin() {
+		Adventure adventure = new Adventure(this.broker, this.begin, this.end, client, 0.1, true);
 
 		Assert.assertEquals(this.broker, adventure.getBroker());
 		Assert.assertEquals(this.begin, adventure.getBegin());
 		Assert.assertEquals(this.end, adventure.getEnd());
 		Assert.assertEquals(20, adventure.getAge());
 		Assert.assertEquals(IBAN, adventure.getIBAN());
-		Assert.assertEquals(1, adventure.getAmount());
+		Assert.assertEquals(0.1, adventure.getMargin(),0.0f);
 		Assert.assertTrue(this.broker.hasAdventure(adventure));
 
 		Assert.assertNull(adventure.getPaymentConfirmation());
@@ -101,20 +101,20 @@ public class AdventureConstructorMethodTest {
 	}
 
 	@Test(expected = BrokerException.class)
-	public void zeroAmount() {
-		new Adventure(this.broker, this.begin, this.end, client, 0);
+	public void zeroMargin() {
+		new Adventure(this.broker, this.begin, this.end, client, 0, true);
 	}
 
 	@Test
 	public void successEqualDates() {
-		Adventure adventure = new Adventure(this.broker, this.begin, this.begin, client, AMOUNT);
+		Adventure adventure = new Adventure(this.broker, this.begin, this.begin, client, MARGIN, true);
 
 		Assert.assertEquals(this.broker, adventure.getBroker());
 		Assert.assertEquals(this.begin, adventure.getBegin());
 		Assert.assertEquals(this.begin, adventure.getEnd());
 		Assert.assertEquals(20, adventure.getAge());
 		Assert.assertEquals(IBAN, adventure.getIBAN());
-		Assert.assertEquals(300, adventure.getAmount());
+		Assert.assertEquals(MARGIN, adventure.getMargin(), 0.0f);
 		Assert.assertTrue(this.broker.hasAdventure(adventure));
 
 		Assert.assertNull(adventure.getPaymentConfirmation());
@@ -124,7 +124,7 @@ public class AdventureConstructorMethodTest {
 
 	@Test(expected = BrokerException.class)
 	public void inconsistentDates() {
-		new Adventure(this.broker, this.begin, this.begin.minusDays(1), client, AMOUNT);
+		new Adventure(this.broker, this.begin, this.begin.minusDays(1), client, MARGIN, true);
 	}
 
 	@After

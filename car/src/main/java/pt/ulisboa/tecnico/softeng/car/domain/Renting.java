@@ -25,8 +25,6 @@ public class Renting {
 	private String cancelledPaymentReference;
 	private boolean cancelledInvoice = false;
 
-	private final Processor processor = new Processor();
-
 	public Renting(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle, String buyerIban, String buyerNif ) {
 		checkArguments(drivingLicense, begin, end, vehicle);
 		this.reference = Integer.toString(++Renting.counter);
@@ -119,14 +117,11 @@ public class Renting {
 		this.cancel = "CANCEL" + this.reference;
 		this.cancellationDate = new LocalDate();
 
-		this.getProcessor().submitRenting(this);
+		this.getVehicle().getRentACar().getProcessor().submitRenting(this);
 
 		return this.cancel;
 	}
 
-	private Processor getProcessor() {
-		return this.processor;
-	}
 
 	public boolean isCancelled() {
 		return this.cancel != null;

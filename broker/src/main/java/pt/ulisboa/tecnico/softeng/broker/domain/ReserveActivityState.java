@@ -16,21 +16,27 @@ public class ReserveActivityState extends AdventureState {
 	@Override
 	public void process(Adventure adventure) {
 		try {
-			adventure.setActivityConfirmation(
-					ActivityInterface.reserveActivity(adventure.getBegin(), adventure.getEnd(), adventure.getAge()));
+			String reference = ActivityInterface.reserveActivity(adventure.getBegin(), adventure.getEnd(), adventure.getAge());
+			adventure.setActivityConfirmation(reference);
+			adventure.setTotalPrice(ActivityInterface.getActivityReservationData(reference).getAmount());
 		} catch (ActivityException ae) {
+			System.out.println("a1");
 			adventure.setState(State.UNDO);
 			return;
 		} catch (RemoteAccessException rae) {
 			incNumOfRemoteErrors();
 			if (getNumOfRemoteErrors() == MAX_REMOTE_ERRORS) {
+				System.out.println("a2");
 				adventure.setState(State.UNDO);
 			}
 			return;
 		}
 
 		if (adventure.getBegin().equals(adventure.getEnd())) {
-			adventure.setState(State.CONFIRMED);
+			if(adventure.getCls())
+				adventure.setState(State.RENT_VEHICLE);
+			else
+				adventure.setState(State.PROCESS_PAYMENT);
 		} else {
 			adventure.setState(State.BOOK_ROOM);
 		}

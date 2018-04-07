@@ -1,6 +1,8 @@
 package pt.ulisboa.tecnico.softeng.car.dataobjects;
 
 import org.joda.time.LocalDate;
+import org.joda.time.Days;
+import pt.ulisboa.tecnico.softeng.car.domain.RentACar;
 
 public class RentingData {
 	private String reference;
@@ -111,5 +113,11 @@ public class RentingData {
 	 */
 	public void setEnd(LocalDate end) {
 		this.end = end;
+	}
+
+	public double getPrice(){
+		int carprice = RentACar.getRenting(this.reference).getVehicle().getPrice();
+		int days = Days.daysBetween(begin, end).getDays();
+		return (double) days*carprice;
 	}
 }

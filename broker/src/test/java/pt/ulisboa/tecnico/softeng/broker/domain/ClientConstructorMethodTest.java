@@ -19,11 +19,11 @@ public class ClientConstructorMethodTest {
 
 	private static final String SELLER_ADDRESS = "Somewhere";
 	private static final String SELLER_NAME = "José Vendido";
-	private static final String SELLER_NIF = "123456789";
+	private static final String SELLER_NIF = "123456785";
 
 	private static final String BUYER_ADDRESS = "Narnia";
 	private static final String BUYER_NAME = "Jacinto Costa";
-	private static final String BUYER_NIF = "987654321";
+	private static final String BUYER_NIF = "987654325";
 	private static final String DRIVING_LICENSE = "IMT1234";
 
 	private Broker broker;
@@ -111,6 +111,12 @@ public class ClientConstructorMethodTest {
 	@Test(expected = BrokerException.class)
 	public void over100() {
 		new Client(broker, IBAN, NIF, DRIVING_LICENSE,101);
+	}
+
+	@After
+	public void tearDown() {
+		irs.clearAll();
+		Broker.brokers.clear();
 	}
 
 }

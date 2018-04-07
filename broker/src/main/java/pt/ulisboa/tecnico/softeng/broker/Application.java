@@ -33,7 +33,7 @@ public class Application {
         Buyer buyer = new Buyer(IRS.getIRS(), buyerNif, buyerName, buyerAddress);
 
 		Broker broker = new Broker("BR01", "Fun", sellerNif, buyerNif, accountBroker.getIBAN());
-		Adventure adventure = new Adventure(broker, new LocalDate(), new LocalDate(), new Client(broker, account.getIBAN(), "123456789", "IMT1234",33), 50);
+		Adventure adventure = new Adventure(broker, new LocalDate(), new LocalDate(), new Client(broker, account.getIBAN(), "123456789", "IMT1234",33), 50, true);
 
 		adventure.process();
 
