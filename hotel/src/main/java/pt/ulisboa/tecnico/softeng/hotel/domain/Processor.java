@@ -35,7 +35,6 @@ public class Processor {
 						continue;
 					}
 				}
-
 				InvoiceData invoice = new InvoiceData(booking.getProviderNif(), booking.getBuyerNif(), booking.getType(), booking.getAmount(), booking.getArrival());
 
 				try {
