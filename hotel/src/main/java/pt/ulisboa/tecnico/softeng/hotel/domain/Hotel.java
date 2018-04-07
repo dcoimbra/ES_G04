@@ -21,6 +21,8 @@ public class Hotel {
 	private final double priceDouble;
 	private final Set<Room> rooms = new HashSet<>();
 
+	private final Processor processor = new Processor();
+
 	public Hotel(String code, String name, String nif, String iban, double priceSingle, double priceDouble) {
 		checkArguments(code, name, nif, iban, priceSingle, priceDouble);
 
@@ -86,6 +88,10 @@ public class Hotel {
 	
 	public double getPriceDouble() {
 		return this.priceDouble;
+	}
+
+	public Processor getProcessor() {
+		return this.processor;
 	}
 	
 	void addRoom(Room room) {

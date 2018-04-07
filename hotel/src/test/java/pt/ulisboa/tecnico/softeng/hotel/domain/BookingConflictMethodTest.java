@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 
 public class BookingConflictMethodTest {
 	private static final String IBAN = "IBAN";
@@ -21,7 +22,7 @@ public class BookingConflictMethodTest {
 	public void setUp() {
 		Hotel hotel = new Hotel("XPTO123", "Londres", NIF, IBAN, PRICE_SINGLE, PRICE_DOUBLE);
 
-		this.booking = new Booking(hotel, this.arrival, this.departure);
+		this.booking = new Booking(Type.DOUBLE, hotel, this.arrival, this.departure);
 	}
 
 	@Test

@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.softeng.hotel.domain;
 import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 
 public class Booking {
 	private static int counter = 0;
@@ -10,25 +11,44 @@ public class Booking {
 	private final String reference;
 	private String cancellation;
 	private LocalDate cancellationDate;
+	private Type type;
+	private Hotel hotel;
 	private final LocalDate arrival;
 	private final LocalDate departure;
 
-	Booking(Hotel hotel, LocalDate arrival, LocalDate departure) {
-		checkArguments(hotel, arrival, departure);
+	Booking(Type type, Hotel hotel, LocalDate arrival, LocalDate departure) {
+		checkArguments(type, hotel, arrival, departure);
 
+		this.type = type;
+		this.hotel = hotel;
 		this.reference = hotel.getCode() + Integer.toString(++Booking.counter);
 		this.arrival = arrival;
 		this.departure = departure;
 	}
 
-	private void checkArguments(Hotel hotel, LocalDate arrival, LocalDate departure) {
-		if (hotel == null || arrival == null || departure == null) {
+	private void checkArguments(Type type, Hotel hotel, LocalDate arrival, LocalDate departure) {
+		if (type == null || hotel == null || arrival == null || departure == null) {
 			throw new HotelException();
 		}
 
 		if (departure.isBefore(arrival)) {
 			throw new HotelException();
 		}
+	}
+
+	public double getAmount() {
+		if (getType() == Type.DOUBLE)
+			return getHotel().getPriceDouble() * (getDeparture().getDayOfYear() - getArrival().getDayOfYear());
+		else
+			return getHotel().getPriceSingle() * (getDeparture().getDayOfYear() - getArrival().getDayOfYear());
+	}
+
+	public Hotel getHotel() {
+		return this.hotel;
+	}
+	
+	public Type getType() {
+		return this.type;
 	}
 
 	public String getReference() {

@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 
 public class BookingConstructorTest {
 	private static final String IBAN = "IBAN";
@@ -24,7 +25,7 @@ public class BookingConstructorTest {
 
 	@Test
 	public void success() {
-		Booking booking = new Booking(this.hotel, this.arrival, this.departure);
+		Booking booking = new Booking(Type.DOUBLE, this.hotel, this.arrival, this.departure);
 
 		Assert.assertTrue(booking.getReference().startsWith(this.hotel.getCode()));
 		Assert.assertTrue(booking.getReference().length() > Hotel.CODE_SIZE);
@@ -33,28 +34,33 @@ public class BookingConstructorTest {
 	}
 
 	@Test(expected = HotelException.class)
+	public void nullType() {
+		new Booking(Type.DOUBLE, this.hotel, this.arrival, this.departure);
+	}
+	
+	@Test(expected = HotelException.class)
 	public void nullHotel() {
-		new Booking(null, this.arrival, this.departure);
+		new Booking(Type.DOUBLE, null, this.arrival, this.departure);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullArrival() {
-		new Booking(this.hotel, null, this.departure);
+		new Booking(Type.DOUBLE, this.hotel, null, this.departure);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullDeparture() {
-		new Booking(this.hotel, this.arrival, null);
+		new Booking(Type.DOUBLE, this.hotel, this.arrival, null);
 	}
 
 	@Test(expected = HotelException.class)
 	public void departureBeforeArrival() {
-		new Booking(this.hotel, this.arrival, this.arrival.minusDays(1));
+		new Booking(Type.DOUBLE, this.hotel, this.arrival, this.arrival.minusDays(1));
 	}
 
 	@Test
 	public void arrivalEqualDeparture() {
-		new Booking(this.hotel, this.arrival, this.arrival);
+		new Booking(Type.DOUBLE, this.hotel, this.arrival, this.arrival);
 	}
 
 	@After
