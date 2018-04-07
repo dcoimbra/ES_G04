@@ -6,7 +6,9 @@ import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.BankInterface;
+import pt.ulisboa.tecnico.softeng.broker.interfaces.CarInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
+import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class UndoState extends AdventureState {
@@ -43,9 +45,23 @@ public class UndoState extends AdventureState {
 			}
 		}
 
+		if (requiresCancelRenting(adventure)) {
+			try {
+				adventure.setVehicleCancellation(CarInterface.cancelRenting(adventure.getVehicleConfirmation()));
+			} catch (CarException | RemoteAccessException ex) {
+				// does not change state
+			}
+		}
+
+
 		if (!requiresCancelPayment(adventure) && !requiresCancelActivity(adventure) && !requiresCancelRoom(adventure)) {
 			adventure.setState(State.CANCELLED);
 		}
+	}
+
+	private boolean requiresCancelRenting(Adventure adventure) {
+		return adventure.getVehicleConfirmation() != null && adventure.getVehicleCancellation() == null;
+
 	}
 
 	public boolean requiresCancelRoom(Adventure adventure) {
