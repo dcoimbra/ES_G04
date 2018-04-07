@@ -9,7 +9,7 @@ import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 import static junit.framework.TestCase.assertTrue;
 
 public class HotelReserveRoomMethodTest {
-	private static final String IBAN = "IBAN";
+	private static final String IBAN = "BK01987654321";
 	private static final String NIF = "123456789";
     private static final double PRICE_SINGLE = 20.0;
     private static final double PRICE_DOUBLE = 30.0;

@@ -18,7 +18,7 @@ import pt.ulisboa.tecnico.softeng.hotel.interfaces.TaxInterface;
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 
 public class HotelCancelBookingMethodTest {
-	private static final String IBAN = "IBAN";
+	private static final String IBAN = "BK01987654321";
 	private static final String NIF = "123456789";
 	private static final double PRICE_SINGLE = 20.0;
 	private static final double PRICE_DOUBLE = 30.0;
@@ -30,9 +30,9 @@ public class HotelCancelBookingMethodTest {
 
 	@Before
 	public void setUp() {
-		this.hotel = new Hotel("XPTO123", "Paris", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
+		this.hotel = new Hotel("XPTO123", "Paris", "NIF", "IBAN", PRICE_SINGLE, PRICE_DOUBLE);
 		this.room = new Room(this.hotel, "01", Type.DOUBLE);
-		this.booking = this.room.reserve(Type.DOUBLE, this.arrival, this.departure);
+		this.booking = this.room.reserve(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
 	}
 
 	@Test
@@ -45,7 +45,7 @@ public class HotelCancelBookingMethodTest {
 			}
 		};
 
-		Booking booking = new Booking(Type.DOUBLE, this.hotel, this.arrival, this.departure, NIF);
+		Booking booking = new Booking(Type.DOUBLE, this.hotel, this.arrival, this.departure, NIF, IBAN);
 		this.hotel.getProcessor().submitBooking(booking);
 
 		String cancel = Hotel.cancelBooking(booking.getReference());
@@ -64,7 +64,7 @@ public class HotelCancelBookingMethodTest {
 			}
 		};
 
-		this.hotel.getProcessor().submitBooking(new Booking(Type.DOUBLE, this.hotel, this.arrival, this.departure, NIF));
+		this.hotel.getProcessor().submitBooking(new Booking(Type.DOUBLE, this.hotel, this.arrival, this.departure, NIF, IBAN));
 
 		Hotel.cancelBooking("XPTO");
 	}

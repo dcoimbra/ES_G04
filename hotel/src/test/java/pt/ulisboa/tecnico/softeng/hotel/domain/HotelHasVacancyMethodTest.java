@@ -20,7 +20,7 @@ import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 @RunWith(JMockit.class)
 public class HotelHasVacancyMethodTest {
-	private static final String IBAN = "IBAN";
+	private static final String IBAN = "BK01987654321";
 	private static final String NIF = "123456789";
 	private static final double PRICE_SINGLE = 20.0;
 	private static final double PRICE_DOUBLE = 30.0;
@@ -31,7 +31,7 @@ public class HotelHasVacancyMethodTest {
 
 	@Before
 	public void setUp() {
-		this.hotel = new Hotel("XPTO123", "Paris", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
+		this.hotel = new Hotel("XPTO123", "Paris", "NIF", "IBAN", PRICE_SINGLE, PRICE_DOUBLE);
 		this.room = new Room(this.hotel, "01", Type.DOUBLE);
 	}
 	@Test
@@ -44,14 +44,14 @@ public class HotelHasVacancyMethodTest {
 
 	@Test
 	public void noVacancy() {
-		this.room.reserve(Type.DOUBLE, this.arrival, this.departure, NIF);
+		this.room.reserve(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
 
 		assertNull(this.hotel.hasVacancy(Type.DOUBLE, this.arrival, this.departure));
 	}
 
 	@Test
 	public void noVacancyEmptyRoomSet() {
-		Hotel otherHotel = new Hotel("XPTO124", "Paris Germain", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
+		Hotel otherHotel = new Hotel("XPTO124", "Paris Germain", "NIF", "IBAN", PRICE_SINGLE, PRICE_DOUBLE);
 
 		assertNull(otherHotel.hasVacancy(Type.DOUBLE, this.arrival, this.departure));
 	}
@@ -85,9 +85,9 @@ public class HotelHasVacancyMethodTest {
 			}
 		};
 
-		Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF);
+		Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
 		
-		String reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF);
+		String reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
 		Hotel.cancelBooking(reference);
 
 		Assert.assertNotNull(this.hotel.hasVacancy(Type.DOUBLE, arrival, arrival));
@@ -107,12 +107,12 @@ public class HotelHasVacancyMethodTest {
 			}
 		};
 		
-		Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF);
+		Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
 		
-		String reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF);
+		String reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
 		Hotel.cancelBooking(reference);
 		
-		Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF);
+		Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
 		
 		Assert.assertNull(this.hotel.hasVacancy(Type.DOUBLE, arrival, arrival));
 	}
