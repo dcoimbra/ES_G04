@@ -11,7 +11,7 @@ import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 
 public class BookingConflictMethodTest {
 	private static final String IBAN = "IBAN";
-	private static final String NIF = "NIF";
+	private static final String NIF = "123456789";
 	private static final double PRICE_SINGLE = 20.0;
 	private static final double PRICE_DOUBLE = 30.0;
 	private final LocalDate arrival = new LocalDate(2016, 12, 19);
@@ -20,9 +20,9 @@ public class BookingConflictMethodTest {
 
 	@Before
 	public void setUp() {
-		Hotel hotel = new Hotel("XPTO123", "Londres", NIF, IBAN, PRICE_SINGLE, PRICE_DOUBLE);
+		Hotel hotel = new Hotel("XPTO123", "Londres", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
 
-		this.booking = new Booking(Type.DOUBLE, hotel, this.arrival, this.departure);
+		this.booking = new Booking(Type.DOUBLE, hotel, this.arrival, this.departure, NIF);
 	}
 
 	@Test

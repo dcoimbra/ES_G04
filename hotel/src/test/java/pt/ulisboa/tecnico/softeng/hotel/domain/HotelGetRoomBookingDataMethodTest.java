@@ -14,7 +14,7 @@ import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class HotelGetRoomBookingDataMethodTest {
 	private static final String IBAN = "IBAN";
-	private static final String NIF = "NIF";
+	private static final String NIF = "123456789";
 	private static final double PRICE_SINGLE = 20.0;
 	private static final double PRICE_DOUBLE = 30.0;
 	private final LocalDate arrival = new LocalDate(2016, 12, 19);
@@ -25,9 +25,10 @@ public class HotelGetRoomBookingDataMethodTest {
 
 	@Before
 	public void setUp() {
-
+		
+		this.hotel = new Hotel("XPTO123", "Lisboa", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
 		this.room = new Room(this.hotel, "01", Type.SINGLE);
-		this.booking = this.room.reserve(Type.SINGLE, this.arrival, this.departure);
+		this.booking = this.room.reserve(Type.SINGLE, this.arrival, this.departure, NIF);
 	}
 
 	@Test
@@ -43,7 +44,7 @@ public class HotelGetRoomBookingDataMethodTest {
 		assertEquals(this.room.getType().name(), data.getRoomType());
 		assertEquals(this.booking.getArrival(), data.getArrival());
 		assertEquals(this.booking.getDeparture(), data.getDeparture());
-		assertEquals(this.booking.getAmount(), this.booking.getAmount(), 0.0f);
+		assertEquals(this.booking.getAmount(), data.getAmount(), 0.0f);
 	
 	}
 
