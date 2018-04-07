@@ -1,4 +1,5 @@
-package pt.ulisboa.tecnico.softeng.broker.interfaces;
+package pt.ulisboa.tecnico.softeng.hotel.interfaces;
+
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 import pt.ulisboa.tecnico.softeng.tax.domain.IRS;
 

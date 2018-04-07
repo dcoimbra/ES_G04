@@ -94,7 +94,7 @@ public class Adventure {
 
 
 
-		setState(State.PROCESS_PAYMENT);
+		setState(State.RESERVE_ACTIVITY);
 
 	}
 
