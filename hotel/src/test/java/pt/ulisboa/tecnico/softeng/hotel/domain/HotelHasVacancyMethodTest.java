@@ -7,10 +7,18 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+import mockit.Expectations;
+import mockit.Mocked;
+import mockit.integration.junit4.JMockit;
+import pt.ulisboa.tecnico.softeng.hotel.interfaces.BankInterface;
+import pt.ulisboa.tecnico.softeng.hotel.interfaces.TaxInterface;
+import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
+@RunWith(JMockit.class)
 public class HotelHasVacancyMethodTest {
 	private static final String IBAN = "IBAN";
 	private static final String NIF = "123456789";
@@ -26,7 +34,6 @@ public class HotelHasVacancyMethodTest {
 		this.hotel = new Hotel("XPTO123", "Paris", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
 		this.room = new Room(this.hotel, "01", Type.DOUBLE);
 	}
-
 	@Test
 	public void hasVacancy() {
 		Room room = this.hotel.hasVacancy(Type.DOUBLE, this.arrival, this.departure);
@@ -37,7 +44,7 @@ public class HotelHasVacancyMethodTest {
 
 	@Test
 	public void noVacancy() {
-		this.room.reserve(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
+		this.room.reserve(Type.DOUBLE, this.arrival, this.departure, NIF);
 
 		assertNull(this.hotel.hasVacancy(Type.DOUBLE, this.arrival, this.departure));
 	}
@@ -63,9 +70,56 @@ public class HotelHasVacancyMethodTest {
 	public void nullDeparture() {
 		this.hotel.hasVacancy(Type.DOUBLE, this.arrival, null);
 	}
+	
+	@Test
+	public void hasCancelledBookings(@Mocked final TaxInterface taxInterface,
+			@Mocked final BankInterface bankInterface) {
+		
+		this.room = new Room(this.hotel, "02", Type.DOUBLE);
+		
+		new Expectations() {
+			{
+				BankInterface.processPayment(this.anyString, this.anyDouble);
+
+				TaxInterface.submitInvoice((InvoiceData) this.any);
+			}
+		};
+
+		Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF);
+		
+		String reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF);
+		Hotel.cancelBooking(reference);
+
+		Assert.assertNotNull(this.hotel.hasVacancy(Type.DOUBLE, arrival, arrival));
+	}
+
+	@Test
+	public void hasCancelledBookingsButFull(@Mocked final TaxInterface taxInterface,
+			@Mocked final BankInterface bankInterface) {
+		
+		Room room2 = new Room(this.hotel, "02", Type.DOUBLE);
+		
+		new Expectations() {
+			{
+				BankInterface.processPayment(this.anyString, this.anyDouble);
+
+				TaxInterface.submitInvoice((InvoiceData) this.any);
+			}
+		};
+		
+		Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF);
+		
+		String reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF);
+		Hotel.cancelBooking(reference);
+		
+		Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF);
+		
+		Assert.assertNull(this.hotel.hasVacancy(Type.DOUBLE, arrival, arrival));
+	}
 
 	@After
 	public void tearDown() {
+		this.hotel.removeRooms();
 		Hotel.hotels.clear();
 	}
 
