@@ -6,14 +6,15 @@ import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.domain.RentACar;
 
 public class CarInterface {
-	public static String rentVehicle(String plate, String drivingLicense, LocalDate begin, LocalDate end) {
-		//TODO: call implemented rentVehicle method
-		return "RENTING";
+
+	public static String rentVehicle(String plate, String drivingLicense, LocalDate begin, LocalDate end,String Iban, String Nif) {
+
+		return RentACar.rentVehicle(plate, drivingLicense, begin, end, Iban, Nif);
 	}
 
 	public static String cancelRenting(String reference) {
-		//TODO: call implemented cancelRentingMethod
-		return "CANCELED";
+
+		return RentACar.cancelRenting(reference);
 	}
 
 	public static RentingData getRentingData(String reference) {

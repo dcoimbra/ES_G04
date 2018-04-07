@@ -16,12 +16,14 @@ public class VehicleIsFreeTest {
 	private static final LocalDate date2 = LocalDate.parse("2018-01-07");
 	private static final LocalDate date3 = LocalDate.parse("2018-01-08");
 	private static final LocalDate date4 = LocalDate.parse("2018-01-09");
-	private static final float PRICE = 20;
+	private static final String IBAN = "BK123456789";
+	private static final String NIF = "123456789";
+	private static final int PRICE = 20;
 	private Car car;
 
 	@Before
 	public void setUp() {
-		RentACar rentACar = new RentACar(RENT_A_CAR_NAME);
+		RentACar rentACar = new RentACar(RENT_A_CAR_NAME, NIF, IBAN);
 		this.car = new Car(PLATE_CAR, 10, rentACar, PRICE);
 	}
 
@@ -35,8 +37,8 @@ public class VehicleIsFreeTest {
 
 	@Test
 	public void bookingsWereMade() {
-		car.rent(DRIVING_LICENSE, date2, date2);
-		car.rent(DRIVING_LICENSE, date3, date4);
+		car.rent(DRIVING_LICENSE, date2, date2, IBAN, NIF);
+		car.rent(DRIVING_LICENSE, date3, date4, IBAN, NIF);
 
 		assertFalse(car.isFree(date1, date2));
 		assertFalse(car.isFree(date1, date3));

@@ -18,12 +18,12 @@ public abstract class Vehicle {
 	static Set<String> plates = new HashSet<>();
 
 	private final String plate;
-	private float price;
+	private int price;
 	private int kilometers;
 	private final RentACar rentACar;
 	public final Map<String, Renting> rentings = new HashMap<>();
 
-	public Vehicle(String plate, int kilometers, RentACar rentACar, float price) {
+	public Vehicle(String plate, int kilometers, RentACar rentACar, int price) {
 		logger.debug("Vehicle plate: {}", plate);
 		checkArguments(plate, kilometers, rentACar, price);
 
@@ -36,7 +36,7 @@ public abstract class Vehicle {
 		rentACar.addVehicle(this);
 	}
 
-	private void checkArguments(String plate, int kilometers, RentACar rentACar, float price) {
+	private void checkArguments(String plate, int kilometers, RentACar rentACar, int price) {
 		if (plate == null || !plate.matches(plateFormat) || plates.contains(plate.toUpperCase()) || (price <= 0)) {
 			throw new CarException();
 		} else if (kilometers < 0) {
@@ -56,7 +56,7 @@ public abstract class Vehicle {
 	/**
 	 * @return the price
 	 */
-	public float getPrice() {
+	public int getPrice() {
 		return this.price;
 	}
 
@@ -123,14 +123,15 @@ public abstract class Vehicle {
 	 * @param end
 	 * @return
 	 */
-	public Renting rent(String drivingLicense, LocalDate begin, LocalDate end) {
+	public Renting rent(String drivingLicense, LocalDate begin, LocalDate end, String buyerIban, String buyerNif) {
 		if (!isFree(begin, end)) {
 			throw new CarException();
 		}
 
-		Renting renting = new Renting(drivingLicense, begin, end, this);
+		Renting renting = new Renting(drivingLicense, begin, end, this, buyerIban, buyerNif);
 		this.addRenting(renting);
 
 		return renting;
 	}
+
 }

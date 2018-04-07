@@ -19,6 +19,7 @@ public class Application {
 
 		Bank bank = new Bank("MoneyPlus", "BK01");
 		Account account = new Account(bank, new Client(bank, "José dos Anzóis"));
+		Account accountBroker = new Account(bank, new Client(bank, "Broker"));
 		account.deposit(1000);
 
         String sellerAddress = "Somewhere";
@@ -32,7 +33,7 @@ public class Application {
         Seller seller = new Seller(IRS.getIRS(), sellerNif, sellerName, sellerAddress);
         Buyer buyer = new Buyer(IRS.getIRS(), buyerNif, buyerName, buyerAddress);
 
-		Broker broker = new Broker("BR01", "Fun", sellerNif, buyerNif);
+		Broker broker = new Broker("BR01", "Fun", sellerNif, buyerNif, accountBroker.getIBAN());
 		Adventure adventure = new Adventure(broker, new LocalDate(), new LocalDate(), new BrokerClient(account.getIBAN(), "123456789", 33), 50);
 
 		adventure.process();

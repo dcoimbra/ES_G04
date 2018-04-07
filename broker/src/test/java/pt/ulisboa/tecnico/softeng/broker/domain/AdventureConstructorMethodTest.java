@@ -41,7 +41,7 @@ public class AdventureConstructorMethodTest {
 	    Seller seller = new Seller(IRS.getIRS(), SELLER_NIF, SELLER_NAME, SELLER_ADDRESS);
 	    Buyer buyer = new Buyer(IRS.getIRS(), BUYER_NIF, BUYER_NAME, BUYER_ADDRESS);
 
-		this.broker = new Broker("BR01", "eXtremeADVENTURE", SELLER_NIF, BUYER_NIF);
+		this.broker = new Broker("BR01", "eXtremeADVENTURE", SELLER_NIF, BUYER_NIF, IBAN);
 		this.client = new BrokerClient(IBAN, NIF, AGE);
 	}
 
