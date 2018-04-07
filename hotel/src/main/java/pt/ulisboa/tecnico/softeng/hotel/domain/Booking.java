@@ -36,7 +36,7 @@ public class Booking {
 	}
 
 	private void checkArguments(Type roomType, Hotel hotel, LocalDate arrival, LocalDate departure, String buyerNIF, String buyerIban) {
-		if (roomType == null || hotel == null || arrival == null || departure == null || buyerNIF == null || buyerIBAN == null) {
+		if (roomType == null || hotel == null || arrival == null || departure == null || buyerNIF == null || buyerIban == null) {
 			throw new HotelException();
 		}
 
