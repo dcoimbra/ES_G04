@@ -25,7 +25,7 @@ public class HotelGetRoomBookingDataMethodTest {
 
 	@Before
 	public void setUp() {
-		this.hotel = new Hotel("XPTO123", "Lisboa", NIF, IBAN, PRICE_SINGLE, PRICE_DOUBLE);
+
 		this.room = new Room(this.hotel, "01", Type.SINGLE);
 		this.booking = this.room.reserve(Type.SINGLE, this.arrival, this.departure);
 	}
@@ -43,6 +43,8 @@ public class HotelGetRoomBookingDataMethodTest {
 		assertEquals(this.room.getType().name(), data.getRoomType());
 		assertEquals(this.booking.getArrival(), data.getArrival());
 		assertEquals(this.booking.getDeparture(), data.getDeparture());
+		assertEquals(this.booking.getAmount(), this.booking.getAmount(), 0.0f);
+	
 	}
 
 	@Test
@@ -59,6 +61,7 @@ public class HotelGetRoomBookingDataMethodTest {
 		assertEquals(this.room.getType().name(), data.getRoomType());
 		assertEquals(this.booking.getArrival(), data.getArrival());
 		assertEquals(this.booking.getDeparture(), data.getDeparture());
+		assertEquals(this.booking.getAmount(), data.getAmount(), 0.0f);
 	}
 
 	@Test(expected = HotelException.class)
