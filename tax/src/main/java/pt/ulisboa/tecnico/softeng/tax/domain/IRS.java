@@ -59,6 +59,10 @@ public class IRS {
 	}
 	
 	public static void cancelInvoice(String invoiceReference) {
+		if (invoiceReference == null || invoiceReference.isEmpty()) {
+			throw new TaxException();
+		}
+		
 		Invoice invoice = null;
 		for (TaxPayer taxPayer : IRS.getIRS().taxPayers) {
 			invoice = taxPayer.getInvoiceByReference(invoiceReference);
