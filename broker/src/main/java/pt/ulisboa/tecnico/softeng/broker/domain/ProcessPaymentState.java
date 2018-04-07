@@ -20,13 +20,15 @@ public class ProcessPaymentState extends AdventureState {
 	@Override
 	public void process(Adventure adventure) {
 		try {
-			adventure.setPaymentConfirmation(BankInterface.processPayment(adventure.getIBAN(), adventure.getAmount()));
+			adventure.setPaymentConfirmation(BankInterface.processPayment(adventure.getIBAN(), adventure.getAmount()*(1+adventure.getMargin())));
 		} catch (BankException be) {
+			System.out.println("1");
 			adventure.setState(State.CANCELLED);
 			return;
 		} catch (RemoteAccessException rae) {
 			incNumOfRemoteErrors();
 			if (getNumOfRemoteErrors() == MAX_REMOTE_ERRORS) {
+				System.out.println("2");
 				adventure.setState(State.CANCELLED);
 			}
 			return;
@@ -35,18 +37,18 @@ public class ProcessPaymentState extends AdventureState {
 		resetNumOfRemoteErrors();
 
 		try{
-			adventure.setTaxConfirmation(TaxInterface.submitInvoice( new InvoiceData(adventure.getBroker().getSeller(),
-																					adventure.getBroker().getBuyer(),
-																					"Adventure",
-																					adventure.getAmount(),
-																					new LocalDate().now())));
+			adventure.setTaxConfirmation(TaxInterface.submitInvoice(
+					new InvoiceData(adventure.getBroker().getSeller(), adventure.getNIF(),
+							"ADVENTURE", adventure.getAmount(),new LocalDate().now())));
 		}
 		catch (TaxException te){
+			System.out.println("3");
 			adventure.setState(State.CANCELLED);
 			return;
 		} catch (RemoteAccessException rae) {
 			incNumOfRemoteErrors();
 			if (getNumOfRemoteErrors() == MAX_REMOTE_ERRORS) {
+				System.out.println("4");
 				adventure.setState(State.CANCELLED);
 			}
 			return;

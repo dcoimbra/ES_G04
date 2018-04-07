@@ -16,15 +16,18 @@ public class RentVehicleState extends AdventureState {
 	@Override
 	public void process(Adventure adventure) {
 		try {
-			adventure.setVehicleConfirmation(
-					CarInterface.rentVehicle("plate","license", adventure.getBegin(), adventure.getEnd(),
-							adventure.getBroker().getIBAN(), adventure.getBroker().getBuyer()));
+		    String reference = CarInterface.rentVehicle(adventure.getDrivingLicense(), adventure.getBegin(), adventure.getEnd(),
+                    adventure.getBroker().getIBAN(), adventure.getBroker().getBuyer());
+			adventure.setVehicleConfirmation(reference);
+            adventure.setTotalPrice(CarInterface.getRentingData(reference).getPrice());
 		} catch (CarException ce) {
+			System.out.println("c1");
 			adventure.setState(State.UNDO);
 			return;
 		} catch (RemoteAccessException rae) {
 			incNumOfRemoteErrors();
 			if (getNumOfRemoteErrors() == MAX_REMOTE_ERRORS) {
+				System.out.println("c2");
 				adventure.setState(State.UNDO);
 			}
 			return;

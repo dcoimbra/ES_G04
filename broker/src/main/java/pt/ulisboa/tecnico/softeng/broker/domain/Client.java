@@ -25,7 +25,7 @@ public class Client {
 		this.drivingLicense = drivingLicense;
 	}
 
-	private void checkArguments(Broker broker, String IBAN, String NIF, int age, String drivingLicense){
+	private void checkArguments(Broker broker, String IBAN, String NIF, int age, String drivingLicense) {
 		if (broker == null)
 			throw new BrokerException();
 
@@ -55,4 +55,7 @@ public class Client {
 		return this.age;
 	}
 
+	public String getDrivingLicense() {
+		return this.drivingLicense;
+	}
 }

@@ -15,6 +15,7 @@ public class RoomBookingData {
 	private LocalDate arrival;
 	private LocalDate departure;
 	private LocalDate cancellationDate;
+	private double amount;
 
 	public RoomBookingData() {
 	}
@@ -29,6 +30,7 @@ public class RoomBookingData {
 		this.arrival = booking.getArrival();
 		this.departure = booking.getDeparture();
 		this.cancellationDate = booking.getCancellationDate();
+		this.amount = booking.getAmount();
 	}
 
 	public String getReference() {
@@ -39,6 +41,14 @@ public class RoomBookingData {
 		this.reference = reference;
 	}
 
+	public double getAmount() {
+		return this.amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+	
 	public String getCancellation() {
 		return this.cancellation;
 	}

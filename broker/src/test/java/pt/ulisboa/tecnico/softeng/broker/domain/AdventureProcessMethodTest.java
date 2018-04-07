@@ -13,12 +13,14 @@ import pt.ulisboa.tecnico.softeng.activity.domain.ActivityOffer;
 import pt.ulisboa.tecnico.softeng.activity.domain.ActivityProvider;
 import pt.ulisboa.tecnico.softeng.bank.domain.Account;
 import pt.ulisboa.tecnico.softeng.bank.domain.Bank;
+import pt.ulisboa.tecnico.softeng.car.domain.RentACar;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.tax.domain.Buyer;
 import pt.ulisboa.tecnico.softeng.tax.domain.IRS;
 import pt.ulisboa.tecnico.softeng.tax.domain.Seller;
+import pt.ulisboa.tecnico.softeng.car.domain.Car;
 
 public class AdventureProcessMethodTest {
 
@@ -33,6 +35,11 @@ public class AdventureProcessMethodTest {
 	private Broker broker;
 	private String IBAN;
 
+	private static final String NAME_OF_RENT_A_CAR = "Drive Save";
+	private static final String NIF_OF_RENT_A_CAR = "666666666";
+
+	private static final String PLATE_CAR = "00-33-HZ";
+
     private static final String SELLER_ADDRESS = "Somewhere";
     private static final String SELLER_NAME = "José Vendido";
     private static final String SELLER_NIF = "123456789";
@@ -45,6 +52,9 @@ public class AdventureProcessMethodTest {
     private static final double PRICE_SINGLE = 20.0;
 	private static final double PRICE_DOUBLE = 30.0;
 
+	private static Car car;
+	private RentACar rentACar;
+
     IRS irs;
 
 	@Before
@@ -54,14 +64,24 @@ public class AdventureProcessMethodTest {
 
         Seller seller = new Seller(IRS.getIRS(), SELLER_NIF, SELLER_NAME, SELLER_ADDRESS);
         Buyer buyer = new Buyer(IRS.getIRS(), BUYER_NIF, BUYER_NAME, BUYER_ADDRESS);
-
-        this.broker = new Broker("BR01", "eXtremeADVENTURE", SELLER_NIF, BUYER_NIF, IBAN);
-
-
 		Bank bank = new Bank("Money", "BK01");
 		pt.ulisboa.tecnico.softeng.bank.domain.Client clientB = new pt.ulisboa.tecnico.softeng.bank.domain.Client(bank, "António");
 		Account account = new Account(bank, clientB);
+
 		this.IBAN = account.getIBAN();
+
+		pt.ulisboa.tecnico.softeng.bank.domain.Client rentACarClient = new pt.ulisboa.tecnico.softeng.bank.domain.Client(
+				bank, NAME_OF_RENT_A_CAR);
+
+		Account rentACarAccount = new Account(bank, rentACarClient);
+
+        this.broker = new Broker("BR01", "eXtremeADVENTURE", SELLER_NIF, BUYER_NIF, IBAN);
+
+		rentACar = new RentACar(NAME_OF_RENT_A_CAR, NIF_OF_RENT_A_CAR,
+				rentACarAccount.getIBAN());
+
+		car = new Car(PLATE_CAR, 10, rentACar, 20);
+
 		account.deposit(1000);
 
         this.client = new Client(broker, IBAN, NIF,DRIVING_LICENSE ,AGE);
@@ -79,8 +99,9 @@ public class AdventureProcessMethodTest {
 	public void success() {
 
 
-		Adventure adventure = new Adventure(this.broker, this.begin, this.end, this.client, AMOUNT);
+		Adventure adventure = new Adventure(this.broker, this.begin, this.end, this.client, AMOUNT, true);
 
+		adventure.process();
 		adventure.process();
 		adventure.process();
 		adventure.process();
@@ -93,8 +114,10 @@ public class AdventureProcessMethodTest {
 
 	@Test
 	public void successNoHotelBooking() {
-        Adventure adventure = new Adventure(this.broker, this.begin, this.end, this.client, AMOUNT);
+        Adventure adventure = new Adventure(this.broker, this.begin, this.begin, this.client, AMOUNT, true);
 
+		adventure.process();
+		adventure.process();
 		adventure.process();
 		adventure.process();
 
@@ -110,5 +133,9 @@ public class AdventureProcessMethodTest {
 		Hotel.hotels.clear();
 		ActivityProvider.providers.clear();
 		Broker.brokers.clear();
+		Car.removePlates();
+		rentACar.removeVehicles();
+		RentACar.rentACars.clear();
+
 	}
 }

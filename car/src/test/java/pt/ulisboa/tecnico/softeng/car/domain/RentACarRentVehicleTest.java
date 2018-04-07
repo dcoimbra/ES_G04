@@ -31,14 +31,14 @@ public class RentACarRentVehicleTest {
     public void success() {
 
         this.vehicle = new Car(PLATE_CAR, 10, this.rentACar, PRICE);
-        RentACar.rentVehicle(PLATE_CAR, DRIVING_LICENSE, date1, date2, IBAN, NIF);
+        RentACar.rentVehicle( DRIVING_LICENSE, date1, date2, IBAN, NIF);
     }
 
     @Test(expected = CarException.class)
     public void noRentACars() {
 
         RentACar.rentACars.clear();
-        RentACar.rentVehicle(PLATE_CAR, DRIVING_LICENSE, date1, date2, IBAN, NIF);
+        RentACar.rentVehicle(DRIVING_LICENSE, date1, date2, IBAN, NIF);
     }
 
 
@@ -46,7 +46,7 @@ public class RentACarRentVehicleTest {
     public void noVehicles() {
 
         rentACar.removeVehicles();
-        RentACar.rentVehicle(PLATE_CAR, DRIVING_LICENSE, date1, date2, IBAN, NIF);
+        RentACar.rentVehicle(DRIVING_LICENSE, date1, date2, IBAN, NIF);
     }
 
     @After
