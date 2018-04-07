@@ -40,7 +40,7 @@ public class Adventure {
 
 	private final LocalDate end;
 
-	private final BrokerClient client;
+	private final Client client;
 
 	private final int amount;
 
@@ -70,7 +70,7 @@ public class Adventure {
 
 
 
-	public Adventure(Broker broker, LocalDate begin, LocalDate end, BrokerClient client, int amount) {
+	public Adventure(Broker broker, LocalDate begin, LocalDate end, Client client, int amount) {
 
 		checkArguments(broker, begin, end, amount);
 

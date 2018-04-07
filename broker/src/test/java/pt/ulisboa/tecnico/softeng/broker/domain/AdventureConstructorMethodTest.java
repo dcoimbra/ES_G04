@@ -25,8 +25,9 @@ public class AdventureConstructorMethodTest {
     private static final String BUYER_ADDRESS = "Narnia";
     private static final String BUYER_NAME = "Jacinto Costa";
     private static final String BUYER_NIF = "987654321";
+	private static final String DRIVING_LICENSE = "IMT1234";
 
-	private BrokerClient client;
+	private Client client;
 	private Broker broker;
 	private final LocalDate begin = new LocalDate(2016, 12, 19);
 	private final LocalDate end = new LocalDate(2016, 12, 21);
@@ -42,7 +43,7 @@ public class AdventureConstructorMethodTest {
 	    Buyer buyer = new Buyer(IRS.getIRS(), BUYER_NIF, BUYER_NAME, BUYER_ADDRESS);
 
 		this.broker = new Broker("BR01", "eXtremeADVENTURE", SELLER_NIF, BUYER_NIF, IBAN);
-		this.client = new BrokerClient(IBAN, NIF, AGE);
+		this.client = new Client(broker, IBAN, NIF, DRIVING_LICENSE ,AGE);
 	}
 
 	@Test

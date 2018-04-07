@@ -31,11 +31,14 @@ public class ConfirmedStateProcessMethodTest {
 	private static final String ROOM_CONFIRMATION = "RoomConfirmation";
 	private static final LocalDate arrival = new LocalDate(2016, 12, 19);
 	private static final LocalDate departure = new LocalDate(2016, 12, 21);
+	private static final String DRIVING_LICENSE = "IMT1234";
+
 	private Adventure adventure;
-	private BrokerClient client = new BrokerClient(IBAN, NIF, AGE);
 
 	@Injectable
 	private Broker broker;
+
+	private Client client = new Client(broker, IBAN, NIF,DRIVING_LICENSE ,AGE);
 
 	@Before
 	public void setUp() {

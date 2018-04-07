@@ -11,7 +11,7 @@ import pt.ulisboa.tecnico.softeng.tax.domain.Buyer;
 import pt.ulisboa.tecnico.softeng.tax.domain.IRS;
 import pt.ulisboa.tecnico.softeng.tax.domain.Seller;
 
-public class BrokerClientConstructorMethodTest {
+public class ClientConstructorMethodTest {
 	private static final int AGE = 20;
 	private static final String NIF = "123456789";
 	private static final String IBAN = "BK011234567";

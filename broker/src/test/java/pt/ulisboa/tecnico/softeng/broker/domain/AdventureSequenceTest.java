@@ -32,10 +32,12 @@ public class AdventureSequenceTest {
 	private static final String ROOM_CANCELLATION = "RoomCancellation";
 	private static final LocalDate arrival = new LocalDate(2016, 12, 19);
 	private static final LocalDate departure = new LocalDate(2016, 12, 21);
-    private BrokerClient client = new BrokerClient(IBAN, NIF, AGE);
+	private static final String DRIVING_LICENSE = "IMT1234";
 
 	@Injectable
 	private Broker broker;
+
+	private Client client = new Client(broker, IBAN, NIF, DRIVING_LICENSE , AGE);
 
 
 	@Test

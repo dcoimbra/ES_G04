@@ -13,7 +13,6 @@ import pt.ulisboa.tecnico.softeng.activity.domain.ActivityOffer;
 import pt.ulisboa.tecnico.softeng.activity.domain.ActivityProvider;
 import pt.ulisboa.tecnico.softeng.bank.domain.Account;
 import pt.ulisboa.tecnico.softeng.bank.domain.Bank;
-import pt.ulisboa.tecnico.softeng.bank.domain.Client;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
@@ -30,7 +29,7 @@ public class AdventureProcessMethodTest {
 	private final LocalDate begin = new LocalDate(2016, 12, 19);
 	private final LocalDate end = new LocalDate(2016, 12, 21);
 
-    private BrokerClient brokerClient;
+    private Client client;
 	private Broker broker;
 	private String IBAN;
 
@@ -41,6 +40,7 @@ public class AdventureProcessMethodTest {
     private static final String BUYER_ADDRESS = "Narnia";
     private static final String BUYER_NAME = "Jacinto Costa";
     private static final String BUYER_NIF = "987654321";
+	private static final String DRIVING_LICENSE = "IMT1234";
     
     private static final double PRICE_SINGLE = 20.0;
 	private static final double PRICE_DOUBLE = 30.0;
@@ -59,12 +59,12 @@ public class AdventureProcessMethodTest {
 
 
 		Bank bank = new Bank("Money", "BK01");
-		Client client = new Client(bank, "António");
-		Account account = new Account(bank, client);
+		pt.ulisboa.tecnico.softeng.bank.domain.Client clientB = new pt.ulisboa.tecnico.softeng.bank.domain.Client(bank, "António");
+		Account account = new Account(bank, clientB);
 		this.IBAN = account.getIBAN();
 		account.deposit(1000);
 
-        this.brokerClient = new BrokerClient(IBAN, NIF, AGE);
+        this.client = new Client(broker, IBAN, NIF,DRIVING_LICENSE ,AGE);
 
 		Hotel hotel = new Hotel("XPTO123", "Paris", "NIF_HOTEL", "IBAN_HOTEL", PRICE_SINGLE, PRICE_DOUBLE);
 		new Room(hotel, "01", Type.SINGLE);
@@ -79,7 +79,7 @@ public class AdventureProcessMethodTest {
 	public void success() {
 
 
-		Adventure adventure = new Adventure(this.broker, this.begin, this.end, this.brokerClient, AMOUNT);
+		Adventure adventure = new Adventure(this.broker, this.begin, this.end, this.client, AMOUNT);
 
 		adventure.process();
 		adventure.process();
@@ -93,7 +93,7 @@ public class AdventureProcessMethodTest {
 
 	@Test
 	public void successNoHotelBooking() {
-        Adventure adventure = new Adventure(this.broker, this.begin, this.end, this.brokerClient, AMOUNT);
+        Adventure adventure = new Adventure(this.broker, this.begin, this.end, this.client, AMOUNT);
 
 		adventure.process();
 		adventure.process();

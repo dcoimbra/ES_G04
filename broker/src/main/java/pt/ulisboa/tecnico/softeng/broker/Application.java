@@ -4,10 +4,9 @@ import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.bank.domain.Account;
 import pt.ulisboa.tecnico.softeng.bank.domain.Bank;
-import pt.ulisboa.tecnico.softeng.bank.domain.Client;
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure;
 import pt.ulisboa.tecnico.softeng.broker.domain.Broker;
-import pt.ulisboa.tecnico.softeng.broker.domain.BrokerClient;
+import pt.ulisboa.tecnico.softeng.broker.domain.Client;
 import pt.ulisboa.tecnico.softeng.tax.domain.Buyer;
 import pt.ulisboa.tecnico.softeng.tax.domain.IRS;
 import pt.ulisboa.tecnico.softeng.tax.domain.Seller;
@@ -18,8 +17,8 @@ public class Application {
 		System.out.println("Adventures!");
 
 		Bank bank = new Bank("MoneyPlus", "BK01");
-		Account account = new Account(bank, new Client(bank, "José dos Anzóis"));
-		Account accountBroker = new Account(bank, new Client(bank, "Broker"));
+		Account account = new Account(bank, new pt.ulisboa.tecnico.softeng.bank.domain.Client(bank, "José dos Anzóis"));
+		Account accountBroker = new Account(bank, new pt.ulisboa.tecnico.softeng.bank.domain.Client(bank, "Broker"));
 		account.deposit(1000);
 
         String sellerAddress = "Somewhere";
@@ -34,7 +33,7 @@ public class Application {
         Buyer buyer = new Buyer(IRS.getIRS(), buyerNif, buyerName, buyerAddress);
 
 		Broker broker = new Broker("BR01", "Fun", sellerNif, buyerNif, accountBroker.getIBAN());
-		Adventure adventure = new Adventure(broker, new LocalDate(), new LocalDate(), new BrokerClient(account.getIBAN(), "123456789", 33), 50);
+		Adventure adventure = new Adventure(broker, new LocalDate(), new LocalDate(), new Client(broker, account.getIBAN(), "123456789", "IMT1234",33), 50);
 
 		adventure.process();
 

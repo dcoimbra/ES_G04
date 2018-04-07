@@ -26,11 +26,14 @@ public class ProcessPaymentStateProcessMethodTest {
 	private final LocalDate begin = new LocalDate(2016, 12, 19);
 	private final LocalDate end = new LocalDate(2016, 12, 21);
 	private Adventure adventure;
-	private BrokerClient client = new BrokerClient(IBAN, NIF, AGE);
+	private static final String DRIVING_LICENSE = "IMT1234";
+
+
 
 	@Injectable
 	private Broker broker;
 
+	private Client client = new Client(broker, IBAN, NIF, DRIVING_LICENSE ,AGE);
 
 	@Before
 	public void setUp() {
