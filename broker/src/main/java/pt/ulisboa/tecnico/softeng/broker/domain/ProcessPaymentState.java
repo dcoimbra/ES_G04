@@ -52,7 +52,7 @@ public class ProcessPaymentState extends AdventureState {
 			return;
 		}
 
-		adventure.setState(State.RESERVE_ACTIVITY);
+		adventure.setState(State.CONFIRMED);
 	}
 
 }
