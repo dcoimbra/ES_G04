@@ -29,7 +29,7 @@ public class Processor {
 			if (!booking.isCancelled()) {
 				if (booking.getPaymentReference() == null) {
 					try {
-						booking.setPaymentReference(BankInterface.processPayment(booking.getIban(), booking.getAmount()));
+						booking.setPaymentReference(BankInterface.processPayment(booking.getBuyerIBAN(), booking.getAmount()));
 					} catch (BankException | RemoteAccessException e) {
 						failedBookings.add(booking);
 						continue;

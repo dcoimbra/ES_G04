@@ -18,9 +18,9 @@ public class BookRoomState extends AdventureState {
 	@Override
 	public void process(Adventure adventure) {
 		try {
-			String reference = HotelInterface.reserveRoom(Room.Type.SINGLE, adventure.getBegin(), adventure.getEnd());
+			String reference = HotelInterface.reserveRoom(Room.Type.SINGLE, adventure.getBegin(), adventure.getEnd(), adventure.getBroker().getBuyer(), adventure.getBroker().getIBAN());
 			adventure.setRoomConfirmation(reference);
-			//adventure.setTotalPrice(HotelInterface.getRoomBookingData(reference).getAmount());
+			adventure.setTotalPrice(HotelInterface.getRoomBookingData(reference).getAmount());
 		} catch (HotelException he) {
 			System.out.println("h1");
 			adventure.setState(State.UNDO);

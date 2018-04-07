@@ -13,6 +13,7 @@ public class Booking {
 	private String paymentReference;
 	private String invoiceReference;
 	private final String buyerNIF;
+	private final String buyerIBAN;
 	private String cancellation;
 	private String cancelledPaymentReference = null;
 	private boolean cancelledInvoice = false;
@@ -22,8 +23,8 @@ public class Booking {
 	private final LocalDate arrival;
 	private final LocalDate departure;
 
-	Booking(Type roomType, Hotel hotel, LocalDate arrival, LocalDate departure, String buyerNIF) {
-		checkArguments(roomType, hotel, arrival, departure, buyerNIF);
+	Booking(Type roomType, Hotel hotel, LocalDate arrival, LocalDate departure, String buyerNIF, String buyerIban) {
+		checkArguments(roomType, hotel, arrival, departure, buyerNIF, buyerIban);
 
 		this.roomType = roomType;
 		this.hotel = hotel;
@@ -31,10 +32,11 @@ public class Booking {
 		this.arrival = arrival;
 		this.departure = departure;
 		this.buyerNIF = buyerNIF;
+		this.buyerIBAN = buyerIban;
 	}
 
-	private void checkArguments(Type roomType, Hotel hotel, LocalDate arrival, LocalDate departure, String buyerNIF) {
-		if (roomType == null || hotel == null || arrival == null || departure == null || buyerNIF == null) {
+	private void checkArguments(Type roomType, Hotel hotel, LocalDate arrival, LocalDate departure, String buyerNIF, String buyerIban) {
+		if (roomType == null || hotel == null || arrival == null || departure == null || buyerNIF == null || buyerIBAN == null) {
 			throw new HotelException();
 		}
 
@@ -88,10 +90,6 @@ public class Booking {
 
 	public String getBuyerNif() {
 		return this.buyerNIF;
-	}
-
-	public String getIban() {
-		return this.hotel.getIban();
 	}
 
 	public String getPaymentReference() {
@@ -159,6 +157,10 @@ public class Booking {
 
 	public boolean isCancelled() {
 		return this.cancellation != null;
+	}
+
+	public String getBuyerIBAN() {
+		return buyerIBAN;
 	}
 
 }
