@@ -15,6 +15,7 @@ public class Booking {
 	private final String buyerNIF;
 	private String cancellation;
 	private String cancelledPaymentReference = null;
+	private boolean cancelledInvoice = false;
 	private LocalDate cancellationDate;
 	private Type roomType;
 	private Hotel hotel;
@@ -107,6 +108,10 @@ public class Booking {
 
 	public void setInvoiceReference(String invoiceReference) {
 		this.invoiceReference = invoiceReference;
+	}
+
+	public void setCancelledInvoice(boolean cancelledInvoice) {
+		this.cancelledInvoice = cancelledInvoice;
 	}
 
 	public String getCancelledPaymentReference() {
