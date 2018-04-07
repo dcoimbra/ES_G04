@@ -7,27 +7,33 @@ import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 
 public class Booking {
 	private static int counter = 0;
+	private static final String type = "BOOKROOM";
 
 	private final String reference;
+	private String paymentReference;
+	private String invoiceReference;
+	private final String buyerNIF;
 	private String cancellation;
+	private String cancelledPaymentReference = null;
 	private LocalDate cancellationDate;
-	private Type type;
+	private Type roomType;
 	private Hotel hotel;
 	private final LocalDate arrival;
 	private final LocalDate departure;
 
-	Booking(Type type, Hotel hotel, LocalDate arrival, LocalDate departure) {
-		checkArguments(type, hotel, arrival, departure);
+	Booking(Type roomType, Hotel hotel, LocalDate arrival, LocalDate departure, String buyerNIF) {
+		checkArguments(roomType, hotel, arrival, departure, buyerNIF);
 
-		this.type = type;
+		this.roomType = roomType;
 		this.hotel = hotel;
 		this.reference = hotel.getCode() + Integer.toString(++Booking.counter);
 		this.arrival = arrival;
 		this.departure = departure;
+		this.buyerNIF = buyerNIF;
 	}
 
-	private void checkArguments(Type type, Hotel hotel, LocalDate arrival, LocalDate departure) {
-		if (type == null || hotel == null || arrival == null || departure == null) {
+	private void checkArguments(Type roomType, Hotel hotel, LocalDate arrival, LocalDate departure, String buyerNIF) {
+		if (roomType == null || hotel == null || arrival == null || departure == null || buyerNIF == null) {
 			throw new HotelException();
 		}
 
@@ -37,7 +43,7 @@ public class Booking {
 	}
 
 	public double getAmount() {
-		if (getType() == Type.DOUBLE)
+		if (getRoomType() == Type.DOUBLE)
 			return getHotel().getPriceDouble() * (getDeparture().getDayOfYear() - getArrival().getDayOfYear());
 		else
 			return getHotel().getPriceSingle() * (getDeparture().getDayOfYear() - getArrival().getDayOfYear());
@@ -46,9 +52,13 @@ public class Booking {
 	public Hotel getHotel() {
 		return this.hotel;
 	}
+
+	public String getType() {
+		return Booking.type;
+	}
 	
-	public Type getType() {
-		return this.type;
+	public Type getRoomType() {
+		return this.roomType;
 	}
 
 	public String getReference() {
@@ -69,6 +79,42 @@ public class Booking {
 
 	public LocalDate getCancellationDate() {
 		return this.cancellationDate;
+	}
+
+	public String getProviderNif() {
+		return this.hotel.getNif();
+	}
+
+	public String getBuyerNif() {
+		return this.buyerNIF;
+	}
+
+	public String getIban() {
+		return this.hotel.getIban();
+	}
+
+	public String getPaymentReference() {
+		return this.paymentReference;
+	}
+
+	public void setPaymentReference(String paymentReference) {
+		this.paymentReference = paymentReference;
+	}
+
+	public String getInvoiceReference() {
+		return this.invoiceReference;
+	}
+
+	public void setInvoiceReference(String invoiceReference) {
+		this.invoiceReference = invoiceReference;
+	}
+
+	public String getCancelledPaymentReference() {
+		return this.cancelledPaymentReference;
+	}
+
+	public void setCancelledPaymentReference(String cancelledPaymentReference) {
+		this.cancelledPaymentReference = cancelledPaymentReference;
 	}
 
 	boolean conflict(LocalDate arrival, LocalDate departure) {
