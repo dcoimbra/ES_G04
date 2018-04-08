@@ -6,10 +6,18 @@ import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+import mockit.Expectations;
+import mockit.Mocked;
+import mockit.integration.junit4.JMockit;
 import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
+import pt.ulisboa.tecnico.softeng.car.interfaces.BankInterface;
+import pt.ulisboa.tecnico.softeng.car.interfaces.TaxInterface;
+import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 
+@RunWith(JMockit.class)
 public class RentACarGetRentingDataTest {
 
 	private static final String NAME1 = "eartz";
@@ -21,16 +29,27 @@ public class RentACarGetRentingDataTest {
 	private static final String NIF = "123456789";
 	private static final int PRICE = 20;
 	private Car car;
-
+	private RentACar rentACar;
 	@Before
 	public void setUp() {
-		RentACar rentACar1 = new RentACar(NAME1, NIF, IBAN);
-		this.car = new Car(PLATE_CAR1, 10, rentACar1, PRICE);
+		this.rentACar = new RentACar(NAME1, NIF, IBAN);
+		this.car = new Car(PLATE_CAR1, 10, rentACar, PRICE);
 	}
 
 	@Test
-	public void success() {
+	public void sucess(@Mocked final TaxInterface taxInterface,
+			@Mocked final BankInterface bankInterface) {
+		new Expectations() {
+			{
+				BankInterface.processPayment(this.anyString, this.anyInt);
+				
+				TaxInterface.submitInvoice((InvoiceData) this.any);
+			
+			}
+		};
 		Renting renting = car.rent(DRIVING_LICENSE, date1, date2,IBAN, NIF);
+		this.rentACar.getProcessor().submitRenting(renting);
+		
 		RentingData rentingData = RentACar.getRentingData(renting.getReference());
 		assertEquals(renting.getReference(), rentingData.getReference());
 		assertEquals(DRIVING_LICENSE, rentingData.getDrivingLicense());

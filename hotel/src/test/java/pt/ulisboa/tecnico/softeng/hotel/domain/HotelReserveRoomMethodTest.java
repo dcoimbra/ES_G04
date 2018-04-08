@@ -56,7 +56,6 @@ public class HotelReserveRoomMethodTest {
     public void noVacancy() {
         hotel.removeRooms();
         String ref = Hotel.reserveRoom(Room.Type.SINGLE, arrival, new LocalDate(2016, 12, 25), NIF, IBAN);
-        System.out.println(ref);
     }
 
     @Test(expected = HotelException.class)

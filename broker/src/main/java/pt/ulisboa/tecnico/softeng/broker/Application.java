@@ -15,7 +15,6 @@ public class Application {
 
 	public static void main(String[] args) {
 		System.out.println("Adventures!");
-
 		Bank bank = new Bank("MoneyPlus", "BK01");
 		Account account = new Account(bank, new pt.ulisboa.tecnico.softeng.bank.domain.Client(bank, "José dos Anzóis"));
 		Account accountBroker = new Account(bank, new pt.ulisboa.tecnico.softeng.bank.domain.Client(bank, "Broker"));

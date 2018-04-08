@@ -17,31 +17,37 @@ public class VehicleRentTest {
 	private static final String NIF = "123456789";
 	private static final int PRICE = 20;
 	private Car car;
-
+	private RentACar rentACar;
 	@Before
 	public void setUp() {
-		RentACar rentACar = new RentACar(RENT_A_CAR_NAME, NIF, IBAN);
+		rentACar = new RentACar(RENT_A_CAR_NAME, NIF, IBAN);
 		this.car = new Car(PLATE_CAR, 10, rentACar, PRICE);
 	}
 
 	@Test(expected = CarException.class)
 	public void doubleRent() {
-		car.rent(DRIVING_LICENSE, date1, date2, IBAN, NIF);
-		car.rent(DRIVING_LICENSE, date1, date2, IBAN, NIF);
+		Renting renting = car.rent(DRIVING_LICENSE, date1, date2,IBAN, NIF);
+		this.rentACar.getProcessor().submitRenting(renting);
+		renting = car.rent(DRIVING_LICENSE, date1, date2,IBAN, NIF);
+		this.rentACar.getProcessor().submitRenting(renting);
+		renting = car.rent(DRIVING_LICENSE, date1, date2,IBAN, NIF);
+		this.rentACar.getProcessor().submitRenting(renting);
 	}
 
 	@Test(expected = CarException.class)
 	public void beginIsNull() {
 		RentACar rentACar = new RentACar(RENT_A_CAR_NAME, NIF, IBAN);
 		Vehicle car = new Car(PLATE_CAR, 10, rentACar, PRICE);
-		car.rent(DRIVING_LICENSE, null, date2, IBAN, NIF);
+		Renting renting = car.rent(DRIVING_LICENSE, date1, date2,IBAN, NIF);
+		this.rentACar.getProcessor().submitRenting(renting);
 	}
 
 	@Test(expected = CarException.class)
 	public void endIsNull() {
 		RentACar rentACar = new RentACar(RENT_A_CAR_NAME, NIF, IBAN);
 		Vehicle car = new Car(PLATE_CAR, 10, rentACar, PRICE);
-		car.rent(DRIVING_LICENSE, date1, null, IBAN, NIF);
+		Renting renting = car.rent(DRIVING_LICENSE, date1, date2,IBAN, NIF);
+		this.rentACar.getProcessor().submitRenting(renting);
 	}
 
 	@After

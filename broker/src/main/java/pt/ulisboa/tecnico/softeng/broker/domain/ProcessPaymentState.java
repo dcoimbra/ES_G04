@@ -38,8 +38,6 @@ public class ProcessPaymentState extends AdventureState {
 			InvoiceData id = new InvoiceData(adventure.getBroker().getSeller(), adventure.getNIF(),
 					"ADVENTURE", adventure.getAmount(),new LocalDate().now());
 
-			System.out.println(id);
-			
 			String reference  = TaxInterface.submitInvoice(id);
 			
 			adventure.setTaxConfirmation(reference);

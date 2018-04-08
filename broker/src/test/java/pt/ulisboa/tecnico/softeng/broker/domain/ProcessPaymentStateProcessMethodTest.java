@@ -84,7 +84,6 @@ public class ProcessPaymentStateProcessMethodTest {
 	public void singleRemoteAccessException(@Mocked final BankInterface bankInterface) {
 		new Expectations() {
 			{
-				System.out.println("singleRemote");
 				BankInterface.processPayment(IBAN, 0);
 				this.result = new RemoteAccessException();
 			}

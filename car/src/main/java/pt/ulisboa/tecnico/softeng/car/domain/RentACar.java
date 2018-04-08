@@ -142,8 +142,6 @@ public class RentACar {
             return renting.getReference();
         }
 
-        System.out.println();
-
         throw new CarException();
     }
 
