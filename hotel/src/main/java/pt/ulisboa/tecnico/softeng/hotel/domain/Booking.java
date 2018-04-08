@@ -149,9 +149,12 @@ public class Booking {
 		return false;
 	}
 
-	public String cancel() {
-		this.cancellation = this.reference + "CANCEL";
+	public String cancel() {		
+		this.cancellation = "CANCEL" + this.reference;
 		this.cancellationDate = new LocalDate();
+
+		this.hotel.getProcessor().submitBooking(this);
+
 		return this.cancellation;
 	}
 
