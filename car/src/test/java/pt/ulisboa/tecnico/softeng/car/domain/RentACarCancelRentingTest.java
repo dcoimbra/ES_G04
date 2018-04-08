@@ -59,6 +59,7 @@ public class RentACarCancelRentingTest {
 
     @After
     public void tearDown() {
+    	Vehicle.plates.clear();
         RentACar.rentACars.clear();
     }
 }

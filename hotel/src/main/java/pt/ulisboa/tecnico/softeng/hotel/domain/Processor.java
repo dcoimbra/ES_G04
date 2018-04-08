@@ -41,7 +41,6 @@ public class Processor {
 					booking.setInvoiceReference(TaxInterface.submitInvoice(invoice));
 				} catch (TaxException | RemoteAccessException e) {
 					failedBookings.add(booking);
-					continue;
 				}
 			}
 
@@ -57,6 +56,7 @@ public class Processor {
 				}
 			}
 		}
+
 
 		this.bookingsToProcess.clear();
 		this.bookingsToProcess.addAll(failedBookings);

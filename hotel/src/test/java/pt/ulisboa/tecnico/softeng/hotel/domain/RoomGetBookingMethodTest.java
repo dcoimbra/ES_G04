@@ -11,7 +11,7 @@ import org.junit.Test;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 
 public class RoomGetBookingMethodTest {
-	private static final String IBAN = "IBAN";
+	private static final String IBAN = "BK01987654321";
 	private static final String NIF = "123456789";
 	private static final double PRICE_SINGLE = 20.0;
 	private static final double PRICE_DOUBLE = 30.0;
@@ -23,7 +23,7 @@ public class RoomGetBookingMethodTest {
 
 	@Before
 	public void setUp() {
-		this.hotel = new Hotel("XPTO123", "Lisboa", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
+		this.hotel = new Hotel("XPTO123", "Lisboa", "NIF", "IBAN", PRICE_SINGLE, PRICE_DOUBLE);
 		this.room = new Room(this.hotel, "01", Type.SINGLE);
 		this.booking = this.room.reserve(Type.SINGLE, this.arrival, this.departure, NIF, IBAN);
 	}
