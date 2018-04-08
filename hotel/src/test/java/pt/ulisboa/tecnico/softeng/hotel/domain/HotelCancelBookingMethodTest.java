@@ -47,7 +47,6 @@ public class HotelCancelBookingMethodTest {
 			}
 		};
 		
-		this.room = new Room(this.hotel, "01", Type.DOUBLE);
 		String reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
 		String cancel = Hotel.cancelBooking(reference);
 
@@ -65,8 +64,7 @@ public class HotelCancelBookingMethodTest {
 			}
 		};
 
-		this.hotel.getProcessor().submitBooking(new Booking(Type.DOUBLE, this.hotel, this.arrival, this.departure, NIF, IBAN));
-
+		String reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);		
 		Hotel.cancelBooking("XPTO");
 	}
 	
@@ -80,7 +78,7 @@ public class HotelCancelBookingMethodTest {
 			}
 		};
 		
-		this.hotel.getProcessor().submitBooking(new Booking(Type.DOUBLE, this.hotel, this.arrival, this.departure, NIF, IBAN));
+		String reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
 		Hotel.cancelBooking(null);
 	}
 
@@ -94,7 +92,7 @@ public class HotelCancelBookingMethodTest {
 			}
 		};
 		
-		this.hotel.getProcessor().submitBooking(new Booking(Type.DOUBLE, this.hotel, this.arrival, this.departure, NIF, IBAN));
+		String reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
 		Hotel.cancelBooking("");
 	}
 
