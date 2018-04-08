@@ -35,7 +35,6 @@ public class HotelCancelBookingMethodTest {
 	public void setUp() {
 		this.hotel = new Hotel("XPTO123", "Paris", "NIF", IBAN, PRICE_SINGLE, PRICE_DOUBLE);
 		this.room = new Room(this.hotel, "01", Type.DOUBLE);
-		this.booking = this.room.reserve(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
 	}
 
 	@Test
@@ -48,8 +47,7 @@ public class HotelCancelBookingMethodTest {
 			}
 		};
 		
-		this.room = new Room(this.hotel, "02", Type.DOUBLE);
-
+		this.room = new Room(this.hotel, "01", Type.DOUBLE);
 		String reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
 		String cancel = Hotel.cancelBooking(reference);
 
@@ -102,6 +100,7 @@ public class HotelCancelBookingMethodTest {
 
 	@After
 	public void tearDown() {
+		this.hotel.removeRooms();
 		Hotel.hotels.clear();
 	}
 }
