@@ -14,14 +14,17 @@ import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.*;
+import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
+import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 @RunWith(JMockit.class)
 public class AdventureSequenceTest {
 	private static final String IBAN = "BK01987654321";
 	private static final int AMOUNT = 300;
+	private static final double MARGIN = 0.3;
 	private static final int AGE = 20;
     private static final String NIF = "123456789";
 	private static final String PAYMENT_CONFIRMATION = "PaymentConfirmation";
@@ -47,7 +50,7 @@ public class AdventureSequenceTest {
 	@Before
 	public void setUp() {
 		this.client = new Client(broker, IBAN, NIF, DRIVING_LICENSE , AGE);
-		this.adventure = new Adventure(this.broker, arrival, departure, this.client, AMOUNT, true);
+		this.adventure = new Adventure(this.broker, arrival, departure, this.client, MARGIN, true);
 	}
 
 	@Test
@@ -62,7 +65,6 @@ public class AdventureSequenceTest {
                 broker.getBuyer();
                 this.result = NIF;
 
-			    System.out.println("SQ1");
 				BankInterface.processPayment(IBAN,0);
 				this.result = PAYMENT_CONFIRMATION;
 
@@ -78,12 +80,17 @@ public class AdventureSequenceTest {
                 TaxInterface.submitInvoice((InvoiceData) this.any);
                 this.result = TAX_CONFIRMATION;
 
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+
 				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
 
 				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
+
+				CarInterface.getRentingData(RENT_CONFIRMATION);
 			}
 		};
 
+		adventure.process();
 		adventure.process();
 		adventure.process();
 		adventure.process();
@@ -94,59 +101,90 @@ public class AdventureSequenceTest {
 
 	@Test
 	public void successSequenceTwo(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface) {
+			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface,
+								   @Mocked final TaxInterface taxInterface) {
+
 		new Expectations() {
 			{
-                System.out.println("SQ2");
-				BankInterface.processPayment(IBAN, AMOUNT);
+
+				broker.getIBAN();
+				this.result = IBAN;
+
+				broker.getBuyer();
+				this.result = NIF;
+
+				BankInterface.processPayment(IBAN, 0);
 				this.result = PAYMENT_CONFIRMATION;
 
-				ActivityInterface.reserveActivity(arrival, arrival, AGE,NIF, IBAN);
+				ActivityInterface.reserveActivity(arrival, departure, AGE,NIF, IBAN);
 				this.result = ACTIVITY_CONFIRMATION;
+
+				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure,NIF, IBAN);
+				this.result = ROOM_CONFIRMATION;
+
+
+				TaxInterface.submitInvoice((InvoiceData) this.any);
+				this.result = TAX_CONFIRMATION;
 
 				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
 
 				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+
+				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
 			}
 		};
 
-		adventure.process();
-		adventure.process();
-		adventure.process();
+		Adventure noCarAdventure = new Adventure(this.broker,arrival, departure, this.client, MARGIN,false);
 
-		Assert.assertEquals(State.CONFIRMED, adventure.getState());
+		noCarAdventure.process();
+		noCarAdventure.process();
+		noCarAdventure.process();
+		noCarAdventure.process();
+
+		Assert.assertEquals(State.CONFIRMED, noCarAdventure.getState());
 	}
 
 	@Test
-	public void unsuccessSequenceOne(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+	public void unsuccessSequenceOne(@Mocked final ActivityInterface activityInterface) {
 		new Expectations() {
 			{
-                System.out.println("USQ1");
-				BankInterface.processPayment(IBAN, AMOUNT);
-				this.result = new BankException();
-			}
-		};
 
-		adventure.process();
+				broker.getIBAN();
+				this.result = IBAN;
 
-		Assert.assertEquals(State.CANCELLED, adventure.getState());
-	}
+				broker.getBuyer();
+				this.result = NIF;
 
-	@Test
-	public void unsuccessSequenceTwo(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
-		new Expectations() {
-			{
-                System.out.println("USQ2");
-				BankInterface.processPayment(IBAN, AMOUNT);
-				this.result = PAYMENT_CONFIRMATION;
-
-				ActivityInterface.reserveActivity(arrival, departure, AGE, NIF, IBAN);
+				ActivityInterface.reserveActivity(arrival, departure, AGE,NIF, IBAN);
 				this.result = new ActivityException();
+			}
+		};
 
-				BankInterface.cancelPayment(PAYMENT_CONFIRMATION);
-				this.result = PAYMENT_CANCELLATION;
+		adventure.process();
+		adventure.process();
+
+		Assert.assertEquals(State.CANCELLED, adventure.getState());
+	}
+
+	@Test
+	public void unsuccessSequenceTwo(@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+		new Expectations() {
+			{
+
+				broker.getIBAN();
+				this.result = IBAN;
+
+				broker.getBuyer();
+				this.result = NIF;
+
+				ActivityInterface.reserveActivity(arrival, departure, AGE,NIF, IBAN);
+				this.result = ACTIVITY_CONFIRMATION;
+
+				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure,NIF, IBAN);
+				this.result = new HotelException();
+
+				ActivityInterface.cancelReservation(ACTIVITY_CONFIRMATION);
+				this.result = ACTIVITY_CANCELLATION;
 			}
 		};
 
@@ -158,11 +196,10 @@ public class AdventureSequenceTest {
 	}
 
 	@Test
-	public void unsuccessSequenceThree(@Mocked final BankInterface bankInterface,
+	public void unsuccessSequenceThree(@Mocked final CarInterface carInterface,
 			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
 		new Expectations() {
 			{
-                System.out.println("USQ3");
 
                 broker.getIBAN();
                 this.result = IBAN;
@@ -174,13 +211,16 @@ public class AdventureSequenceTest {
 				this.result = ACTIVITY_CONFIRMATION;
 
 				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure ,NIF, IBAN);
- 				this.result = new HotelException();
+ 				this.result = ROOM_CONFIRMATION;
 
-				BankInterface.cancelPayment(PAYMENT_CONFIRMATION);
-				this.result = PAYMENT_CANCELLATION;
+ 				CarInterface.rentVehicle(DRIVING_LICENSE,arrival,departure,IBAN,NIF);
+ 				this.result = new CarException();
 
 				ActivityInterface.cancelReservation(ACTIVITY_CONFIRMATION);
 				this.result = ACTIVITY_CANCELLATION;
+
+				HotelInterface.cancelBooking(ROOM_CONFIRMATION);
+				this.result = ROOM_CANCELLATION;
 			}
 		};
 
@@ -195,40 +235,77 @@ public class AdventureSequenceTest {
 
 	@Test
 	public void unsuccessSequenceFour(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface, @Mocked final CarInterface carInterface) {
 		new Expectations() {
 			{
-                System.out.println("USQ4");
-				BankInterface.processPayment(IBAN, AMOUNT);
-				this.result = PAYMENT_CONFIRMATION;
 
-				ActivityInterface.reserveActivity(arrival, departure, AGE,NIF, IBAN);
+				broker.getIBAN();
+				this.result = IBAN;
+
+				broker.getBuyer();
+				this.result = NIF;
+
+				ActivityInterface.reserveActivity(arrival, departure, AGE ,NIF, IBAN);
 				this.result = ACTIVITY_CONFIRMATION;
 
-				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure,NIF, IBAN);
+				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure ,NIF, IBAN);
 				this.result = ROOM_CONFIRMATION;
 
-				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+				CarInterface.rentVehicle(DRIVING_LICENSE,arrival,departure,IBAN,NIF);
+				this.result = RENT_CONFIRMATION;
+
+				BankInterface.processPayment(IBAN, 0);
 				this.result = new BankException();
-				this.times = ConfirmedState.MAX_BANK_EXCEPTIONS;
 
-				BankInterface.cancelPayment(PAYMENT_CONFIRMATION);
-				this.result = PAYMENT_CANCELLATION;
-
-				ActivityInterface.cancelReservation(ACTIVITY_CONFIRMATION);
-				this.result = ACTIVITY_CANCELLATION;
-
-				HotelInterface.cancelBooking(ROOM_CONFIRMATION);
-				this.result = ROOM_CANCELLATION;
 			}
 		};
 
 		adventure.process();
 		adventure.process();
 		adventure.process();
-		for (int i = 0; i < ConfirmedState.MAX_BANK_EXCEPTIONS; i++) {
-			adventure.process();
-		}
+		adventure.process();
+		adventure.process();
+		adventure.process();
+
+		Assert.assertEquals(State.CANCELLED, adventure.getState());
+	}
+
+	@Test
+	public void unsuccessSequenceFive(@Mocked final BankInterface bankInterface,
+									  @Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface,
+									  @Mocked final CarInterface carInterface, @Mocked final TaxInterface taxInterface) {
+		new Expectations() {
+			{
+
+				broker.getIBAN();
+				this.result = IBAN;
+
+				broker.getBuyer();
+				this.result = NIF;
+
+				ActivityInterface.reserveActivity(arrival, departure, AGE ,NIF, IBAN);
+				this.result = ACTIVITY_CONFIRMATION;
+
+				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure ,NIF, IBAN);
+				this.result = ROOM_CONFIRMATION;
+
+				CarInterface.rentVehicle(DRIVING_LICENSE,arrival,departure,IBAN,NIF);
+				this.result = RENT_CONFIRMATION;
+
+				BankInterface.processPayment(IBAN, 0);
+				this.result = PAYMENT_CONFIRMATION;
+
+				TaxInterface.submitInvoice((InvoiceData) this.any);
+				this.result = new TaxException();
+
+			}
+		};
+
+		adventure.process();
+		adventure.process();
+		adventure.process();
+		adventure.process();
+		adventure.process();
 		adventure.process();
 
 		Assert.assertEquals(State.CANCELLED, adventure.getState());

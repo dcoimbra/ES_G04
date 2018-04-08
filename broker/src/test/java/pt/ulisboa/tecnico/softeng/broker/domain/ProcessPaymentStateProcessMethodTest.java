@@ -11,11 +11,11 @@ import mockit.Expectations;
 import mockit.Injectable;
 import mockit.Mocked;
 import mockit.integration.junit4.JMockit;
-import pt.ulisboa.tecnico.softeng.activity.interfaces.TaxInterface;
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.BankInterface;
+import pt.ulisboa.tecnico.softeng.broker.interfaces.TaxInterface;
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 
 @RunWith(JMockit.class)
@@ -50,37 +50,27 @@ public class ProcessPaymentStateProcessMethodTest {
 	@Test
 	public void success(@Mocked final BankInterface bankInterface,@Mocked final TaxInterface taxInterface) {
 		new Expectations() {
-			{   
-				System.out.println("sucess");
-
-				broker.getSeller();
-				this.result=SELLER;
-
-				client.getNIF();
-				this.result=NIF;
-
+			{
 				TaxInterface.submitInvoice((InvoiceData) this.any);
 				this.result = TAX_CONFIRMATION;
 				
-				BankInterface.processPayment(IBAN, AMOUNT);
+				BankInterface.processPayment(IBAN, 0);
 				this.result = PAYMENT_CONFIRMATION;
 				
 			}
 		};
 
 		this.adventure.process();
-		
-		System.out.println("awdawdawdawdawd");
+
 		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
 	}
 	
-	/*
+
 	@Test
 	public void bankException(@Mocked final BankInterface bankInterface) {
 		new Expectations() {
 			{
-				System.out.println("bankexception");
-				BankInterface.processPayment(IBAN, AMOUNT);
+				BankInterface.processPayment(IBAN, 0);
 				this.result = new BankException();
 			}
 		};
@@ -95,7 +85,7 @@ public class ProcessPaymentStateProcessMethodTest {
 		new Expectations() {
 			{
 				System.out.println("singleRemote");
-				BankInterface.processPayment(IBAN, AMOUNT);
+				BankInterface.processPayment(IBAN, 0);
 				this.result = new RemoteAccessException();
 			}
 		};
@@ -109,8 +99,7 @@ public class ProcessPaymentStateProcessMethodTest {
 	public void maxRemoteAccessException(@Mocked final BankInterface bankInterface) {
 		new Expectations() {
 			{
-				System.out.println("maxRemote");
-				BankInterface.processPayment(IBAN, AMOUNT);
+				BankInterface.processPayment(IBAN, 0);
 				this.result = new RemoteAccessException();
 			}
 		};
@@ -126,8 +115,8 @@ public class ProcessPaymentStateProcessMethodTest {
 	public void maxMinusOneRemoteAccessException(@Mocked final BankInterface bankInterface) {
 		new Expectations() {
 			{
-				System.out.println("maxMinus");
-				BankInterface.processPayment(IBAN, AMOUNT);
+
+				BankInterface.processPayment(IBAN, 0);
 				this.result = new RemoteAccessException();
 			}
 		};
@@ -139,11 +128,13 @@ public class ProcessPaymentStateProcessMethodTest {
 	}
 
 	@Test
-	public void twoRemoteAccessExceptionOneSuccess(@Mocked final BankInterface bankInterface) {
+	public void twoRemoteAccessExceptionOneSuccess(@Mocked final BankInterface bankInterface, @Mocked final TaxInterface taxInterface) {
 		new Expectations() {
-			{	
-				System.out.println("twoRemte");
-				BankInterface.processPayment(IBAN, AMOUNT);
+			{
+				TaxInterface.submitInvoice((InvoiceData) this.any);
+				this.result = TAX_CONFIRMATION;
+
+				BankInterface.processPayment(IBAN, 0);
 				this.result = new Delegate() {
 					int i = 0;
 
@@ -165,38 +156,37 @@ public class ProcessPaymentStateProcessMethodTest {
 		this.adventure.process();
 		this.adventure.process();
 
-		Assert.assertEquals(State.RESERVE_ACTIVITY, this.adventure.getState());
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
 	}
 
 	@Test
 	public void oneRemoteAccessExceptionOneBankException(@Mocked final BankInterface bankInterface) {
 		new Expectations() {
 			{
-				System.out.println("oneRemoteacess");
-				BankInterface.processPayment(IBAN, AMOUNT);
 
+				BankInterface.processPayment(IBAN, 0);
 				this.result = new Delegate() {
 					int i = 0;
 
-					public String delegate() {
-						if (this.i < 1) {
+					public void delegate() {
+						if (this.i < 3) {
 							this.i++;
 							throw new RemoteAccessException();
-						} else {
-							throw new BankException();
 						}
+
 					}
 				};
-				this.times = 2;
+				this.times = 3;
 
 			}
 		};
 
 		this.adventure.process();
 		this.adventure.process();
+		this.adventure.process();
 
 		Assert.assertEquals(State.CANCELLED, this.adventure.getState());
 	}
-	*/
+
 
 }

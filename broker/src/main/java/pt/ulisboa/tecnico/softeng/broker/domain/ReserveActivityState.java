@@ -32,12 +32,17 @@ public class ReserveActivityState extends AdventureState {
 		}
 
 		if (adventure.getBegin().equals(adventure.getEnd())) {
-			if(adventure.getCls())
+			if(adventure.getCls()) {
 				adventure.setState(State.RENT_VEHICLE);
-			else
+				resetNumOfRemoteErrors();
+			}
+			else{
 				adventure.setState(State.PROCESS_PAYMENT);
+				resetNumOfRemoteErrors();
+			}
 		} else {
 			adventure.setState(State.BOOK_ROOM);
+			resetNumOfRemoteErrors();
 		}
 	}
 
