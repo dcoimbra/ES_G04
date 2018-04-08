@@ -32,13 +32,11 @@ public class InvoiceProcessorSubmitMethodTest {
 	private static final String NIF = "123456789";
 	
 	private Vehicle car;
-	//private Vehicle car2;
 	private RentACar rentACar;
 	private String reference;
 	
 	private static final String NAME1 = "eartz";
 	private static final String PLATE_CAR1 = "aa-99-11";
-	private static final String PLATE_CAR2 = "aa-99-12";
 	private static final String DRIVING_LICENSE = "br123";
 	private static final int PRICE = 20;
 
@@ -47,7 +45,6 @@ public class InvoiceProcessorSubmitMethodTest {
 		
 		this.rentACar = new RentACar(NAME1, NIF, IBAN);
 		this.car = new Car(PLATE_CAR1, 10, rentACar, PRICE);
-		//this.car2 = new Car(PLATE_CAR2, 10, rentACar, PRICE);
 	}
 
 	@Test
@@ -187,7 +184,7 @@ public class InvoiceProcessorSubmitMethodTest {
 	}
 
 
-	/*@Test
+	@Test
 	public void oneBankExceptionOnCancelPayment(@Mocked final TaxInterface taxInterface,
 			@Mocked final BankInterface bankInterface) {
 		new Expectations() {
@@ -203,7 +200,7 @@ public class InvoiceProcessorSubmitMethodTest {
 		};
 
 		this.reference = RentACar.rentVehicle(DRIVING_LICENSE, date1, date2, IBAN, NIF);
-		this.car.getRenting(reference).cancel();
+		this.car.getRenting(this.reference).cancel();
 		this.reference = RentACar.rentVehicle(DRIVING_LICENSE, date1, date2, IBAN, NIF);
 
 		new FullVerifications(bankInterface) {
@@ -241,7 +238,7 @@ public class InvoiceProcessorSubmitMethodTest {
 			}
 		};
 	}
-	
+
 	@Test
 	public void oneTaxExceptionOnCancelInvoice(@Mocked final TaxInterface taxInterface,
 			@Mocked final BankInterface bankInterface) {
@@ -315,10 +312,9 @@ public class InvoiceProcessorSubmitMethodTest {
 			}
 		};
 	}
-*/
+	
 	@After
 	public void tearDown() {
-		//rentACar.getProcessor().clean();
 		this.car.rentings.clear();
 		Vehicle.plates.clear();
 		RentACar.rentACars.clear();
