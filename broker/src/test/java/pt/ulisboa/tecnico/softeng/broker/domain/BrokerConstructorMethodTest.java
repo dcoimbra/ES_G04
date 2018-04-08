@@ -117,6 +117,36 @@ public class BrokerConstructorMethodTest {
 		}
 	}
 
+	@Test
+	public void nullSeller() {
+		try {
+			new Broker("BR01", "WeExplore", null, BUYER_NIF, IBAN);
+			Assert.fail();
+		} catch (BrokerException be) {
+			Assert.assertEquals(0, Broker.brokers.size());
+		}
+	}
+
+	@Test
+	public void blankSeller() {
+		try {
+			new Broker("BR01", "WeExplore", "    ", BUYER_NIF, IBAN);
+			Assert.fail();
+		} catch (BrokerException be) {
+			Assert.assertEquals(0, Broker.brokers.size());
+		}
+	}
+
+	@Test
+	public void emptySeller() {
+		try {
+			new Broker("BR01", "WeExplore", "", BUYER_NIF, IBAN);
+			Assert.fail();
+		} catch (BrokerException be) {
+			Assert.assertEquals(0, Broker.brokers.size());
+		}
+	}
+
 	@After
 	public void tearDown() {
 
