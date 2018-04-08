@@ -37,9 +37,15 @@ public class ProcessPaymentState extends AdventureState {
 		resetNumOfRemoteErrors();
 
 		try{
-			adventure.setTaxConfirmation(TaxInterface.submitInvoice(
-					new InvoiceData(adventure.getBroker().getSeller(), adventure.getNIF(),
-							"ADVENTURE", adventure.getAmount(),new LocalDate().now())));
+			InvoiceData id = new InvoiceData(adventure.getBroker().getSeller(), adventure.getNIF(),
+					"ADVENTURE", adventure.getAmount(),new LocalDate().now());
+			System.out.println(id);
+			
+			String reference  = TaxInterface.submitInvoice(id);
+			
+			System.out.println("boda2");
+			adventure.setTaxConfirmation(reference);
+			System.out.println("boda3");
 		}
 		catch (TaxException te){
 			System.out.println("3");
