@@ -54,12 +54,12 @@ public class UndoState extends AdventureState {
 		}
 
 
-		if (!requiresCancelPayment(adventure) && !requiresCancelActivity(adventure) && !requiresCancelRoom(adventure)) {
+		if (!requiresCancelPayment(adventure) && !requiresCancelActivity(adventure) && !requiresCancelRoom(adventure) && !requiresCancelRenting(adventure)) {
 			adventure.setState(State.CANCELLED);
 		}
 	}
 
-	private boolean requiresCancelRenting(Adventure adventure) {
+	public boolean requiresCancelRenting(Adventure adventure) {
 		return adventure.getVehicleConfirmation() != null && adventure.getVehicleCancellation() == null;
 
 	}

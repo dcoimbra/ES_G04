@@ -19,9 +19,9 @@ import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
 @RunWith(JMockit.class)
 public class ReserveActivityStateProcessMethodTest {
 	private static final String IBAN = "BK01987654321";
+	private static final String NIF = "123456789";
 	private static final double AMOUNT = 0.3;
 	private static final int AGE = 20;
-	private static final String NIF = "123456789";
 	private static final String ACTIVITY_CONFIRMATION = "ActivityConfirmation";
 	private static final LocalDate begin = new LocalDate(2016, 12, 19);
 	private static final LocalDate end = new LocalDate(2016, 12, 21);

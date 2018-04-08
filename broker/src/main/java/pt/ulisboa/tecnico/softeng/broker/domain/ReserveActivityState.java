@@ -21,13 +21,11 @@ public class ReserveActivityState extends AdventureState {
 			adventure.setTotalPrice(ActivityInterface.getActivityReservationData(reference).getAmount());
 			System.out.println(ActivityInterface.getActivityReservationData(reference).getAmount());
 		} catch (ActivityException ae) {
-			System.out.println("a1");
 			adventure.setState(State.UNDO);
 			return;
 		} catch (RemoteAccessException rae) {
 			incNumOfRemoteErrors();
 			if (getNumOfRemoteErrors() == MAX_REMOTE_ERRORS) {
-				System.out.println("a2");
 				adventure.setState(State.UNDO);
 			}
 			return;

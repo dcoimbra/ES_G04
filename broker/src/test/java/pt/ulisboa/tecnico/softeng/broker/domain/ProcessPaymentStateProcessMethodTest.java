@@ -22,9 +22,10 @@ import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 public class ProcessPaymentStateProcessMethodTest {
 	private static final String IBAN = "BK01987654321";
 	private static final String NIF = "123456789";
-	private static final String SELLER = "145656789";
+	private static final String SELLER = "145656766";
 	private static final int AGE = 20;
 	private static final int AMOUNT = 300;
+	private static final double MARGIN = 0.3;
 	private static final String PAYMENT_CONFIRMATION = "PaymentConfirmation";
 	private static final String TAX_CONFIRMATION = "TaxConfirmation";
 	private final LocalDate begin = new LocalDate(2016, 12, 19);
@@ -36,14 +37,13 @@ public class ProcessPaymentStateProcessMethodTest {
 
 	@Injectable
 	private Broker broker;
-    
-	@Injectable
+
 	private Client client;
 
 	@Before
 	public void setUp() {
-		
-		this.adventure = new Adventure(this.broker, this.begin, this.end, this.client, AMOUNT, true);
+		this.client = new Client(this.broker, IBAN, NIF, DRIVING_LICENSE ,AGE);
+		this.adventure = new Adventure(this.broker, this.begin, this.end, this.client, MARGIN, true);
 		this.adventure.setState(State.PROCESS_PAYMENT);
 	}
 
@@ -52,19 +52,19 @@ public class ProcessPaymentStateProcessMethodTest {
 		new Expectations() {
 			{   
 				System.out.println("sucess");
-				
+
+				broker.getSeller();
+				this.result=SELLER;
+
+				client.getNIF();
+				this.result=NIF;
+
 				TaxInterface.submitInvoice((InvoiceData) this.any);
 				this.result = TAX_CONFIRMATION;
 				
 				BankInterface.processPayment(IBAN, AMOUNT);
 				this.result = PAYMENT_CONFIRMATION;
 				
-				/*broker.getSeller();
-				this.result=SELLER;
-				
-				client.getNIF();
-				this.result=NIF;
-				*/
 			}
 		};
 

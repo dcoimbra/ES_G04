@@ -6,7 +6,9 @@ import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.BankInterface;
+import pt.ulisboa.tecnico.softeng.broker.interfaces.CarInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
+import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class ConfirmedState extends AdventureState {
@@ -14,6 +16,7 @@ public class ConfirmedState extends AdventureState {
 	public static int MAX_BANK_EXCEPTIONS = 5;
 
 	private int numberOfBankExceptions = 0;
+
 
 	@Override
 	public State getState() {
@@ -43,10 +46,7 @@ public class ConfirmedState extends AdventureState {
 		try {
 			ActivityInterface.getActivityReservationData(adventure.getActivityConfirmation());
 		} catch (ActivityException ae) {
-			this.numberOfBankExceptions++;
-			if (this.numberOfBankExceptions == MAX_BANK_EXCEPTIONS) {
-				adventure.setState(State.UNDO);
-			}
+			adventure.setState(State.UNDO);
 			return;
 		} catch (RemoteAccessException rae) {
 			incNumOfRemoteErrors();
@@ -56,16 +56,12 @@ public class ConfirmedState extends AdventureState {
 			return;
 		}
 		resetNumOfRemoteErrors();
-		this.numberOfBankExceptions = 0;
 
 		if (adventure.getRoomConfirmation() != null) {
 			try {
 				HotelInterface.getRoomBookingData(adventure.getRoomConfirmation());
 			} catch (HotelException he) {
-				this.numberOfBankExceptions++;
-				if (this.numberOfBankExceptions == MAX_BANK_EXCEPTIONS) {
-					adventure.setState(State.UNDO);
-				}
+				adventure.setState(State.UNDO);
 				return;
 			} catch (RemoteAccessException rae) {
 				incNumOfRemoteErrors();
@@ -75,7 +71,24 @@ public class ConfirmedState extends AdventureState {
 				return;
 			}
 			resetNumOfRemoteErrors();
-			this.numberOfBankExceptions = 0;
+		}
+
+		resetNumOfRemoteErrors();
+
+		if (adventure.getVehicleConfirmation() != null) {
+			try {
+				CarInterface.getRentingData(adventure.getVehicleConfirmation());
+			} catch (CarException ce) {
+				adventure.setState(State.UNDO);
+				return;
+			} catch (RemoteAccessException rae) {
+				incNumOfRemoteErrors();
+				if (getNumOfRemoteErrors() == MAX_REMOTE_ERRORS) {
+					adventure.setState(State.UNDO);
+				}
+				return;
+			}
+			resetNumOfRemoteErrors();
 		}
 
 		// TODO: prints the complete Adventure file, the info in operation,

@@ -9,7 +9,9 @@ import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.BankInterface;
+import pt.ulisboa.tecnico.softeng.broker.interfaces.CarInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
+import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class CancelledState extends AdventureState {
@@ -49,6 +51,14 @@ public class CancelledState extends AdventureState {
 			try {
 				HotelInterface.getRoomBookingData(adventure.getRoomCancellation());
 			} catch (HotelException | RemoteAccessException e) {
+				return;
+			}
+		}
+
+		if (adventure.getVehicleCancellation() != null) {
+			try {
+				CarInterface.getRentingData(adventure.getVehicleCancellation());
+			} catch (CarException | RemoteAccessException e) {
 				return;
 			}
 		}
