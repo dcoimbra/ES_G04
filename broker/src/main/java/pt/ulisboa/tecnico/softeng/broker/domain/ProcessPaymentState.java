@@ -22,12 +22,12 @@ public class ProcessPaymentState extends AdventureState {
 		try {
 			adventure.setPaymentConfirmation(BankInterface.processPayment(adventure.getIBAN(), adventure.getAmount()*(1+adventure.getMargin())));
 		} catch (BankException be) {
-			adventure.setState(State.CANCELLED);
+			adventure.setState(State.UNDO);
 			return;
 		} catch (RemoteAccessException rae) {
 			incNumOfRemoteErrors();
 			if (getNumOfRemoteErrors() == MAX_REMOTE_ERRORS) {
-				adventure.setState(State.CANCELLED);
+				adventure.setState(State.UNDO);
 			}
 			return;
 		}
@@ -43,12 +43,12 @@ public class ProcessPaymentState extends AdventureState {
 			adventure.setTaxConfirmation(reference);
 		}
 		catch (TaxException te){
-			adventure.setState(State.CANCELLED);
+			adventure.setState(State.UNDO);
 			return;
 		} catch (RemoteAccessException rae) {
 			incNumOfRemoteErrors();
 			if (getNumOfRemoteErrors() == MAX_REMOTE_ERRORS) {
-				adventure.setState(State.CANCELLED);
+				adventure.setState(State.UNDO);
 			}
 			return;
 		}

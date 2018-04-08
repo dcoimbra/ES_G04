@@ -256,6 +256,15 @@ public class AdventureSequenceTest {
 
 				BankInterface.processPayment(IBAN, 0);
 				this.result = new BankException();
+				
+				ActivityInterface.cancelReservation(ACTIVITY_CONFIRMATION);
+				this.result = ACTIVITY_CANCELLATION;
+				
+				HotelInterface.cancelBooking(ROOM_CONFIRMATION);
+				this.result = ROOM_CANCELLATION;
+				
+				CarInterface.cancelRenting(RENT_CONFIRMATION);
+				this.result = RENT_CANCELLATION;
 
 			}
 		};
@@ -265,7 +274,7 @@ public class AdventureSequenceTest {
 		adventure.process();
 		adventure.process();
 		adventure.process();
-		adventure.process();
+		
 
 		Assert.assertEquals(State.CANCELLED, adventure.getState());
 	}
@@ -297,11 +306,22 @@ public class AdventureSequenceTest {
 
 				TaxInterface.submitInvoice((InvoiceData) this.any);
 				this.result = new TaxException();
+				
+				BankInterface.cancelPayment(PAYMENT_CONFIRMATION);
+				this.result = PAYMENT_CANCELLATION;
+				
+				ActivityInterface.cancelReservation(ACTIVITY_CONFIRMATION);
+				this.result = ACTIVITY_CANCELLATION;
+				
+				HotelInterface.cancelBooking(ROOM_CONFIRMATION);
+				this.result = ROOM_CANCELLATION;
+				
+				CarInterface.cancelRenting(RENT_CONFIRMATION);
+				this.result = RENT_CANCELLATION;
 
 			}
 		};
 
-		adventure.process();
 		adventure.process();
 		adventure.process();
 		adventure.process();

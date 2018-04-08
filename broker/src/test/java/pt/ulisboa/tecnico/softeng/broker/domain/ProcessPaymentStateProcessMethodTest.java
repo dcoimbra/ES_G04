@@ -77,7 +77,7 @@ public class ProcessPaymentStateProcessMethodTest {
 
 		this.adventure.process();
 
-		Assert.assertEquals(State.CANCELLED, this.adventure.getState());
+		Assert.assertEquals(State.UNDO, this.adventure.getState());
 	}
 
 	@Test
@@ -95,7 +95,7 @@ public class ProcessPaymentStateProcessMethodTest {
 	}
 
 	@Test
-	public void maxRemoteAccessException(@Mocked final BankInterface bankInterface) {
+	public void oneRemoteAccessException(@Mocked final BankInterface bankInterface) {
 		new Expectations() {
 			{
 				BankInterface.processPayment(IBAN, 0);
@@ -104,10 +104,8 @@ public class ProcessPaymentStateProcessMethodTest {
 		};
 
 		this.adventure.process();
-		this.adventure.process();
-		this.adventure.process();
 
-		Assert.assertEquals(State.CANCELLED, this.adventure.getState());
+		Assert.assertEquals(State.PROCESS_PAYMENT, this.adventure.getState());
 	}
 
 	@Test
@@ -180,6 +178,7 @@ public class ProcessPaymentStateProcessMethodTest {
 			}
 		};
 
+		this.adventure.process();
 		this.adventure.process();
 		this.adventure.process();
 		this.adventure.process();
