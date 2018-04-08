@@ -91,8 +91,14 @@ public abstract class Vehicle {
 		}
 		for (Renting renting : this.rentings.values()) {
 			if (renting.conflict(begin, end)) {
+				if (renting.isCancelled()) {
+					return true;
+				}
+				
 				return false;
 			}
+			
+						
 		}
 		return true;
 	}
