@@ -22,22 +22,24 @@ public class BookRoomState extends AdventureState {
 			adventure.setRoomConfirmation(reference);
 			adventure.setTotalPrice(HotelInterface.getRoomBookingData(reference).getAmount());
 		} catch (HotelException he) {
-			System.out.println("h1");
 			adventure.setState(State.UNDO);
 			return;
 		} catch (RemoteAccessException rae) {
 			incNumOfRemoteErrors();
 			if (getNumOfRemoteErrors() == MAX_REMOTE_ERRORS) {
-				System.out.println("h2");
 				adventure.setState(State.UNDO);
 			}
 			return;
 		}
 
-		if(adventure.getCls())
+		if(adventure.getCls()) {
 			adventure.setState(State.RENT_VEHICLE);
-		else
+			resetNumOfRemoteErrors();
+		}
+		else {
 			adventure.setState(State.PROCESS_PAYMENT);
+			resetNumOfRemoteErrors();
+		}
 	}
 
 }

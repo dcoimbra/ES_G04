@@ -45,6 +45,11 @@ public class BookRoomStateMethodTest {
 	public void successBookRoom(@Mocked final HotelInterface hotelInterface) {
 		new Expectations() {
 			{
+				broker.getBuyer();
+				this.result=NIF;
+				broker.getIBAN();
+				this.result=IBAN;
+
 				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, NIF, IBAN);
 				this.result = ROOM_CONFIRMATION;
 			}
@@ -52,13 +57,18 @@ public class BookRoomStateMethodTest {
 
 		this.adventure.process();
 
-		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+		Assert.assertEquals(State.RENT_VEHICLE, this.adventure.getState());
 	}
 
 	@Test
 	public void hotelException(@Mocked final HotelInterface hotelInterface) {
 		new Expectations() {
 			{
+				broker.getBuyer();
+				this.result=NIF;
+				broker.getIBAN();
+				this.result=IBAN;
+
 				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure ,NIF, IBAN);
 				this.result = new HotelException();
 			}
@@ -73,6 +83,11 @@ public class BookRoomStateMethodTest {
 	public void singleRemoteAccessException(@Mocked final HotelInterface hotelInterface) {
 		new Expectations() {
 			{
+				broker.getBuyer();
+				this.result=NIF;
+				broker.getIBAN();
+				this.result=IBAN;
+
 				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure,NIF, IBAN);
 				this.result = new RemoteAccessException();
 			}
@@ -87,6 +102,11 @@ public class BookRoomStateMethodTest {
 	public void maxRemoteAccessException(@Mocked final HotelInterface hotelInterface) {
 		new Expectations() {
 			{
+				broker.getBuyer();
+				this.result=NIF;
+				broker.getIBAN();
+				this.result=IBAN;
+
 				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure,NIF, IBAN);
 				this.result = new RemoteAccessException();
 				this.times = BookRoomState.MAX_REMOTE_ERRORS;
@@ -104,6 +124,11 @@ public class BookRoomStateMethodTest {
 	public void maxMinusOneRemoteAccessException(@Mocked final HotelInterface hotelInterface) {
 		new Expectations() {
 			{
+				broker.getBuyer();
+				this.result=NIF;
+				broker.getIBAN();
+				this.result=IBAN;
+
 				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure,NIF, IBAN);
 				this.result = new RemoteAccessException();
 				this.times = BookRoomState.MAX_REMOTE_ERRORS - 1;
@@ -121,6 +146,12 @@ public class BookRoomStateMethodTest {
 	public void fiveRemoteAccessExceptionOneSuccess(@Mocked final HotelInterface hotelInterface) {
 		new Expectations() {
 			{
+
+				broker.getBuyer();
+				this.result=NIF;
+				broker.getIBAN();
+				this.result=IBAN;
+
 				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure,NIF, IBAN);
 				this.result = new Delegate() {
 					int i = 0;
@@ -145,13 +176,18 @@ public class BookRoomStateMethodTest {
 		this.adventure.process();
 		this.adventure.process();
 
-		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+		Assert.assertEquals(State.RENT_VEHICLE, this.adventure.getState());
 	}
 
 	@Test
 	public void oneRemoteAccessExceptionOneActivityException(@Mocked final HotelInterface hotelInterface) {
 		new Expectations() {
 			{
+				broker.getBuyer();
+				this.result=NIF;
+				broker.getIBAN();
+				this.result=IBAN;
+
 				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure,NIF, IBAN);
 				this.result = new Delegate() {
 					int i = 0;

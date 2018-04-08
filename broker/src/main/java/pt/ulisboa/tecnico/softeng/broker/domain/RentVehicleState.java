@@ -21,18 +21,16 @@ public class RentVehicleState extends AdventureState {
 			adventure.setVehicleConfirmation(reference);
             adventure.setTotalPrice(CarInterface.getRentingData(reference).getPrice());
 		} catch (CarException ce) {
-			System.out.println("c1");
 			adventure.setState(State.UNDO);
 			return;
 		} catch (RemoteAccessException rae) {
 			incNumOfRemoteErrors();
 			if (getNumOfRemoteErrors() == MAX_REMOTE_ERRORS) {
-				System.out.println("c2");
 				adventure.setState(State.UNDO);
 			}
 			return;
 		}
-
+		resetNumOfRemoteErrors();
 		adventure.setState(State.PROCESS_PAYMENT);
 	}
 
