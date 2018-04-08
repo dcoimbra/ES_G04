@@ -160,7 +160,155 @@ public class InvoiceProcessorSubmitMethodTest {
 		};
 	}
 
+	@Test
+	public void successCancel(@Mocked final TaxInterface taxInterface, @Mocked final BankInterface bankInterface) {
+		new Expectations() {
+			{
+				TaxInterface.submitInvoice((InvoiceData) this.any);
+				BankInterface.processPayment(this.anyString, this.anyDouble);
+
+				TaxInterface.cancelInvoice(this.anyString);
+				BankInterface.cancelPayment(this.anyString);
+			}
+		};
+
+		this.reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
+		this.room.getBooking(reference).cancel();
+
+		new FullVerifications() {
+			{
+			}
+		};
+	}
 	
+	
+	@Test
+	public void oneBankExceptionOnCancelPayment(@Mocked final TaxInterface taxInterface,
+			@Mocked final BankInterface bankInterface) {
+		new Expectations() {
+			{
+				TaxInterface.submitInvoice((InvoiceData) this.any);
+				BankInterface.processPayment(this.anyString, this.anyDouble);
+
+				BankInterface.cancelPayment(this.anyString);
+				this.result = new BankException();
+				this.result = CANCEL_PAYMENT_REFERENCE;
+				TaxInterface.cancelInvoice(this.anyString);
+			}
+		};
+		
+		this.reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
+		this.room.getBooking(this.reference).cancel();
+		this.reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
+
+		new FullVerifications(bankInterface) {
+			{
+				BankInterface.cancelPayment(this.anyString);
+				this.times = 2;
+			}
+		};
+	}
+	
+
+	@Test
+	public void oneRemoteExceptionOnCancelPayment(@Mocked final TaxInterface taxInterface,
+			@Mocked final BankInterface bankInterface) {
+		new Expectations() {
+			{
+				TaxInterface.submitInvoice((InvoiceData) this.any);
+				BankInterface.processPayment(this.anyString, this.anyDouble);
+
+				BankInterface.cancelPayment(this.anyString);
+				this.result = new RemoteAccessException();
+				this.result = CANCEL_PAYMENT_REFERENCE;
+				TaxInterface.cancelInvoice(this.anyString);
+			}
+		};
+
+		this.reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
+		this.room.getBooking(this.reference).cancel();
+		this.reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
+
+		new FullVerifications(bankInterface) {
+			{
+				BankInterface.cancelPayment(this.anyString);
+				this.times = 2;
+			}
+		};
+	}
+	
+
+	@Test
+	public void oneTaxExceptionOnCancelInvoice(@Mocked final TaxInterface taxInterface,
+			@Mocked final BankInterface bankInterface) {
+		new Expectations() {
+			{
+				BankInterface.processPayment(this.anyString, this.anyDouble);
+				TaxInterface.submitInvoice((InvoiceData) this.any);
+				BankInterface.cancelPayment(this.anyString);
+				this.result = CANCEL_PAYMENT_REFERENCE;
+				TaxInterface.cancelInvoice(this.anyString);
+				this.result = new Delegate() {
+					int i = 0;
+
+					public void delegate() {
+						if (this.i < 1) {
+							this.i++;
+							throw new TaxException();
+						}
+					}
+				};
+			}
+		};
+
+		this.reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
+		this.room.getBooking(this.reference).cancel();
+		this.reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
+
+		new FullVerifications(taxInterface) {
+			{
+				TaxInterface.cancelInvoice(this.anyString);
+				this.times = 2;
+			}
+		};
+	}
+	
+	
+	@Test
+	public void oneRemoteExceptionOnCancelInvoice(@Mocked final TaxInterface taxInterface,
+			@Mocked final BankInterface bankInterface) {
+		new Expectations() {
+			{
+				BankInterface.processPayment(this.anyString, this.anyDouble);
+				TaxInterface.submitInvoice((InvoiceData) this.any);
+
+				BankInterface.cancelPayment(this.anyString);
+				this.result = CANCEL_PAYMENT_REFERENCE;
+				TaxInterface.cancelInvoice(this.anyString);
+				this.result = new Delegate() {
+					int i = 0;
+
+					public void delegate() {
+						if (this.i < 1) {
+							this.i++;
+							throw new RemoteAccessException();
+						}
+					}
+				};
+			}
+		};
+
+		this.reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
+		this.room.getBooking(this.reference).cancel();
+		this.reference = Hotel.reserveRoom(Type.DOUBLE, this.arrival, this.departure, NIF, IBAN);
+
+		new FullVerifications(taxInterface) {
+			{
+				TaxInterface.cancelInvoice(this.anyString);
+				this.times = 2;
+			}
+		};
+	}
 
 	@After
 	public void tearDown() {
