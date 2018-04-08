@@ -19,7 +19,7 @@ import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
 @RunWith(JMockit.class)
 public class ReserveActivityStateProcessMethodTest {
 	private static final String IBAN = "BK01987654321";
-	private static final int AMOUNT = 300;
+	private static final double AMOUNT = 0.3;
 	private static final int AGE = 20;
 	private static final String NIF = "123456789";
 	private static final String ACTIVITY_CONFIRMATION = "ActivityConfirmation";
@@ -44,11 +44,15 @@ public class ReserveActivityStateProcessMethodTest {
 
 	@Test
 	public void successNoBookRoom(@Mocked final ActivityInterface activityInterface) {
-		Adventure sameDayAdventure = new Adventure(this.broker, begin, begin, this.client, AMOUNT, true);
+		Adventure sameDayAdventure = new Adventure(this.broker, begin, begin, this.client, AMOUNT, false);
 		sameDayAdventure.setState(State.RESERVE_ACTIVITY);
 
 		new Expectations() {
-			{
+			{   
+				broker.getBuyer();
+				this.result=NIF;
+				broker.getIBAN();
+				this.result=IBAN;
 				ActivityInterface.reserveActivity(begin, begin, AGE,NIF, IBAN);
 				this.result = ACTIVITY_CONFIRMATION;
 			}
@@ -56,13 +60,17 @@ public class ReserveActivityStateProcessMethodTest {
 
 		sameDayAdventure.process();
 
-		Assert.assertEquals(State.CONFIRMED, sameDayAdventure.getState());
+		Assert.assertEquals(State.PROCESS_PAYMENT, sameDayAdventure.getState());
 	}
 
 	@Test
 	public void successBookRoom(@Mocked final ActivityInterface activityInterface) {
 		new Expectations() {
 			{
+				broker.getBuyer();
+				this.result=NIF;
+				broker.getIBAN();
+				this.result=IBAN;
 				ActivityInterface.reserveActivity(begin, end, AGE,NIF, IBAN);
 				this.result = ACTIVITY_CONFIRMATION;
 			}
@@ -76,7 +84,11 @@ public class ReserveActivityStateProcessMethodTest {
 	@Test
 	public void activityException(@Mocked final ActivityInterface activityInterface) {
 		new Expectations() {
-			{
+			{   
+				broker.getBuyer();
+				this.result=NIF;
+				broker.getIBAN();
+				this.result=IBAN;
 				ActivityInterface.reserveActivity(begin, end, AGE ,NIF, IBAN);
 				this.result = new ActivityException();
 			}
@@ -90,7 +102,11 @@ public class ReserveActivityStateProcessMethodTest {
 	@Test
 	public void singleRemoteAccessException(@Mocked final ActivityInterface activityInterface) {
 		new Expectations() {
-			{
+			{   
+				broker.getBuyer();
+				this.result=NIF;
+				broker.getIBAN();
+				this.result=IBAN;
 				ActivityInterface.reserveActivity(begin, end, AGE,NIF, IBAN);
 				this.result = new RemoteAccessException();
 			}
@@ -104,7 +120,11 @@ public class ReserveActivityStateProcessMethodTest {
 	@Test
 	public void maxRemoteAccessException(@Mocked final ActivityInterface activityInterface) {
 		new Expectations() {
-			{
+			{   
+				broker.getBuyer();
+				this.result=NIF;
+				broker.getIBAN();
+				this.result=IBAN;
 				ActivityInterface.reserveActivity(begin, end, AGE,NIF, IBAN);
 				this.result = new RemoteAccessException();
 			}
@@ -122,7 +142,11 @@ public class ReserveActivityStateProcessMethodTest {
 	@Test
 	public void maxMinusOneRemoteAccessException(@Mocked final ActivityInterface activityInterface) {
 		new Expectations() {
-			{
+			{   
+				broker.getBuyer();
+				this.result=NIF;
+				broker.getIBAN();
+				this.result=IBAN;
 				ActivityInterface.reserveActivity(begin, end, AGE,NIF, IBAN);
 				this.result = new RemoteAccessException();
 			}
@@ -139,7 +163,11 @@ public class ReserveActivityStateProcessMethodTest {
 	@Test
 	public void twoRemoteAccessExceptionOneSuccess(@Mocked final ActivityInterface activityInterface) {
 		new Expectations() {
-			{
+			{   
+				broker.getBuyer();
+				this.result=NIF;
+				broker.getIBAN();
+				this.result=IBAN;
 				ActivityInterface.reserveActivity(begin, end, AGE,NIF, IBAN);
 				this.result = new Delegate() {
 					int i = 0;
@@ -168,7 +196,11 @@ public class ReserveActivityStateProcessMethodTest {
 	@Test
 	public void oneRemoteAccessExceptionOneActivityException(@Mocked final ActivityInterface activityInterface) {
 		new Expectations() {
-			{
+			{   
+				broker.getBuyer();
+				this.result=NIF;
+				broker.getIBAN();
+				this.result=IBAN;
 				ActivityInterface.reserveActivity(begin, end, AGE,NIF, IBAN);
 				this.result = new Delegate() {
 					int i = 0;
