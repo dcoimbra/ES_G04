@@ -4,7 +4,13 @@ import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import mockit.Expectations;
+import mockit.Mocked;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+import pt.ulisboa.tecnico.softeng.hotel.interfaces.BankInterface;
+import pt.ulisboa.tecnico.softeng.hotel.interfaces.TaxInterface;
+import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 
 import static junit.framework.TestCase.assertTrue;
 
@@ -25,7 +31,17 @@ public class HotelReserveRoomMethodTest {
     }
 
     @Test
-    public void success() {
+    public void sucess(@Mocked final TaxInterface taxInterface,
+            @Mocked final BankInterface bankInterface) {
+        
+        new Expectations() {
+            {
+                BankInterface.processPayment(this.anyString, this.anyDouble);
+
+                TaxInterface.submitInvoice((InvoiceData) this.any);
+            }
+        };
+        
         String ref = Hotel.reserveRoom(Room.Type.SINGLE, arrival, departure, NIF, IBAN);
         assertTrue(ref.startsWith("XPTO12"));
     }
