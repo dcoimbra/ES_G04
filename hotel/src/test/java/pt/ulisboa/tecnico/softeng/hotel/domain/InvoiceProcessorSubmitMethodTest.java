@@ -20,7 +20,7 @@ import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 @RunWith(JMockit.class)
-public class invoiceProcessorSubmitMethodTest {
+public class InvoiceProcessorSubmitMethodTest {
 	private static final String CANCEL_PAYMENT_REFERENCE = "CancelPaymentReference";
 	private static final String INVOICE_REFERENCE = "InvoiceReference";
 	private static final String PAYMENT_REFERENCE = "PaymentReference";
