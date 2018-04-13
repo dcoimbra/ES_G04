@@ -26,7 +26,7 @@ public class ActivityReservationData {
 		this.begin = offer.getBegin();
 		this.end = offer.getEnd();
 		this.cancellationDate = booking.getCancellationDate();
-		this.price = offer.getPrice();
+		this.price = offer.getAmount();
 		this.paymentReference = booking.getPaymentReference();
 		this.invoiceReference = booking.getInvoiceReference();
 	}
