@@ -29,7 +29,7 @@ public class Booking extends Booking_Base {
 		this.providerNif = provider.getNif();
 		this.nif = buyerNif;
 		this.iban = buyerIban;
-		this.amount = offer.getPrice();
+		this.amount = offer.getAmount();
 		this.date = offer.getBegin();
 
 		offer.addBooking(this);
