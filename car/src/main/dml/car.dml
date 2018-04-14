@@ -62,8 +62,19 @@ relation RentACarHasVehicle{
 }
 
 class Car extends Vehicle;
-class Motorcycle extends Vehicle;
 
+class Renting{}
+
+class Processor {}
+
+relation ProcessorhasRentings {
+	Processor playsRole processor {
+		multiplicity 1..1;
+	}
+	Renting playsRole renting {
+		multiplicity 0..*;
+	}
+}
 
 
 
