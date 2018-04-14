@@ -6,7 +6,12 @@ class Hotel {
 	String code;
 	String name;
 	int counter;
+    String nif;
+	String iban;
+	double priceSingle;
+	double priceDouble;
 }
+
 
 relation DomainRootHasHotels {
 	.pt.ist.fenixframework.DomainRoot playsRole root {
@@ -16,6 +21,19 @@ relation DomainRootHasHotels {
 		multiplicity 0..*;
 	}
 }
+
+/*class Processor {}
+
+relation HotelHasProcessor{
+       Hotel playsRole hotel{
+       	multiplicity 1..1;
+       }
+       
+       Processor playsRole processor{
+       	multiplicity 1..1;
+       }
+
+}*/
 
 class Room {
 	String number;
