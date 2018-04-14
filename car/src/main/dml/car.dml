@@ -1,7 +1,13 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
 class RentACar {
-} 
+	int counter;
+	String name;
+	String code;
+	String nif;
+	String iban;
+	int counter;
+}
 
 relation DomainRootHasRentACars {
 	.pt.ist.fenixframework.DomainRoot playsRole root {
@@ -15,8 +21,7 @@ relation DomainRootHasRentACars {
 class Vehicle {
 }
 
-class VehicleAndPlate{
-}
+class VehicleAndPlate{}
 
 relation RentACarHasVehicles {
 	RentACar playsRole rentACar {
@@ -24,11 +29,34 @@ relation RentACarHasVehicles {
 	}
 	Vehicle playsRole vehicle {
 		multiplicity 0..*;
+	}	
+}
+
+relation VehicleAndPlateHasVehicle {
+	VehicleAndPlate playsRole vehicleAndPlate {
+		multiplicity 1..1;
 	}
-	VehicleAndPlate playsRole vehicleAndPlate{
+	Vehicle playsRole vehicle {
+		multiplicity 1..1;
+	}
+}
+
+relation VehicleAndPlateHasPlate {
+	VehicleAndPlate playsRole vehicleAndPlate {
+		multiplicity 1..1;
+	}
+	Plate playsRole plate {
+		multiplicity 1..1;
+	}
+}
+
+relation RentACarHasVehicleAndPlate {
+	RentACar playsRole rentACar {
+		multiplicity 1..1;
+	}
+	VehicleAndPlate playsRole vehicleAndPlate {
 		multiplicity 0..*;
-	}
-	
+	}	
 }
 
 class Car extends Vehicle;
