@@ -33,7 +33,7 @@ public class BookRoomState extends BookRoomState_Base {
 			return;
 		}
 
-		if (getAdventure().shouldRentVehicle()) {
+		if (getAdventure().getRentVehicle()) {
 			getAdventure().setState(State.RENT_VEHICLE);
 		} else {
 			getAdventure().setState(State.PROCESS_PAYMENT);
