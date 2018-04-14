@@ -88,3 +88,19 @@ relation BulkRoomBookingHasReferences {
 		multiplicity 0..*;
 	}
 }
+
+class Client{
+    String IBAN;
+    String NIF;
+    String drivingLicense;
+    int age;
+}
+
+relation BrokerhasClients{
+    Broker playsRole broker {
+        multiplicity 1..1;
+    }
+    Client playsRole client{
+        multiplicity 0..*;
+    }
+}

@@ -18,6 +18,12 @@ public class RentACarConstructorTest extends RollbackTestAbstractClass {
 		assertEquals(NAME, rentACar.getName());
 	}
 
+	@Test
+	public void success() {
+		RentACar rentACar = new RentACar(NAME, NIF, IBAN);
+		assertEquals(NAME, rentACar.getName());
+	}
+
 	@Test(expected = CarException.class)
 	public void nullName() {
 		new RentACar(null, NIF, IBAN);
