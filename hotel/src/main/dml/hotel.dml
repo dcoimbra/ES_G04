@@ -37,6 +37,14 @@ class Booking {
 	LocalDate cancellationDate;
 	LocalDate arrival;
 	LocalDate departure;
+	double price;
+	String nif;
+	String providerNif;
+    String iban;
+    boolean cancelledInvoice;
+    String paymentReference;
+    String invoiceReference;
+    String cancelledPaymentReference;
 }
 
 relation RoomHasBookings {

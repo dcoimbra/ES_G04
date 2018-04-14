@@ -6,13 +6,6 @@ class Broker {
 	int counter;
 }
 
-class Client {
-	String IBAN;
-	String NIF;
-	String drivingLicense;
-	int age;
-}
-
 relation DomainRootHasBrokerApplication {
 	.pt.ist.fenixframework.DomainRoot playsRole root {
 		multiplicity 1..1;
@@ -72,6 +65,8 @@ class BulkRoomBooking {
 	boolean cancelled;
 	int numberOfHotelExceptions;
 	int numberOfRemoteErrors;
+	String buyerNif;
+	String buyerIban;
 }
 
 relation BrokerHasBulkRoomBookings {
@@ -94,4 +89,20 @@ relation BulkRoomBookingHasReferences {
 	Reference playsRole reference {
 		multiplicity 0..*;
 	}
+}
+
+class Client{
+    String IBAN;
+    String NIF;
+    String drivingLicense;
+    int age;
+}
+
+relation BrokerhasClients{
+    Broker playsRole broker {
+        multiplicity 1..1;
+    }
+    Client playsRole client{
+        multiplicity 0..*;
+    }
 }
