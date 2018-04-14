@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
-public abstract class Vehicle {
+public abstract class Vehicle extends Vehicle_Base{
 	private static Logger logger = LoggerFactory.getLogger(Vehicle.class);
 
 	private static String plateFormat = "..-..-..";
@@ -31,6 +31,15 @@ public abstract class Vehicle {
 
 		plates.add(plate.toUpperCase());
 		rentACar.addVehicle(this);
+	}
+
+	protected void init(String plate, int kilometers, double price, RentACar rentACar){
+		//setVehicleAndPlate(this);
+		//setPlate(newPlate(getPlate))?
+		setKilometers(kilometers);
+		setPlate(plate);
+		setPrice(price);
+		setRentACar(rentACar);
 	}
 
 	private void checkArguments(String plate, int kilometers, RentACar rentACar) {

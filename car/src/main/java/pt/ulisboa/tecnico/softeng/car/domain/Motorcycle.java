@@ -6,7 +6,7 @@ public class Motorcycle extends Motorcycle_Base {
 		init(plate, kilometers, price, rentACar);
 	}
 	
-	private void init(String plate, int kilometers, double price, RentACar rentACar) {
+	protected void init(String plate, int kilometers, double price, RentACar rentACar) {
 	     super.init(plate, kilometers, price, rentACar);
 	   }
 

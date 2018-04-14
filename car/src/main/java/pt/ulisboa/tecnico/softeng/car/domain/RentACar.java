@@ -8,6 +8,7 @@ import java.util.Set;
 import org.joda.time.LocalDate;
 
 import pt.ist.fenixframework.FenixFramework;
+import pt.ulisboa.tecnico.softeng.bank.domain.Operation;
 import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
@@ -19,8 +20,6 @@ public class RentACar extends RentACar_Base {
 		return counter;
 	}
 
-	private final Map<String, Vehicle> vehicles = new HashMap<>();
-
 	public RentACar(String name, String nif, String iban) {
 		checkArguments(name, nif, iban);
 		setName(name);
@@ -31,6 +30,16 @@ public class RentACar extends RentACar_Base {
 		setProcessor(new Processor());
 
 		FenixFramework.getDomainRoot().addRentACar(this);
+	}
+	
+	public void delete() {
+		setProcessor(null);
+
+		for (VehicleAndPlate vap : this.getVehicleAndPlateSet()) {
+			vap.delete();
+		}
+
+		deleteDomainObject();
 	}
 
 	private void checkArguments(String name, String nif, String iban) {
@@ -46,21 +55,29 @@ public class RentACar extends RentACar_Base {
 		}
 	}
 
-	void addVehicle(Vehicle vehicle) {
-		this.vehicles.put(vehicle.getPlate(), vehicle);
+	void addVehicle(VehicleAndPlate vap) {
+		this.addVehicleAndPlate(vap);
 	}
 
 	public boolean hasVehicle(String plate) {
-		return this.vehicles.containsKey(plate);
+		for (VehicleAndPlate vap : getVehicleAndPlateSet()) {
+			if (vap.getVehicle().getPlate().equals(plate)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	public Set<Vehicle> getAvailableVehicles(Class<?> cls, LocalDate begin, LocalDate end) {
 		final Set<Vehicle> availableVehicles = new HashSet<>();
-		for (final Vehicle vehicle : this.vehicles.values()) {
-			if (cls == vehicle.getClass() && vehicle.isFree(begin, end)) {
-				availableVehicles.add(vehicle);
-			}
+		
+		for (VehicleAndPlate vap : getVehicleAndPlateSet()) {
+			if (cls == vap.getVehicle().getClass() && vap.getVehicle().isFree(begin, end)) {
+				availableVehicles.add(vap.getVehicle());
+			}			
 		}
+		
 		return availableVehicles;
 	}
 
@@ -112,8 +129,8 @@ public class RentACar extends RentACar_Base {
 	 */
 	protected static Renting getRenting(String reference) {
 		for (final RentACar rentACar : FenixFramework.getDomainRoot().getRentACarSet()) {
-			for (final Vehicle vehicle : rentACar.vehicles.values()) {
-				final Renting renting = vehicle.getRenting(reference);
+			for (VehicleAndPlate vap : getVehicleAndPlateSet()) {
+				final Renting renting = vap.getVehicle().getRenting(reference);
 				if (renting != null) {
 					return renting;
 				}
