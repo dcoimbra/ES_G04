@@ -16,7 +16,7 @@ import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 public class Hotel extends Hotel_Base {
 	static final int CODE_SIZE = 7;
 
-	private final Processor processor = new Processor();
+	
 
 	@Override
 	public int getCounter() {
@@ -99,9 +99,7 @@ public class Hotel extends Hotel_Base {
 
 	
 
-	public Processor getProcessor() {
-		return this.processor;
-	}
+	
 
 
 	
