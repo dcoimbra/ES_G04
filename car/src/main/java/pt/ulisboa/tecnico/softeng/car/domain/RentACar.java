@@ -9,8 +9,9 @@ import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
+import pt.ist.fenixframework.FenixFramework;
 
-public class RentACar {
+public class RentACar extends RentACar_Base{
 	public static final Set<RentACar> rentACars = new HashSet<>();
 
 	private static int counter;
@@ -72,9 +73,9 @@ public class RentACar {
 		return this.code;
 	}
 
-	void addVehicle(Vehicle vehicle) {
+	/*void addVehicle(Vehicle vehicle) {
 		this.vehicles.put(vehicle.getPlate(), vehicle);
-	}
+	}*/
 
 	public boolean hasVehicle(String plate) {
 		return this.vehicles.containsKey(plate);
