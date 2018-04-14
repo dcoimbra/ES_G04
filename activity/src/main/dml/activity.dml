@@ -52,6 +52,15 @@ class Booking {
 	String reference;
 	String cancel;
 	LocalDate cancellationDate;
+	String providerNif;
+	String nif;
+	String iban;
+	double amount;
+	LocalDate date;
+	String paymentReference;
+	String invoiceReference;
+	boolean cancelledInvoice;
+	String cancelledPaymentReference;
 }
 
 relation ActivityOfferHasBookings {
