@@ -10,7 +10,7 @@ relation DomainRootHasIRS {
 		multiplicity 1..1;
 		
 	IRS playsRole irs {
-		multiplicity 0..*;
+		multiplicity 0..1;
 	}
 
 }
