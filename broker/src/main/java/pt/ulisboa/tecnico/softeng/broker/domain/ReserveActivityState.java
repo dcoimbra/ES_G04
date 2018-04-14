@@ -35,7 +35,7 @@ public class ReserveActivityState extends ReserveActivityState_Base {
 		}
 
 		if (getAdventure().getBegin().equals(getAdventure().getEnd())) {
-			if (getAdventure().shouldRentVehicle()) {
+			if (getAdventure().getRentVehicle()) {
 				getAdventure().setState(State.RENT_VEHICLE);
 			} else {
 				getAdventure().setState(State.PROCESS_PAYMENT);
