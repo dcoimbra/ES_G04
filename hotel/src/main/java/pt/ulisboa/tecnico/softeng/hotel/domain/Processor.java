@@ -9,18 +9,19 @@ import pt.ulisboa.tecnico.softeng.hotel.interfaces.BankInterface;
 import pt.ulisboa.tecnico.softeng.hotel.interfaces.TaxInterface;
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
+import pt.ist.fenixframework.FenixFramework;
 
-public class Processor {
-	private final Set<Booking> bookingToProcess = new HashSet<>();
+public class Processor extends Processor_Base {
+	
 
 	public void submitBooking(Booking booking) {
-		this.bookingToProcess.add(booking);
+		addBooking(booking);
 		processInvoices();
 	}
 
 	private void processInvoices() {
 		final Set<Booking> failedToProcess = new HashSet<>();
-		for (final Booking booking : this.bookingToProcess) {
+		for (final Booking booking : getBookingSet()) {
 			if (!booking.isCancelled()) {
 				if (booking.getPaymentReference() == null) {
 					try {
@@ -54,13 +55,13 @@ public class Processor {
 			}
 		}
 
-		this.bookingToProcess.clear();
-		this.bookingToProcess.addAll(failedToProcess);
+		getBookingSet().clear();
+		getBookingSet().addAll(failedToProcess);
 
 	}
 
 	public void clean() {
-		this.bookingToProcess.clear();
+		 getBookingSet().clear();
 	}
 
 }
