@@ -8,7 +8,6 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class IRS extends IRS_Base{
 	private final Set<TaxPayer> taxPayers = new HashSet<>();
-	private final Set<ItemType> itemTypes = new HashSet<>();
 
 	private static IRS instance;
 	
@@ -35,12 +34,8 @@ public class IRS extends IRS_Base{
 		return null;
 	}
 
-	void addItemType(ItemType itemType) {
-		this.itemTypes.add(itemType);
-	}
-
 	public ItemType getItemTypeByName(String name) {
-		for (ItemType itemType : this.itemTypes) {
+		for (ItemType itemType : getItemTypeSet()) {
 			if (itemType.getName().equals(name)) {
 				return itemType;
 			}
@@ -59,7 +54,9 @@ public class IRS extends IRS_Base{
 	}
 
 	public void removeItemTypes() {
-		this.itemTypes.clear();
+		for (ItemType itemType : getItemTypeSet()) {
+			itemType.delete();
+		}
 	}
 
 	public void removeTaxPayers() {
@@ -93,6 +90,16 @@ public class IRS extends IRS_Base{
 			}
 		}
 		return null;
+	}
+	
+	public void delete() {
+		
+		setRoot(null);
+
+		removeItemTypes();
+		//removeTaxPayers();
+
+		deleteDomainObject();
 	}
 
 }

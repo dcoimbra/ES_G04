@@ -70,6 +70,18 @@ relation DomainRootHasIRS {
 
 class ItemType {
 	String name;
-	int tax;
+	int tax;	
+}
+
+
+relation IRShasItemType {
 	
+	IRS playsRole irs {
+		multiplicity 1..1;
+	}
+	
+	ItemType playsRole itemType {
+		multiplicity 0..*;
+	}
+
 }
