@@ -49,6 +49,17 @@ relation VehicleHasPlates {
 	}
 }
 
+class Renting {}
+
+relation VehicleHasRentings {
+	Vehicle playsRole vehicle {
+		multiplicity 1..1;
+	}
+	Renting playsRole renting {
+		multiplicity 0..*;
+	}
+}
+
 relation RentACarHasVehicleAndPlate {
 	RentACar playsRole rentACar {
 		multiplicity 1..1;

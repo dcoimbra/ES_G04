@@ -77,7 +77,7 @@ public class Renting extends Renting_Base {
 		setCancellationReference(getReference() + "CANCEL");
 		setCancellationDate(LocalDate.now());
 
-		this.getVehicle().getRentACar().getProcessor().submitRenting(this);
+		this.getVehicle().getVehicleAndPlate().getRentACar().getProcessor().submitRenting(this);
 
 		return getCancellationReference();
 	}

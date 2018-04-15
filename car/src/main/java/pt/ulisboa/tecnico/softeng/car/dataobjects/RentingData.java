@@ -19,7 +19,7 @@ public class RentingData {
 		this.reference = renting.getReference();
 		this.plate = renting.getVehicle().getPlate();
 		this.drivingLicense = renting.getDrivingLicense();
-		this.rentACarCode = renting.getVehicle().getRentACar().getCode();
+		this.rentACarCode = renting.getVehicle().getVehicleAndPlate().getRentACar().getCode();
 		this.begin = renting.getBegin();
 		this.end = renting.getEnd();
 		this.paymentReference = renting.getPaymentReference();
