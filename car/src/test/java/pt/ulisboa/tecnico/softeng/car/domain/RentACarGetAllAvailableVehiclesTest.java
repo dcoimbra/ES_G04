@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.softeng.car.domain;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import pt.ist.fenixframework.FenixFramework;
 
 import java.util.Set;
 
@@ -82,8 +83,8 @@ public class RentACarGetAllAvailableVehiclesTest extends RollbackTestAbstractCla
 
 	@After
 	public void tearDown() {
-		RentACar.rentACars.clear();
-		Vehicle.plates.clear();
+		FenixFramework.getDomainRoot().getRentACarSet().clear();
+		Vehicle.getPlateSet().clear();
 	}
 
 
