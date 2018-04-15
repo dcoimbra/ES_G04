@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.car.interfaces.BankInterface;
 import pt.ulisboa.tecnico.softeng.car.interfaces.TaxInterface;
 
@@ -51,8 +52,8 @@ public class RentACarGetRentingTest extends RollbackTestAbstractClass{
 
 	@After
 	public void tearDown() {
-		RentACar.rentACars.clear();
-		Vehicle.plates.clear();
+		FenixFramework.getDomainRoot().getRentACarSet().clear();
+		Vehicle.getPlateSet().clear();
 	}
 	
 }
