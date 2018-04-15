@@ -28,9 +28,18 @@ public class Renting extends Renting_Base {
 		}
 	}
 
+	public void delete() {
+
+		setVehicle(null);
+
+		deleteDomainObject();
+	}
+
 	public boolean isCancelled() {
 		return getCancellationReference() != null && getCancellationDate() != null;
 	}
+
+
 
 	/**
 	 * @param begin
