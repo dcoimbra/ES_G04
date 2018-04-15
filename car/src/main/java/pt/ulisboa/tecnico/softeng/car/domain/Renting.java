@@ -11,7 +11,7 @@ public class Renting extends Renting_Base {
 	public Renting(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle, String buyerNIF,
 			String buyerIBAN) {
 		checkArguments(drivingLicense, begin, end, vehicle);
-		setReference(Integer.toString(vehicle.getRentACar().getCounter()));
+		setReference(Integer.toString(vehicle.getVehicleAndPlate().getRentACar().getCounter()));
 		setDrivingLicense(drivingLicense);
 		setBegin(begin);
 		setEnd(end);
