@@ -34,9 +34,4 @@ public class RentACarConstructorTest extends RollbackTestAbstractClass {
 		new RentACar("", NIF, IBAN);
 	}
 
-	@After
-	public void tearDown() {
-		RentACar.rentACars.clear();
-	}
-
 }

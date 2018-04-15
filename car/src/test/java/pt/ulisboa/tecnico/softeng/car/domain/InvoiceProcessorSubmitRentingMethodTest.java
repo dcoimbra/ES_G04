@@ -309,10 +309,4 @@ public class InvoiceProcessorSubmitRentingMethodTest extends RollbackTestAbstrac
 		};
 	}
 
-	@After
-	public void tearDown() {
-		 RentACar.rentACars.clear();
-		 Vehicle.plates.clear();
-	}
-
 }

@@ -75,10 +75,4 @@ public class RentingConflictTest extends RollbackTestAbstractClass{
 		Renting renting = new Renting(DRIVING_LICENSE, date1, date2, car, NIF, IBAN_BUYER);
 		renting.conflict(date2, date1);
 	}
-
-	@After
-	public void tearDown() {
-		RentACar.rentACars.clear();
-		Vehicle.plates.clear();
-	}
 }

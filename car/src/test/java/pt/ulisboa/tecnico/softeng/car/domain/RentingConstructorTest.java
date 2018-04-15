@@ -80,10 +80,4 @@ public class RentingConstructorTest extends RollbackTestAbstractClass{
 		new Renting(DRIVING_LICENSE, date1, date2, null, NIF, IBAN_BUYER);
 	}
 
-	@After
-	public void tearDown() {
-		RentACar.rentACars.clear();
-		Vehicle.plates.clear();
-	}
-
 }

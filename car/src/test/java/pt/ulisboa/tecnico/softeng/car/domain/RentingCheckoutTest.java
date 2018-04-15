@@ -50,10 +50,4 @@ public class RentingCheckoutTest extends RollbackTestAbstractClass{
 		renting.checkout(-10);
 	}
 
-	@After
-	public void tearDown() {
-		RentACar.rentACars.clear();
-		Vehicle.plates.clear();
-	}
-
 }

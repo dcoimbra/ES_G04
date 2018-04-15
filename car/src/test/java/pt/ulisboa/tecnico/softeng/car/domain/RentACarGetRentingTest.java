@@ -24,9 +24,9 @@ public class RentACarGetRentingTest extends RollbackTestAbstractClass{
 	private static final LocalDate date4 = LocalDate.parse("2018-01-09");
 	private static final String NIF = "NIF";
 	private static final String IBAN = "IBAN";
-    private static final String IBAN_BUYER = "IBAN";
+  private static final String IBAN_BUYER = "IBAN";
 
-    private Renting renting;
+  private Renting renting;
 
 	@Mocked
 	private BankInterface bankInterface;
@@ -49,11 +49,4 @@ public class RentACarGetRentingTest extends RollbackTestAbstractClass{
 	public void nonExistent() {
 		assertNull(RentACar.getRenting("a"));
 	}
-
-	@After
-	public void tearDown() {
-		FenixFramework.getDomainRoot().getRentACarSet().clear();
-		Vehicle.getPlateSet().clear();
-	}
-	
 }

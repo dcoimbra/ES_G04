@@ -57,10 +57,4 @@ public class VehicleIsFreeTest extends RollbackTestAbstractClass {
 		assertFalse(car.isFree(date4, date4));
 		assertTrue(car.isFree(date1, date1));
 	}
-
-	@After
-	public void tearDown() {
-		RentACar.rentACars.clear();
-		Vehicle.plates.clear();
-	}
 }

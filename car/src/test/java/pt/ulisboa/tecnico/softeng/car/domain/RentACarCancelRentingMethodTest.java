@@ -92,10 +92,4 @@ public class RentACarCancelRentingMethodTest extends RollbackTestAbstractClass {
 		RentACar.cancelRenting("MISSING_REFERENCE");
 	}
 
-	@After
-	public void tearDown() {
-		RentACar.rentACars.clear();
-		Vehicle.plates.clear();
-	}
-
 }

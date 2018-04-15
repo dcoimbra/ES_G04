@@ -26,8 +26,8 @@ public class RentACarGetRentingDataTest extends RollbackTestAbstractClass{
 	private static final LocalDate date2 = LocalDate.parse("2018-01-07");
 	private static final String NIF = "NIF";
 	private static final String IBAN = "IBAN";
-    private static final String IBAN_BUYER = "IBAN";
-    private Car car;
+  private static final String IBAN_BUYER = "IBAN";
+  private Car car;
 
 	@Mocked
 	private BankInterface bankInterface;
@@ -47,18 +47,12 @@ public class RentACarGetRentingDataTest extends RollbackTestAbstractClass{
 		assertEquals(renting.getReference(), rentingData.getReference());
 		assertEquals(DRIVING_LICENSE, rentingData.getDrivingLicense());
 		assertEquals(0, PLATE_CAR1.compareToIgnoreCase(rentingData.getPlate()));
-		assertEquals(this.car.getRentACar().getCode(), rentingData.getRentACarCode());
+		assertEquals(this.car.getVehicleAndPlate().getRentACar().getCode(), rentingData.getRentACarCode());
 	}
 
 	@Test(expected = CarException.class)
 	public void getRentingDataFail() {
 		RentACar.getRentingData("1");
-	}
-
-	@After
-	public void tearDown() {
-		FenixFramework.getDomainRoot().getRentACarSet().clear();
-		Vehicle.getPlateSet().clear();
 	}
 
 }
