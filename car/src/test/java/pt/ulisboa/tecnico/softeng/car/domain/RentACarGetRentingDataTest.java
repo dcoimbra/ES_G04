@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
+import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 import pt.ulisboa.tecnico.softeng.car.interfaces.BankInterface;
@@ -25,8 +26,8 @@ public class RentACarGetRentingDataTest extends RollbackTestAbstractClass{
 	private static final LocalDate date2 = LocalDate.parse("2018-01-07");
 	private static final String NIF = "NIF";
 	private static final String IBAN = "IBAN";
-    private static final String IBAN_BUYER = "IBAN";
-    private Car car;
+  private static final String IBAN_BUYER = "IBAN";
+  private Car car;
 
 	@Mocked
 	private BankInterface bankInterface;
@@ -53,6 +54,5 @@ public class RentACarGetRentingDataTest extends RollbackTestAbstractClass{
 	public void getRentingDataFail() {
 		RentACar.getRentingData("1");
 	}
-
 
 }

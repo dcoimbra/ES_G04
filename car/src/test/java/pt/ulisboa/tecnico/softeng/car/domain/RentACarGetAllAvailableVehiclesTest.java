@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.softeng.car.domain;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import pt.ist.fenixframework.FenixFramework;
 
 import java.util.Set;
 
@@ -30,8 +31,8 @@ public class RentACarGetAllAvailableVehiclesTest extends RollbackTestAbstractCla
 	private static final LocalDate date4 = LocalDate.parse("2018-01-09");
 	private static final String NIF = "NIF";
 	private static final String IBAN = "IBAN";
-    private static final String IBAN_BUYER = "IBAN";
-    private RentACar rentACar1;
+  private static final String IBAN_BUYER = "IBAN";
+  private RentACar rentACar1;
 	private RentACar rentACar2;
 
 	@Mocked
@@ -79,5 +80,4 @@ public class RentACarGetAllAvailableVehiclesTest extends RollbackTestAbstractCla
 		assertTrue(cars.contains(motorcycle));
 		assertFalse(cars.contains(car));
 	}
-
 }
