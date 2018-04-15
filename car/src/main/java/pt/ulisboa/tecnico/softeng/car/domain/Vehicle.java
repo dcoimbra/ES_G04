@@ -24,25 +24,26 @@ public abstract class Vehicle extends Vehicle_Base{
 		this.plate = null;
 		this.rentACar = null;
 	}
-
+	
 	public Vehicle(String plate, int kilometers, double price, RentACar rentACar) {
 		logger.debug("Vehicle plate: {}", plate);
 		checkArguments(plate, kilometers, rentACar);
-
+		//this.init
 		this.plate = plate;
 		this.kilometers = kilometers;
 		this.price = price;
 		this.rentACar = rentACar;
 
 		plates.add(plate.toUpperCase());
-		rentACar.addVehicle(this);
+		//rentACar.addVehicle(this);
 	}
 
 	protected void init(String plate, int kilometers, double price, RentACar rentACar){
+		//setVehicleAndPlate(new VehicleAndPlate(rentACar, this.getPlate()));
+		//new Plate(this)?
 		setKilometers(kilometers);
 		setPlate(plate);
 		setPrice(price);
-		setRentACar(rentACar);
 	}
 
 	private void checkArguments(String plate, int kilometers, RentACar rentACar) {

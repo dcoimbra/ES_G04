@@ -1,9 +1,11 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
 class RentACar {
-    String name;
-    String nif;
-    String iban;
+	int counter;
+	String name;
+	String code;
+	String nif;
+	String iban;
 } 
 
 relation DomainRootHasRentACars {
@@ -21,20 +23,56 @@ class Vehicle{
     double price;
 }
 
-relation RentACarHasVehicle{
-    RentACar playsRole rentACar {
-    	multiplicity 1..1;
-    }
-    Vehicle playsRole vehicle{
-        multiplicity 0..*;
-    }
+class VehicleAndPlate {
+	String plate;
+}
+
+class Plate {
+	String plate;
+}
+
+relation VehicleAndPlateHasVehicle {
+	VehicleAndPlate playsRole vehicleAndPlate {
+		multiplicity 1..1;
+	}
+	Vehicle playsRole vehicle {
+		multiplicity 1..1;
+	}
+}
+
+relation VehicleHasPlates {
+	Vehicle playsRole vehicle {
+		multiplicity 1..1;
+	}
+	Plate playsRole plates {
+		multiplicity 0..*;
+	}
+}
+
+relation RentACarHasVehicleAndPlate {
+	RentACar playsRole rentACar {
+		multiplicity 1..1;
+	}
+	VehicleAndPlate playsRole vehicleAndPlate {
+		multiplicity 0..*;
+	}
 }
 
 class Car extends Vehicle;
+class Motorcycle extends Vehicle;
 
-class Renting{}
+class Renting {}
 
 class Processor {}
+
+relation RentACarHasProcessor {
+	RentACar playsRole rentACar {
+		multiplicity 1..1;
+	}
+	Processor playsRole processor {
+		multiplicity 1..1;
+	}
+}
 
 relation ProcessorhasRentings {
 	Processor playsRole processor {
