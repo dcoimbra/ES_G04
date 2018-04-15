@@ -61,14 +61,13 @@ public abstract class Vehicle extends Vehicle_Base{
 		}
 		return true;
 	}
-
-
 	/**
 	 * Lookup for a <code>Renting</code> with the given reference.
 	 *
 	 * @param reference
 	 * @return Renting with the given reference
 	 */
+
 	public Renting getRenting(String reference) {
 		return getRentingSet()
 				.stream()
