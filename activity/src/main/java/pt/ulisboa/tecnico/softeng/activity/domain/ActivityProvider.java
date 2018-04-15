@@ -28,6 +28,8 @@ public class ActivityProvider extends ActivityProvider_Base {
 		setNif(nif);
 		setIban(iban);
 
+		setProcessor(new Processor());
+
 		FenixFramework.getDomainRoot().addActivityProvider(this);
 	}
 
