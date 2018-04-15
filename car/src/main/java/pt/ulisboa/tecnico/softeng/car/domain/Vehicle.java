@@ -110,6 +110,7 @@ public abstract class Vehicle extends Vehicle_Base{
 	 * @param reference
 	 * @return Renting with the given reference
 	 */
+
 	public Renting getRenting(String reference) {
 		return this.rentings
 				.stream()
