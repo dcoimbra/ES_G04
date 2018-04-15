@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 import pt.ulisboa.tecnico.softeng.car.interfaces.BankInterface;
 import pt.ulisboa.tecnico.softeng.car.interfaces.TaxInterface;
@@ -54,19 +55,13 @@ public class RentACarRentTest extends RollbackTestAbstractClass{
 
 	@Test(expected = CarException.class)
 	public void noRentACars() {
-		RentACar.rentACars.clear();
+		FenixFramework.getDomainRoot().getRentACarSet().clear();
 		RentACar.rent(Car.class, DRIVING_LICENSE, NIF, IBAN_BUYER, BEGIN, END);
 	}
 
 	@Test(expected = CarException.class)
 	public void noMotorcycles() {
 		RentACar.rent(Motorcycle.class, DRIVING_LICENSE, NIF, IBAN_BUYER, BEGIN, END);
-	}
-
-	@After
-	public void tearDown() {
-		RentACar.rentACars.clear();
-		Vehicle.plates.clear();
 	}
 
 }

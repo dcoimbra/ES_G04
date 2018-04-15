@@ -80,11 +80,4 @@ public class RentACarGetAllAvailableVehiclesTest extends RollbackTestAbstractCla
 		assertFalse(cars.contains(car));
 	}
 
-	@After
-	public void tearDown() {
-		RentACar.rentACars.clear();
-		Vehicle.plates.clear();
-	}
-
-
 }

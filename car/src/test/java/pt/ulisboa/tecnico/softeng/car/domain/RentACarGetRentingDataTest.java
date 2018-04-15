@@ -46,7 +46,7 @@ public class RentACarGetRentingDataTest extends RollbackTestAbstractClass{
 		assertEquals(renting.getReference(), rentingData.getReference());
 		assertEquals(DRIVING_LICENSE, rentingData.getDrivingLicense());
 		assertEquals(0, PLATE_CAR1.compareToIgnoreCase(rentingData.getPlate()));
-		assertEquals(this.car.getRentACar().getCode(), rentingData.getRentACarCode());
+		assertEquals(this.car.getVehicleAndPlate().getRentACar().getCode(), rentingData.getRentACarCode());
 	}
 
 	@Test(expected = CarException.class)
@@ -54,10 +54,5 @@ public class RentACarGetRentingDataTest extends RollbackTestAbstractClass{
 		RentACar.getRentingData("1");
 	}
 
-	@After
-	public void tearDown() {
-		RentACar.rentACars.clear();
-		Vehicle.plates.clear();
-	}
 
 }

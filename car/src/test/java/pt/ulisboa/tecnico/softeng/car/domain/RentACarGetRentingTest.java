@@ -48,11 +48,5 @@ public class RentACarGetRentingTest extends RollbackTestAbstractClass{
 	public void nonExistent() {
 		assertNull(RentACar.getRenting("a"));
 	}
-
-	@After
-	public void tearDown() {
-		RentACar.rentACars.clear();
-		Vehicle.plates.clear();
-	}
 	
 }
