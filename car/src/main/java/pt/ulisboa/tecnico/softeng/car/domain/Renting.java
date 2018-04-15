@@ -29,7 +29,7 @@ public class Renting extends Renting_Base{
 	public Renting(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle, String buyerNIF,
 			String buyerIBAN) {
 		checkArguments(drivingLicense, begin, end, vehicle);
-		this.reference = Integer.toString(vehicle.getRentACar().getCounter());
+		this.reference = Integer.toString(vehicle.getVehicleAndPlate().getRentACar().getCounter());
 		this.drivingLicense = drivingLicense;
 		this.begin = begin;
 		this.end = end;
@@ -129,7 +129,7 @@ public class Renting extends Renting_Base{
 		this.cancellationReference = this.reference + "CANCEL";
 		this.cancellationDate = LocalDate.now();
 
-		this.getVehicle().getRentACar().getProcessor().submitRenting(this);
+		this.getVehicle().getVehicleAndPlate().getRentACar().getProcessor().submitRenting(this);
 
 		return this.cancellationReference;
 	}
