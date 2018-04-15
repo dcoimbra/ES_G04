@@ -105,21 +105,12 @@ public abstract class Vehicle extends Vehicle_Base{
 	}
 
 	/**
-	 * Add a <code>Renting</code> object to the vehicle. Use with caution --- no
-	 * validation is being made.
-	 *
-	 * @param renting
-	 */
-	private void addRenting(Renting renting) {
-		this.rentings.add(renting);
-	}
-
-	/**
 	 * Lookup for a <code>Renting</code> with the given reference.
 	 *
 	 * @param reference
 	 * @return Renting with the given reference
 	 */
+
 	public Renting getRenting(String reference) {
 		return this.rentings
 				.stream()
