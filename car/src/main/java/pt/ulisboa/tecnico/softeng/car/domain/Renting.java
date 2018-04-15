@@ -29,7 +29,7 @@ public class Renting extends Renting_Base{
 	public Renting(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle, String buyerNIF,
 			String buyerIBAN) {
 		checkArguments(drivingLicense, begin, end, vehicle);
-		this.reference = Integer.toString(vehicle.getRentACar().getNextCounter());
+		this.reference = Integer.toString(vehicle.getRentACar().getCounter());
 		this.drivingLicense = drivingLicense;
 		this.begin = begin;
 		this.end = end;

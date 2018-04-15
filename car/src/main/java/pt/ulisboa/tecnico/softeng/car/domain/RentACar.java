@@ -1,20 +1,18 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.joda.time.LocalDate;
 
 import pt.ist.fenixframework.FenixFramework;
-import pt.ulisboa.tecnico.softeng.bank.domain.Operation;
 import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class RentACar extends RentACar_Base {
-
-	public int getNextCounter() {
+	
+	@Override
+	public int getCounter() {
 		int counter = super.getCounter() + 1;
 		setCounter(counter);
 		return counter;
@@ -25,7 +23,7 @@ public class RentACar extends RentACar_Base {
 		setName(name);
 		setNif(nif);
 		setIban(iban);
-		setCode(getNif() + Integer.toString(getNextCounter()));
+		setCode(getNif() + Integer.toString(getCounter()));
 		
 		setProcessor(new Processor());
 
@@ -61,7 +59,7 @@ public class RentACar extends RentACar_Base {
 
 	public boolean hasVehicle(String plate) {
 		for (VehicleAndPlate vap : getVehicleAndPlateSet()) {
-			if (vap.getVehicle().getPlate().equals(plate)) {
+			if (vap.getPlate().equals(plate)) {
 				return true;
 			}
 		}
@@ -120,7 +118,7 @@ public class RentACar extends RentACar_Base {
 
 		throw new CarException();
 	}
-
+	
 	/**
 	 * Lookup for a renting using its reference.
 	 *
@@ -129,7 +127,7 @@ public class RentACar extends RentACar_Base {
 	 */
 	protected static Renting getRenting(String reference) {
 		for (final RentACar rentACar : FenixFramework.getDomainRoot().getRentACarSet()) {
-			for (VehicleAndPlate vap : getVehicleAndPlateSet()) {
+			for (VehicleAndPlate vap : rentACar.getVehicleAndPlateSet()) {
 				final Renting renting = vap.getVehicle().getRenting(reference);
 				if (renting != null) {
 					return renting;
