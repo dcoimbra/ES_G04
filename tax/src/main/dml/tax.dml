@@ -11,9 +11,6 @@ class Seller{
 class Buyer{
 }
 
-class ItemType{
-}
-
 class Invoice{
     String reference;
 	double value;
@@ -23,6 +20,21 @@ class Invoice{
 	Seller seller;
 	Buyer buyer;*/
     boolean cancelled;
+}
+
+relation DomainRootHasIRS {
+	.pt.ist.fenixframework.DomainRoot playsRole root {
+		multiplicity 1..1;
+	}
+		
+	IRS playsRole irs {
+		multiplicity 0..1;
+	}
+}
+
+class ItemType {
+	String name;
+	int tax;	
 }
 
 /*relation InvoiceHasItemType{
@@ -58,20 +70,7 @@ relation InvoiceHasSeller{
 
 
 
-relation DomainRootHasIRS {
-	.pt.ist.fenixframework.DomainRoot playsRole root {
-		multiplicity 1..1;
-	}
-		
-	IRS playsRole irs {
-		multiplicity 0..1;
-	}
-}
 
-class ItemType {
-	String name;
-	int tax;	
-}
 
 
 relation IRShasItemType {
