@@ -72,4 +72,8 @@ public class Invoice extends Invoice_Base{
 		return getCancelled();
 	}
 
+	public void delete() {
+
+		deleteDomainObject();
+	}
 }
