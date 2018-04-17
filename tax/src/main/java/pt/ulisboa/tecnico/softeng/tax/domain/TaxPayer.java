@@ -52,10 +52,6 @@ public abstract class TaxPayer extends TaxPayer_Base {
         }
     }
 
-    public void clearAll() {
-        removeInvoices();
-    }
-
     public void delete() {
 
         removeInvoices();
