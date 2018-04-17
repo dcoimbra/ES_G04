@@ -5,9 +5,6 @@ class IRS {
 	
 }
 
-class Seller extends TaxPayer;
-class Buyer extends TaxPayer;
-
 class Invoice{
     String reference;
 	double value;

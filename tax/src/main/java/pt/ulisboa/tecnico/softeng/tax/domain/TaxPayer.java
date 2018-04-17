@@ -58,6 +58,7 @@ public abstract class TaxPayer extends TaxPayer_Base {
 
     public void delete() {
 
+        removeInvoices();
         deleteDomainObject();
     }
 
