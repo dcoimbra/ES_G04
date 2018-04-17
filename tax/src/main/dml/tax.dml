@@ -5,12 +5,6 @@ class IRS {
 	
 }
 
-class Seller{
-}
-
-class Buyer{
-}
-
 class Invoice{
     String reference;
 	double value;
@@ -83,4 +77,21 @@ relation IRShasItemType {
 		multiplicity 0..*;
 	}
 
+}
+
+
+class TaxPayer {
+    String NIF;
+    String name;
+    String address;
+}
+
+relation TaxPayerHasInvoice {
+    TaxPayer playsRole taxPayer {
+        multiplicity 1..1;
+    }
+
+    Invoice playsRole invoice {
+        multiplicity 0..*;
+    }
 }
