@@ -7,13 +7,21 @@ import pt.ulisboa.tecnico.softeng.activity.exception.RemoteAccessException;
 import pt.ulisboa.tecnico.softeng.activity.interfaces.BankInterface;
 import pt.ulisboa.tecnico.softeng.activity.interfaces.TaxInterface;
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
+import pt.ulisboa.tecnico.softeng.car.domain.RentACar;
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class Processor extends Processor_Base{
 	// important to use a set to avoid double submission of the same booking when it
 	// is cancelled while trying to pay or send invoice
+	
+	public Processor() {}
+	
+	public Processor(ActivityProvider activityProvider) {
+		setActivityProvider(activityProvider);
+	}
 
+	
 	public void submitBooking(Booking booking) {
 		addBooking(booking);
 		processInvoices();
@@ -61,6 +69,7 @@ public class Processor extends Processor_Base{
 	
 	public void delete() {
 		setActivityProvider(null);
+		clean();
 	}
 
 	public void clean() {
