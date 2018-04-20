@@ -25,14 +25,15 @@ public class RentACar extends RentACar_Base {
 		setIban(iban);
 		setCode(getNif() + Integer.toString(getCounter()));
 		
-		setProcessor(new Processor());
+		new Processor(this);
 
 		FenixFramework.getDomainRoot().addRentACar(this);
 	}
 	
 	public void delete() {
-		setProcessor(null);
-
+		setRoot(null);
+		getProcessor().delete();
+		
 		for (VehicleAndPlate vap : this.getVehicleAndPlateSet()) {
 			vap.delete();
 		}
@@ -51,10 +52,6 @@ public class RentACar extends RentACar_Base {
 				throw new CarException();
 			}
 		}
-	}
-
-	void addVehicle(VehicleAndPlate vap) {
-		this.addVehicleAndPlate(vap);
 	}
 
 	public boolean hasVehicle(String plate) {
