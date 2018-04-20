@@ -21,7 +21,6 @@ public class Booking extends Booking_Base {
 		setCancelledInvoice(false);
 		setCancelledPaymentReference(null);
 
-		offer.addBooking(this);
 	}
 
 	private void checkArguments(ActivityProvider provider, ActivityOffer offer, String buyerNIF, String buyerIban) {
