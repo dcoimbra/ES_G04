@@ -66,12 +66,16 @@ public class Processor extends Processor_Base{
 
 	public void delete() {
 		setRentACar(null);
-		clean();
+		for (Renting renting : getRentingSet()) {
+			renting.delete();
+		}
+
+		deleteDomainObject();
 	}
 
 	public void clean(){
 		for (Renting renting : getRentingSet()) {
-			renting.delete();
+			removeRenting(renting);
 		}
 	}
 
