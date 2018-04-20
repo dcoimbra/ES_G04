@@ -34,6 +34,7 @@ public class ActivityProvider extends ActivityProvider_Base {
 	}
 
 	public void delete() {
+		setProcessor(null);
 		setRoot(null);
 
 		for (Activity activity : getActivitySet()) {

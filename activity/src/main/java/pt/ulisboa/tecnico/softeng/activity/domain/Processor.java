@@ -58,6 +58,10 @@ public class Processor extends Processor_Base{
 		for (Booking bookingFailed : failedToProcess)
 			addBooking(bookingFailed);
 	}
+	
+	public void delete() {
+		setActivityProvider(null);
+	}
 
 	public void clean() {
 		for (Booking booking : getBookingSet()) {
