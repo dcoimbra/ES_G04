@@ -68,12 +68,14 @@ public class Processor extends Processor_Base{
 	
 	public void delete() {
 		setActivityProvider(null);
-		clean();
+		for (Booking booking : getBookingSet()) {
+			booking.delete();
+		}
 	}
 
 	public void clean() {
 		for (Booking booking : getBookingSet()) {
-			booking.delete();
+			removeBooking(booking);
 		}
 	}
 
