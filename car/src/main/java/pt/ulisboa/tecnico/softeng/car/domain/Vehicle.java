@@ -27,6 +27,18 @@ public abstract class Vehicle extends Vehicle_Base{
 		setKilometers(kilometers);
 		setPlate(plate);
 		setPrice(price);
+		new Plate(this, plate);
+		
+	}
+	
+	public void delete() {
+		setVehicleAndPlate(null);
+
+		for (Plate plate : getPlatesSet()) {
+			plate.delete();
+		}
+
+		deleteDomainObject();
 	}
 
 	private void checkArguments(String plate, int kilometers, RentACar rentACar) {
@@ -88,8 +100,6 @@ public abstract class Vehicle extends Vehicle_Base{
 			throw new CarException();
 		}
 		Renting renting = new Renting(drivingLicense, begin, end, this, buyerNIF, buyerIBAN);
-		addRenting(renting);
-
         this.getVehicleAndPlate().getRentACar().getProcessor().submitRenting(renting);
 
 

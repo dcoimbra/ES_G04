@@ -7,7 +7,6 @@ public class VehicleAndPlate extends VehicleAndPlate_Base {
     public VehicleAndPlate(RentACar rentACar, String plate, Vehicle vehicle) {
     	setRentACar(rentACar);
     	setPlate(plate);
-    	setVehicle(vehicle);
     }
     
     public void delete() {
