@@ -71,6 +71,7 @@ public class Processor extends Processor_Base{
 		for (Booking booking : getBookingSet()) {
 			booking.delete();
 		}
+		deleteDomainObject();
 	}
 
 	public void clean() {
