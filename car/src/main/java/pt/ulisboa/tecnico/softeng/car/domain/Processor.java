@@ -12,6 +12,13 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class Processor extends Processor_Base{
 
+	public Processor(){
+	}
+
+	public Processor(RentACar rentACar){
+		setRentACar(rentACar);
+	}
+
 	public void submitRenting(Renting renting) {
 		addRenting(renting);
 		processInvoices();
@@ -52,14 +59,20 @@ public class Processor extends Processor_Base{
 
 			}
 		}
-
-		getRentingSet().clear();
-		getRentingSet().addAll(failedToProcess);
-
+		clean();
+		for (Renting rentingFailed : failedToProcess)
+			addRenting(rentingFailed);
 	}
 
-	public void clean() {
-		getRentingSet().clear();
+	public void delete() {
+		setRentACar(null);
+		clean();
+	}
+
+	public void clean(){
+		for (Renting renting : getRentingSet()) {
+			renting.delete();
+		}
 	}
 
 }
