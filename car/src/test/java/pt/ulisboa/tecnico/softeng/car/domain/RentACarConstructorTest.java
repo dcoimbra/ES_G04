@@ -14,8 +14,6 @@ public class RentACarConstructorTest extends RollbackTestAbstractClass {
 
 	@Override
 	public void populate4Test() {
-		RentACar rentACar = new RentACar(NAME, NIF, IBAN);
-		assertEquals(NAME, rentACar.getName());
 	}
 
 	@Test
