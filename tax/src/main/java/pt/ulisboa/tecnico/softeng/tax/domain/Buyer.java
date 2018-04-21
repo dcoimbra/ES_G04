@@ -2,12 +2,22 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
-public class Buyer extends TaxPayer {
+public class Buyer extends Buyer_Base {
+
 	private final static int PERCENTAGE = 5;
 
-	public Buyer(IRS irs, String NIF, String name, String address) {
-		super(irs, NIF, name, address);
-	}
+	public Buyer () {
+	    super();
+    }
+
+    public Buyer(IRS irs, String NIF, String name, String address) {
+        super();
+        init(irs, NIF, name, address);
+    }
+
+    protected void init(IRS irs, String NIF, String name, String address) {
+        super.init(irs, NIF, name, address);
+    }
 
 	public double taxReturn(int year) {
 		if (year < 1970) {
@@ -15,7 +25,7 @@ public class Buyer extends TaxPayer {
 		}
 
 		double result = 0;
-		for (Invoice invoice : this.invoices) {
+		for (Invoice invoice : getInvoiceSet()) {
 			if (!invoice.isCancelled() && invoice.getDate().getYear() == year) {
 				result = result + invoice.getIva() * PERCENTAGE / 100;
 			}

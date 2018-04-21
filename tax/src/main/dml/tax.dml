@@ -63,10 +63,6 @@ relation InvoiceHasSeller{
 }*/
 
 
-
-
-
-
 relation IRShasItemType {
 	
 	IRS playsRole irs {
@@ -95,3 +91,6 @@ relation TaxPayerHasInvoice {
         multiplicity 0..*;
     }
 }
+
+class Seller extends TaxPayer;
+class Buyer extends TaxPayer;

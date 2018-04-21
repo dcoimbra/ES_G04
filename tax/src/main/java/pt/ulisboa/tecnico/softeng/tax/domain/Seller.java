@@ -2,23 +2,33 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
-public class Seller extends TaxPayer {
-	public Seller(IRS irs, String NIF, String name, String address) {
-		super(irs, NIF, name, address);
-	}
+public class Seller extends Seller_Base {
 
-	public double toPay(int year) {
-		if (year < 1970) {
-			throw new TaxException();
-		}
+    public Seller() {
+        super();
+    }
 
-		double result = 0;
-		for (Invoice invoice : this.invoices) {
-			if (!invoice.isCancelled() && invoice.getDate().getYear() == year) {
-				result = result + invoice.getIva();
-			}
-		}
-		return result;
-	}
+    public Seller(IRS irs, String NIF, String name, String address) {
+        super();
+        init(irs, NIF, name, address);
+    }
+
+    protected void init(IRS irs, String NIF, String name, String address) {
+        super.init(irs, NIF, name, address);
+    }
+
+    public double toPay(int year) {
+        if (year < 1970) {
+            throw new TaxException();
+        }
+
+        double result = 0;
+        for (Invoice invoice : getInvoiceSet()) {
+            if (!invoice.isCancelled() && invoice.getDate().getYear() == year) {
+                result = result + invoice.getIva();
+            }
+        }
+        return result;
+    }
 
 }
