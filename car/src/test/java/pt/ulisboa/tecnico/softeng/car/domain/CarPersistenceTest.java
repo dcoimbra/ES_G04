@@ -77,13 +77,7 @@ public class CarPersistenceTest {
 	@Atomic(mode = TxMode.WRITE)
 	public void tearDown() {
 		for (RentACar rentACar : FenixFramework.getDomainRoot().getRentACarSet()) {
-			for (VehicleAndPlate vap : rentACar.getVehicleAndPlateSet()) {
-				vap.getVehicle().getPlatesSet().clear();
-			}
-			rentACar.getVehicleAndPlateSet().clear();
 			rentACar.delete();
 		}
-		
 	}
-
 }
