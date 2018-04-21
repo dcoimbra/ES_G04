@@ -28,8 +28,6 @@ class ItemType {
 	int tax;	
 }
 
-
-
 relation IRShasItemType {
 	
 	IRS playsRole irs {
@@ -55,6 +53,17 @@ relation TaxPayerHasInvoice {
     }
 
     Invoice playsRole invoice {
+        multiplicity 0..*;
+    }
+}
+
+relation IRShasTaxPayer {
+
+    IRS playsRole irs {
+        multiplicity 1..1;
+    }
+
+    TaxPayer playsRole taxPayer {
         multiplicity 0..*;
     }
 }
