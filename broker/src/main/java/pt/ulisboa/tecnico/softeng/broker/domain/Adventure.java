@@ -77,22 +77,6 @@ public class Adventure extends Adventure_Base {
 		return getCurrentAmount() * (1 + getMargin());
 	}
 
-	public void setRentingConfirmation(String rentingConfirmation) {
-		setRentingConfirmation(rentingConfirmation);
-	}
-
-	public void setRentingCancellation(String rentingCancellation) {
-		setRentingCancellation(rentingCancellation);
-	}
-
-	public void setInvoiceReference(String invoiceReference) {
-		setInvoiceReference(invoiceReference);
-	}
-
-	public void setInvoiceCancelled(boolean value) {
-		setInvoiceCancelled(value);
-	}
-
 	public void setState(State state) {
 		if (getState() != null) {
 			getState().delete();

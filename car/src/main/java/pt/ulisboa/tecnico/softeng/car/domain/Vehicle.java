@@ -11,17 +11,17 @@ public abstract class Vehicle extends Vehicle_Base{
 	private static Logger logger = LoggerFactory.getLogger(Vehicle.class);
 
 	private static String plateFormat = "..-..-..";
-
+  
 	public Vehicle(){
 	}
-	
+  
 	protected void init(String plate, int kilometers, double price, RentACar rentACar){
 		logger.debug("Vehicle plate: {}", plate);
 		checkArguments(plate, kilometers,rentACar);
+		setVehicleAndPlate(new VehicleAndPlate(rentACar, plate, this));
 		setKilometers(kilometers);
 		setPlate(plate);
 		setPrice(price);
-		setVehicleAndPlate(new VehicleAndPlate(rentACar, getPlate(), this));
 		new Plate(this, plate);
 
 	}
