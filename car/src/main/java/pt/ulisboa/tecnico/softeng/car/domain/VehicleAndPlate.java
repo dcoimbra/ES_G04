@@ -11,6 +11,7 @@ public class VehicleAndPlate extends VehicleAndPlate_Base {
     
     public void delete() {
 		setRentACar(null);
+		getVehicle().delete();
 		deleteDomainObject();
 	}
     

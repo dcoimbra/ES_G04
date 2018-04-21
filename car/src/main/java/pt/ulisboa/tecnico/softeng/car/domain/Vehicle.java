@@ -26,6 +26,10 @@ public abstract class Vehicle extends Vehicle_Base{
 	
 	public void delete() {
 		setVehicleAndPlate(null);
+		
+		for (Renting r : this.getRentingSet())
+			r.delete();
+		
 		deleteDomainObject();
 	}
 
