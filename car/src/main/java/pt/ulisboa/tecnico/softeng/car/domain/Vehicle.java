@@ -1,20 +1,20 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public abstract class Vehicle extends Vehicle_Base{
 	private static Logger logger = LoggerFactory.getLogger(Vehicle.class);
 
 	private static String plateFormat = "..-..-..";
-
-	public Vehicle(){}
-
+  
+	public Vehicle(){
+	}
+  
 	protected void init(String plate, int kilometers, double price, RentACar rentACar){
 		logger.debug("Vehicle plate: {}", plate);
 		checkArguments(plate, kilometers,rentACar);
@@ -37,10 +37,13 @@ public abstract class Vehicle extends Vehicle_Base{
 	}
 
 	private void checkArguments(String plate, int kilometers, RentACar rentACar) {
-		for(Plate p : getPlatesSet()){
-			if(p.getPlate().equals(plate))
-				throw new CarException();
+		for (final RentACar rental : FenixFramework.getDomainRoot().getRentACarSet()) {
+			for (VehicleAndPlate vap : rental.getVehicleAndPlateSet()) {
+				if(vap.getPlate().equals(plate))
+					throw new CarException();
+			}
 		}
+			
 		if (plate == null || !plate.matches(plateFormat)) {
 			throw new CarException();
 		} else if (kilometers < 0) {
