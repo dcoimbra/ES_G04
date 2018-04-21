@@ -2,7 +2,7 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 
 
 class IRS {
-	
+	int counter;
 }
 
 class Invoice{
@@ -10,9 +10,6 @@ class Invoice{
 	double value;
 	double iva;
 	LocalDate date;
-	/*ItemType itemType;
-	Seller seller;
-	Buyer buyer;*/
     boolean cancelled;
 }
 
@@ -31,36 +28,6 @@ class ItemType {
 	int tax;	
 }
 
-/*relation InvoiceHasItemType{
-    Invoice playsRole invoice{
-    	multiplicity 1..1;
-    }
-    
-    ItemType playsRole itemType{
-		multiplicity 1..1;
-	}
-}
-
-relation InvoiceHasBuyer{
-    Invoice playsRole invoice{
-    	multiplicity 1..1;
-    }
-    
-    Buyer playsRole buyer{
-		multiplicity 1..1;
-	}
-}
-
-
-relation InvoiceHasSeller{
-    Invoice playsRole invoice{
-    	multiplicity 1..1;
-    }
-    
-    Seller playsRole seller{
-		multiplicity 1..1;
-	}
-}*/
 
 
 relation IRShasItemType {
@@ -94,3 +61,36 @@ relation TaxPayerHasInvoice {
 
 class Seller extends TaxPayer;
 class Buyer extends TaxPayer;
+
+
+relation InvoiceHasItemType{
+    Invoice playsRole invoice{
+    	multiplicity 1..1;
+    }
+    
+    ItemType playsRole itemType{
+		multiplicity 1..1;
+	}
+}
+
+relation InvoiceHasBuyer{
+    Invoice playsRole invoice1{
+    	multiplicity 1..1;
+    }
+    
+    Buyer playsRole buyer{
+		multiplicity 1..1;
+	}
+}
+
+
+relation InvoiceHasSeller{
+    Invoice playsRole invoice1{
+    	multiplicity 1..1;
+    }
+    
+    Seller playsRole seller{
+		multiplicity 1..1;
+	}
+}
+
