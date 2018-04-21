@@ -23,12 +23,13 @@ public abstract class Vehicle extends Vehicle_Base{
 	}
 
 	protected void init(String plate, int kilometers, double price, RentACar rentACar){
+		checkArguments(plate, kilometers,rentACar);
 		setVehicleAndPlate(new VehicleAndPlate(rentACar, getPlate(), this));
 		setKilometers(kilometers);
 		setPlate(plate);
 		setPrice(price);
 		new Plate(this, plate);
-		
+
 	}
 	
 	public void delete() {
@@ -42,7 +43,11 @@ public abstract class Vehicle extends Vehicle_Base{
 	}
 
 	private void checkArguments(String plate, int kilometers, RentACar rentACar) {
-		if (plate == null || !plate.matches(plateFormat) || getPlatesSet().contains(getPlate().toUpperCase())) {
+		for(Plate p : getPlatesSet()){
+			if(p.getPlate().equals(plate))
+				throw new CarException();
+		}
+		if (plate == null || !plate.matches(plateFormat)) {
 			throw new CarException();
 		} else if (kilometers < 0) {
 			throw new CarException();
