@@ -3,8 +3,6 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 import static org.junit.Assert.assertEquals;
 
 import org.joda.time.LocalDate;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
@@ -87,10 +85,4 @@ public class SellerToPayTest  extends RollbackTestAbstractClass{
 
 		assertEquals(15.0f, value, 0.00f);
 	}
-
-	@After
-	public void tearDown() {
-		IRS.getIRS().clearAll();
-	}
-
 }

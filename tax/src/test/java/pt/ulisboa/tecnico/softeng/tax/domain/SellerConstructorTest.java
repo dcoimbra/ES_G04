@@ -3,8 +3,6 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
@@ -72,11 +70,6 @@ public class SellerConstructorTest  extends RollbackTestAbstractClass{
 	@Test(expected = TaxException.class)
 	public void emptyAddress() {
 		new Seller(this.irs, NIF, NAME, "");
-	}
-
-	@After
-	public void tearDown() {
-		IRS.getIRS().clearAll();
 	}
 
 }

@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 public class IRSGetTaxPayerByNIFTest extends RollbackTestAbstractClass{
@@ -58,8 +56,4 @@ public class IRSGetTaxPayerByNIFTest extends RollbackTestAbstractClass{
 		assertNull(taxPayer);
 	}
 
-	@After
-	public void tearDown() {
-		this.irs.clearAll();
-	}
 }

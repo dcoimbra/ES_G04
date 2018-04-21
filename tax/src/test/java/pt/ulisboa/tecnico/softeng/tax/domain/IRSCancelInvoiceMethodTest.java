@@ -3,8 +3,6 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 import static org.junit.Assert.assertTrue;
 
 import org.joda.time.LocalDate;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
@@ -52,8 +50,4 @@ public class IRSCancelInvoiceMethodTest extends RollbackTestAbstractClass{
 		IRS.cancelInvoice("XXXXXXXX");
 	}
 
-	@After
-	public void tearDown() {
-		this.irs.clearAll();
-	}
 }
