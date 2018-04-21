@@ -24,7 +24,7 @@ public abstract class Vehicle extends Vehicle_Base{
 
 	protected void init(String plate, int kilometers, double price, RentACar rentACar){
 		checkArguments(plate, kilometers,rentACar);
-		setVehicleAndPlate(new VehicleAndPlate(rentACar, getPlate(), this));
+		setVehicleAndPlate(new VehicleAndPlate(rentACar, plate, this));
 		setKilometers(kilometers);
 		setPlate(plate);
 		setPrice(price);
