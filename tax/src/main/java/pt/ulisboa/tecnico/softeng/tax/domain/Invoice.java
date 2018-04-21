@@ -2,26 +2,23 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 
 import org.joda.time.LocalDate;
 
+
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class Invoice extends Invoice_Base{
 	private static int counter = 0;
 
 	
-	private final ItemType itemType;
-	private final Seller seller;
-	private final Buyer buyer;
-
 
 	Invoice(double value, LocalDate date, ItemType itemType, Seller seller, Buyer buyer) {
 		checkArguments(value, date, itemType, seller, buyer);
 
-		setReference(Integer.toString(++Invoice.counter));
+		setReference(Integer.toString(itemType.getIrs().getCounter()));
 		setValue(value);
 		setDate(date);
-		this.itemType = itemType;
-		this.seller = seller;
-		this.buyer = buyer;
+		setItemType(itemType);
+		setSeller(seller);
+		setBuyer(buyer);
 		setIva(value * itemType.getTax() / 100);
 		setCancelled(false);
 
@@ -52,17 +49,6 @@ public class Invoice extends Invoice_Base{
 	}
 
 
-	public ItemType getItemType() {
-		return this.itemType;
-	}
-
-	public Seller getSeller() {
-		return this.seller;
-	}
-
-	public Buyer getBuyer() {
-		return this.buyer;
-	}
 
 	public void cancel() {
 		setCancelled(true);
@@ -74,6 +60,9 @@ public class Invoice extends Invoice_Base{
 
 	public void delete() {
 
+		getItemType().delete();
+		getSeller().delete();
+		getBuyer().delete();
 		deleteDomainObject();
 	}
 }

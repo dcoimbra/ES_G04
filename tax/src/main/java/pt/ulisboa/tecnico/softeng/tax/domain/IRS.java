@@ -10,6 +10,14 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 public class IRS extends IRS_Base{
 	private final Set<TaxPayer> taxPayers = new HashSet<>();
 	
+	
+	@Override
+	public int getCounter() {
+		int counter = super.getCounter() + 1;
+		setCounter(counter);
+		return counter;
+	}
+	
 	public static IRS getIRS() {
 		
 		if (FenixFramework.getDomainRoot().getIrs() == null) {
