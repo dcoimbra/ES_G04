@@ -5,8 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import org.joda.time.LocalDate;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
@@ -85,11 +83,6 @@ public class InvoiceConstructorTest  extends RollbackTestAbstractClass{
 
 	public void equal1970() {
 		new Invoice(VALUE, new LocalDate(1970, 01, 01), this.itemType, this.seller, this.buyer);
-	}
-
-	@After
-	public void tearDown() {
-		IRS.getIRS().clearAll();
 	}
 
 }

@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.joda.time.LocalDate;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
@@ -50,11 +48,6 @@ public class TaxPayerGetInvoiceByReferenceTest extends RollbackTestAbstractClass
 	@Test
 	public void desNotExist() {
 		assertNull(this.seller.getInvoiceByReference(BUYER_NIF));
-	}
-
-	@After
-	public void tearDown() {
-		IRS.getIRS().clearAll();
 	}
 
 }

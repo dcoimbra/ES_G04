@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
@@ -63,11 +61,6 @@ public class ItemTypeConstructorTest extends RollbackTestAbstractClass{
 
 	public void zeroTax() {
 		new ItemType(this.irs, CAR, 0);
-	}
-
-	@After
-	public void tearDown() {
-		IRS.getIRS().clearAll();
 	}
 
 }
