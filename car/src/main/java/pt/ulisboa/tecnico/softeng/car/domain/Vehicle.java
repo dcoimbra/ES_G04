@@ -22,17 +22,10 @@ public abstract class Vehicle extends Vehicle_Base{
 		setKilometers(kilometers);
 		setPlate(plate);
 		setPrice(price);
-		new Plate(this, plate);
-
 	}
 	
 	public void delete() {
 		setVehicleAndPlate(null);
-
-		for (Plate plate : getPlatesSet()) {
-			plate.delete();
-		}
-
 		deleteDomainObject();
 	}
 

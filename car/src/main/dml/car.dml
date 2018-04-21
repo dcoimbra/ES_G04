@@ -27,25 +27,12 @@ class VehicleAndPlate {
 	String plate;
 }
 
-class Plate {
-	String plate;
-}
-
 relation VehicleAndPlateHasVehicle {
 	VehicleAndPlate playsRole vehicleAndPlate {
 		multiplicity 1..1;
 	}
 	Vehicle playsRole vehicle {
 		multiplicity 1..1;
-	}
-}
-
-relation VehicleHasPlates {
-	Vehicle playsRole vehicle {
-		multiplicity 1..1;
-	}
-	Plate playsRole plates {
-		multiplicity 0..*;
 	}
 }
 
