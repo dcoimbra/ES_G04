@@ -20,6 +20,16 @@ public abstract class TaxPayer extends TaxPayer_Base {
         irs.addTaxPayer(this);
     }
 
+    protected void init(IRS irs, String NIF, String name, String address) {
+
+        checkArguments(irs, NIF, name, address);
+
+        FenixFramework.getDomainRoot().setIrs(irs);
+        setNIF(NIF);
+        setName(name);
+        setAddress(address);
+    }
+
     private void checkArguments(IRS irs, String NIF, String name, String address) {
         if (NIF == null || NIF.length() != 9) {
             throw new TaxException();
@@ -49,14 +59,6 @@ public abstract class TaxPayer extends TaxPayer_Base {
             }
         }
         return null;
-    }
-
-    protected void init(IRS irs, String NIF, String name, String address) {
-
-        FenixFramework.getDomainRoot().setIrs(irs);
-        setNIF(NIF);
-        setName(name);
-        setAddress(address);
     }
 
     public void removeInvoices() {
