@@ -41,7 +41,8 @@ public class CarPersistenceTest {
 	public void atomicProcess() {
 		RentACar rentACar = new RentACar(RENTACAR_NAME, NIF, IBAN);
 		Vehicle car = new Car(CAR_PLATE, CAR_KILOMETERS, CAR_PRICE, rentACar);
-		new Renting(DRIVING_LICENSE, begin, end, car, BUYER_NIF, BUYER_IBAN);
+		Renting renting = new Renting(DRIVING_LICENSE, begin, end, car, BUYER_NIF, BUYER_IBAN);
+		rentACar.getProcessor().addRenting(renting);
 	}
 
 	@Atomic(mode = TxMode.READ)
