@@ -18,7 +18,7 @@ public abstract class Vehicle extends Vehicle_Base{
 	protected void init(String plate, int kilometers, double price, RentACar rentACar){
 		logger.debug("Vehicle plate: {}", plate);
 		checkArguments(plate, kilometers,rentACar);
-		setVehicleAndPlate(new VehicleAndPlate(rentACar, plate, this));
+		setVehicleAndPlate(new VehicleAndPlate(rentACar, plate));
 		setKilometers(kilometers);
 		setPlate(plate);
 		setPrice(price);
