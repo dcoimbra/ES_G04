@@ -7,7 +7,7 @@ public class Client extends Client_Base {
 	public Client(Broker broker, String IBAN, String NIF, String drivingLicense, int age) {
 		checkArguments(broker, IBAN, NIF, drivingLicense, age);
 		setIBAN(IBAN);
-		setIBAN(NIF);
+		setNIF(NIF);
 		setDrivingLicense(drivingLicense);
 		setAge(age);
 		setBroker(broker);
