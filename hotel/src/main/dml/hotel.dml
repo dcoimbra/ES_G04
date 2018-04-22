@@ -69,7 +69,7 @@ class Processor {}
 
 relation ProcessorhasBookings {
 	Processor playsRole processor {
-		multiplicity 1..1;
+		multiplicity 0..1;
 	}
 	Booking playsRole booking {
 		multiplicity 0..*;
