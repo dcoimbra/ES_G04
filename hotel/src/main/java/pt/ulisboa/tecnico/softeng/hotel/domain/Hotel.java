@@ -35,12 +35,16 @@ public class Hotel extends Hotel_Base {
 		setIban(iban);
 		setPriceSingle(priceSingle);
 		setPriceDouble(priceDouble);
+		
+		new Processor(this);
 
 		FenixFramework.getDomainRoot().addHotel(this);
 	}
 
 	public void delete() {
 		setRoot(null);
+		
+		getProcessor().delete();
 
 		for (Room room : getRoomSet()) {
 			room.delete();

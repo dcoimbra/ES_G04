@@ -3,17 +3,22 @@ package pt.ulisboa.tecnico.softeng.hotel.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel;
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.hotel.exception.RemoteAccessException;
 import pt.ulisboa.tecnico.softeng.hotel.interfaces.BankInterface;
 import pt.ulisboa.tecnico.softeng.hotel.interfaces.TaxInterface;
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
-import pt.ist.fenixframework.FenixFramework;
 
 public class Processor extends Processor_Base {
 	
+	public Processor(Hotel hotel) {
+		setHotel(hotel);
+	}
 
+	
+	
 	public void submitBooking(Booking booking) {
 		addBooking(booking);
 		processInvoices();
@@ -58,6 +63,15 @@ public class Processor extends Processor_Base {
 		getBookingSet().clear();
 		getBookingSet().addAll(failedToProcess);
 
+	}
+	
+	public void delete() {
+		setHotel(null);
+		for (Booking booking : getBookingSet()) {
+			booking.delete();
+		}
+
+		deleteDomainObject();
 	}
 
 	public void clean() {
