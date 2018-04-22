@@ -28,7 +28,7 @@ public class ActivityProvider extends ActivityProvider_Base {
 		setNif(nif);
 		setIban(iban);
 
-		setProcessor(new Processor());
+		new Processor(this);
 
 		FenixFramework.getDomainRoot().addActivityProvider(this);
 	}
@@ -36,7 +36,7 @@ public class ActivityProvider extends ActivityProvider_Base {
 	public void delete() {
 
 		setRoot(null);
-		setProcessor(null);
+		getProcessor().delete();
 		for (Activity activity : getActivitySet()) {
 			activity.delete();
 		}
