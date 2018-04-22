@@ -4,10 +4,6 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class Seller extends Seller_Base {
 
-    public Seller() {
-        super();
-    }
-
     public Seller(IRS irs, String NIF, String name, String address) {
         super();
         init(irs, NIF, name, address);

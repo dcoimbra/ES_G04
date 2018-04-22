@@ -6,10 +6,6 @@ public class Buyer extends Buyer_Base {
 
 	private final static int PERCENTAGE = 5;
 
-	public Buyer () {
-	    super();
-    }
-
     public Buyer(IRS irs, String NIF, String name, String address) {
         super();
         init(irs, NIF, name, address);
