@@ -4,7 +4,7 @@ import org.joda.time.LocalDate;
 
 public class VehicleAndPlate extends VehicleAndPlate_Base {
     
-    public VehicleAndPlate(RentACar rentACar, String plate, Vehicle vehicle) {
+    public VehicleAndPlate(RentACar rentACar, String plate) {
     	setRentACar(rentACar);
     	setPlate(plate);
     }
