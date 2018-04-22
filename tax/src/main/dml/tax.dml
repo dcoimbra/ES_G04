@@ -49,7 +49,7 @@ class TaxPayer {
 
 relation TaxPayerHasInvoice {
     TaxPayer playsRole taxPayer {
-        multiplicity 1..1;
+        multiplicity 2..2;
     }
 
     Invoice playsRole invoice {
