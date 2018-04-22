@@ -1,6 +1,5 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
-import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public abstract class TaxPayer extends TaxPayer_Base {
@@ -9,25 +8,14 @@ public abstract class TaxPayer extends TaxPayer_Base {
 
     }
 
-    public TaxPayer(IRS irs, String NIF, String name, String address) {
-
-        checkArguments(irs, NIF, name, address);
-
-        setNIF(NIF);
-        setName(name);
-        setAddress(address);
-
-        irs.addTaxPayer(this);
-    }
-
     protected void init(IRS irs, String NIF, String name, String address) {
 
         checkArguments(irs, NIF, name, address);
 
-        FenixFramework.getDomainRoot().setIrs(irs);
         setNIF(NIF);
         setName(name);
         setAddress(address);
+        irs.addTaxPayer(this);
     }
 
     private void checkArguments(IRS irs, String NIF, String name, String address) {
