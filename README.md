@@ -9,16 +9,16 @@ To see the coverage reports, go to <module name>/target/site/jacoco/index.html.
 
 |   Number   |          Name           |                  Email                  |   GitHub Username  | Group |
 | ---------- | ----------------------- | --------------------------------------- | -------------------| ----- |
-|   84766    |     Samuel Santos       |  samuel.c.santos@tecnico.ulisboa.pt     |    santos-samuel   |       |
-|   84729    | João Francisco Almeida* | joao.santos.almeida@tecnico.ulisboa.pt  |     JFMSAlmeida    |       |
-|   84704    |    Bernardo Andrade     | bernardo.andrade@tecnico.ulisboa.pt     |       Berhart      |       |
-|   84708    |     David Coimbra       |  david.coimbra@tecnico.ulisboa.pt       |    HiveMindize     |       |
-|   84727    |      Ivan Zarro         |       ivan.zarro@tecnico.ulisboa.pt     |     ivancivel      |       |
-|   84842    |      José Ferrão        |       jozeus.alves@gmail.com            |       jozeus       |       |
-|   84750    |      Nuno Bombico*      |     nuno.bombico@tecnico.ulisboa.pt     |    nunoBombico1    |       |
+|   84766    |     Samuel Santos       |  samuel.c.santos@tecnico.ulisboa.pt     |    santos-samuel   |   2   |
+|   84729    | João Francisco Almeida  | joao.santos.almeida@tecnico.ulisboa.pt  |     JFMSAlmeida    |   2   |
+|   84704    |    Bernardo Andrade     | bernardo.andrade@tecnico.ulisboa.pt     |       Berhart      |   2   |
+|   84708    |     David Coimbra       |  david.coimbra@tecnico.ulisboa.pt       |    HiveMindize     |   1   |
+|   84727    |      Ivan Zarro         |       ivan.zarro@tecnico.ulisboa.pt     |     ivancivel      |   2   |
+|   84842    |      José Ferrão        |       jozeus.alves@gmail.com            |       jozeus       |   1   |
+|   84750    |      Nuno Bombico       |     nuno.bombico@tecnico.ulisboa.pt     |    nunoBombico1    |   1   |
 
-- **Group 1:**
-- **Group 2:**
+- **Group 1: Bank, Activity, Hotel, Car**
+- **Group 2: Broker, Tax**
 
 ### Infrastructure
 
