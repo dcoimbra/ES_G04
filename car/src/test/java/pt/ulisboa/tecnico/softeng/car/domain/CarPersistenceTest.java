@@ -17,6 +17,7 @@ import pt.ist.fenixframework.Atomic.TxMode;
 import pt.ist.fenixframework.FenixFramework;
 
 public class CarPersistenceTest {
+	//Rui: ficaria melhor organizado numa classe BaseTest, que depois poderia ser reutilizada
 	private static final String RENTACAR_NAME = "RentACar_Name";
 	private static final String NIF = "NIF";
 	private static final String IBAN = "IBAN";
@@ -28,7 +29,7 @@ public class CarPersistenceTest {
 	private final LocalDate end = new LocalDate(2017, 04, 15);
 	private static final int CAR_PRICE= 10;
 	private static final int CAR_KILOMETERS = 10;;
-	
+
 
 
 	@Test
