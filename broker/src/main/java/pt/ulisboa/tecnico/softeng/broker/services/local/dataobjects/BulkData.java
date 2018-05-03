@@ -17,6 +17,8 @@ public class BulkData {
 	private int actualNumber;
 	private boolean cancelled;
 	private List<String> references;
+	private String buyerIban;
+	private String buyerNif;
 
 	public BulkData() {
 	}
@@ -81,6 +83,22 @@ public class BulkData {
 
 	public void setReferences(List<String> references) {
 		this.references = references;
+	}
+
+	public String getBuyerNif() {
+		return buyerNif;
+	}
+
+	public void setBuyerNif(String buyerNif) {
+		this.buyerNif = buyerNif;
+	}
+
+	public String getBuyerIban() {
+		return buyerIban;
+	}
+
+	public void setBuyerIban(String buyerIban) {
+		this.buyerIban = buyerIban;
 	}
 
 }
