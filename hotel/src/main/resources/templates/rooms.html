@@ -26,6 +26,8 @@
        				<option th:each="type : ${T(pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type).values()}" th:value="${type}" th:text="${type}">
    					</option>
 				</select>
+			<label>NIF: </label> <input class="form-control" type="text" th:field="*{nif}" />
+            <label>IBAN: </label> <input class="form-control" type="text" th:field="*{iban}" />
 			<input class="btn btn-primary" type="submit" value="Submit" />
 		</form>
 		<br/>
@@ -35,6 +37,8 @@
 				<tr>
 					<th>Number</th>
  					<th>Type</th>
+				  	<th>NIF</th>
+				  	<th>IBAN</th>
  					<th>Bookings</th>
 				</tr>
 			</thead>
@@ -42,8 +46,9 @@
 				<tr th:each="room: ${hotel.rooms}">
 					<td th:text="${room.number}">012</td>
  					<td th:text="${room.type}">SINGLE</td>
-				 	<td><a
-						th:href="@{/hotels/{code}/rooms/{number}/bookings(code=${hotel.code},number=${room.number})}">Bookings</a></td>
+					<td th:text="${room.nif}">123456789</td>
+          			<td th:text="${room.iban}">iban</td>
+				 	<td><a th:href="@{/hotels/{code}/rooms/{number}/bookings(code=${hotel.code},number=${room.number})}">Bookings</a></td>
 				</tr>
 			</tbody>
 		</table>
