@@ -33,6 +33,7 @@
             <th>Nif</th>
             <th>Driving License</th>
             <th>Age</th>
+            <th>Adventures</th>
         </tr>
         </thead>
         <tbody>
@@ -41,6 +42,8 @@
             <td th:text="${client.nif}">123456789</td>
             <td th:text="${client.drivingLicense}">DL123456789</td>
             <td th:text="${client.age}">20</td>
+            <td><a
+					th:href="@{/brokers/{code}/clients/{nif}/adventures(code=${broker.code}, nif=${client.nif})}">Link</a></td>
         </tr>
         </tbody>
     </table>

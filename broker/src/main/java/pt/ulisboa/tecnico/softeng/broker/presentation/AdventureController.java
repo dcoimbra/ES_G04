@@ -14,47 +14,43 @@ import pt.ulisboa.tecnico.softeng.broker.services.local.BrokerInterface;
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.AdventureData;
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.BrokerData;
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.BrokerData.CopyDepth;
+import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.ClientData;
 
 @Controller
-@RequestMapping(value = "/brokers/{brokerCode}/adventures")
+@RequestMapping(value = "/brokers/{code}/clients/{nif}/adventures")
 public class AdventureController {
 	private static Logger logger = LoggerFactory.getLogger(AdventureController.class);
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String showAdventures(Model model, @PathVariable String brokerCode) {
-		logger.info("showAdventures code:{}", brokerCode);
+	public String accountForm(Model model, @PathVariable String code, @PathVariable String nif) {
+		logger.info("");
 
-		BrokerData brokerData = BrokerInterface.getBrokerDataByCode(brokerCode, CopyDepth.ADVENTURES);
+		ClientData clientData = BrokerInterface.getClientDataByNif(code, nif);
 
-		if (brokerData == null) {
-			model.addAttribute("error", "Error: it does not exist a broker with the code " + brokerCode);
+		if (clientData == null) {
+			model.addAttribute("error",
+					"Error: it does not exist a client with nif " + nif + " in broker with code " + code);
 			model.addAttribute("broker", new BrokerData());
 			model.addAttribute("brokers", BrokerInterface.getBrokers());
 			return "brokers";
 		} else {
-			model.addAttribute("adventure", new AdventureData());
-			model.addAttribute("broker", brokerData);
+			model.addAttribute("client", clientData);
 			return "adventures";
 		}
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String submitAdventure(Model model, @PathVariable String brokerCode,
-			@ModelAttribute AdventureData adventureData) {
-		logger.info("adventureSubmit brokerCode:{}, begin:{}, end:{}, age:{}, iban:{}, amount:{}", brokerCode,
-				adventureData.getBegin(), adventureData.getEnd(), adventureData.getAge(), adventureData.getIban(),
-				adventureData.getAmount());
+	public String accountSubmit(Model model, @PathVariable String code, @PathVariable String nif, @ModelAttribute AdventureData adventureData) {
+		logger.info("");
 
 		try {
-			BrokerInterface.createAdventure(brokerCode, adventureData);
+			BrokerInterface.createAdventure(code, nif, adventureData);
 		} catch (BrokerException be) {
-			model.addAttribute("error", "Error: it was not possible to create the adventure");
-			model.addAttribute("adventure", adventureData);
-			model.addAttribute("broker", BrokerInterface.getBrokerDataByCode(brokerCode, CopyDepth.ADVENTURES));
+			model.addAttribute("error", "Error: it was not possible to create de account");
+			model.addAttribute("client", BrokerInterface.getClientDataByNif(code, nif));
 			return "adventures";
 		}
 
-		return "redirect:/brokers/" + brokerCode + "/adventures";
+		return "redirect:/brokers/" + code + "/clients/" + nif + "/adventures";
 	}
-
 }

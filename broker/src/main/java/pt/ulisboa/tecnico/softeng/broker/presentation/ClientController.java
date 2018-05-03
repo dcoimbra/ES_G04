@@ -16,18 +16,18 @@ import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.BrokerData;
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.BrokerData.CopyDepth;
 
 @Controller
-@RequestMapping(value = "/brokers/{brokerCode}/clients")
+@RequestMapping(value = "/brokers/{code}/clients")
 public class ClientController {
 	private static Logger logger = LoggerFactory.getLogger(ClientController.class);
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String clientForm(Model model, @PathVariable String brokerCode) {
-		logger.info("clientForm brokerCode:{}", brokerCode);
+	public String clientForm(Model model, @PathVariable String code) {
+		logger.info("clientForm code:{}", code);
 
-		BrokerData brokerData = BrokerInterface.getBrokerDataByCode(brokerCode, CopyDepth.CLIENTS);
+		BrokerData brokerData = BrokerInterface.getBrokerDataByCode(code, CopyDepth.CLIENTS);
 
 		if (brokerData == null) {
-			model.addAttribute("error", "Error: it does not exist a bank with the code " + brokerCode);
+			model.addAttribute("error", "Error: it does not exist a bank with the code " + code);
 			model.addAttribute("broker", new BrokerData());
 			model.addAttribute("brokers", BrokerInterface.getBrokers());
 			return "brokers";
@@ -38,21 +38,19 @@ public class ClientController {
 		return "clients";
 	}
 
-
 	@RequestMapping(method = RequestMethod.POST)
-	public String submitClient(Model model, @PathVariable String brokerCode,
-								  @ModelAttribute ClientData clientData) {
-		logger.info("clientSubmit brokerCode:{}, nif:{}, iban:{}, drivingLicense:{}, age:{}", brokerCode, clientData.getNif(), clientData.getIban(), clientData.getDrivingLicense(), clientData.getAge());
+	public String clientSubmit(Model model, @PathVariable String code, @ModelAttribute ClientData client) {
+		logger.info("clientSubmit code:{}, nif:{}, iban:{}, drivingLicense:{}, age:{}", code, client.getNif(), client.getIban(), client.getDrivingLicense(), client.getAge());
 
 		try {
-			BrokerInterface.createClient(brokerCode, clientData);
+			BrokerInterface.createClient(code, client);
 		} catch (BrokerException be) {
-			model.addAttribute("error", "Error: it was not possible to create the adventure");
-			model.addAttribute("client", clientData);
-			model.addAttribute("broker", BrokerInterface.getBrokerDataByCode(brokerCode, CopyDepth.CLIENTS));
-			return "adventures";
+			model.addAttribute("error", "Error: it was not possible to create the client");
+			model.addAttribute("client", client);
+			model.addAttribute("broker", BrokerInterface.getBrokerDataByCode(code, CopyDepth.CLIENTS));
+			return "clients";
 		}
 
-		return "redirect:/brokers/" + brokerCode + "/clients";
+		return "redirect:/brokers/" + code + "/clients";
 	}
 }
