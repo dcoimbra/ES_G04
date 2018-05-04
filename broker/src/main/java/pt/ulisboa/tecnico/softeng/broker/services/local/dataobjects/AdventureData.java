@@ -45,11 +45,17 @@ public class AdventureData {
 		this.roomCancellation = adventure.getRoomCancellation();
 		this.activityConfirmation = adventure.getActivityConfirmation();
 		this.activityCancellation = adventure.getActivityCancellation();
-
-		Client client = adventure.getClient();
-		this.clientData = new ClientData(client);
+		this.clientData = new ClientData(adventure.getClient());
 	}
 	
+	public ClientData getClientData() {
+		return clientData;
+	}
+
+	public void setClientData(ClientData clientData) {
+		this.clientData = clientData;
+	}
+
 	public String getId() {
 		return this.id;
 	}
@@ -103,7 +109,7 @@ public class AdventureData {
 	}
 
 	public void setMargin(Double margin) {
-		this.amount = margin;
+		this.margin = margin;
 	}
 
 	public Adventure.State getState() {

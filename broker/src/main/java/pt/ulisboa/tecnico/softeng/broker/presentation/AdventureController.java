@@ -52,7 +52,7 @@ public class AdventureController {
 		} catch (BrokerException be) {
 			model.addAttribute("error", "Error: it was not possible to create the adventure");
 			model.addAttribute("adventure", adventureData);
-			model.addAttribute("broker", BrokerInterface.getBrokerDataByCode(brokerCode, CopyDepth.ADVENTURES));
+			model.addAttribute("client", BrokerInterface.getClientDataByNif(brokerCode, clientNif));
 			return "adventures";
 		}
 
