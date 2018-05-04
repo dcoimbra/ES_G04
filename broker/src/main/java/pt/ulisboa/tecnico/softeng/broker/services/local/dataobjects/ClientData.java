@@ -8,6 +8,7 @@ public class ClientData {
 	private String drivingLicense;
 	private int age;
 	private String brokerName;
+	private String brokerCode;
 
 	public ClientData() {
 	}
@@ -18,11 +19,25 @@ public class ClientData {
 		this.drivingLicense = client.getDrivingLicense();
 		this.age = client.getAge();
 		this.brokerName = client.getBroker().getName();
+		this.brokerCode = client.getBroker().getCode();
 	}
 
 	public String getBrokerName() {
 		return this.brokerName;
 	}
+	
+	public void setBrokerName(String brokerName) {
+		this.brokerName = brokerName;
+	}
+	
+	public String getBrokerCode() {
+		return this.brokerName;
+	}
+	
+	public void setBrokerCode(String brokerCode) {
+		this.brokerCode = brokerCode;
+	}
+	
 	public String getIban() {
 		return this.iban;
 	}
