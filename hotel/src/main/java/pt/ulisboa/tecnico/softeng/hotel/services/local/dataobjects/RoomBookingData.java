@@ -40,6 +40,8 @@ public class RoomBookingData {
 		this.price = booking.getPrice();
 		this.paymentReference = booking.getPaymentReference();
 		this.invoiceReference = booking.getInvoiceReference();
+		this.buyerNif = booking.getBuyerNif();
+		this.buyerIban = booking.getBuyerIban();
 	}
 
 	public String getReference() {
@@ -70,8 +72,16 @@ public class RoomBookingData {
 		return this.arrival;
 	}
 
+	public void setArrival(LocalDate arrival) {
+		this.arrival = arrival;
+	}
+
 	public LocalDate getDeparture() {
 		return this.departure;
+	}
+
+	public void setDeparture(LocalDate departure) {
+		this.departure = departure;
 	}
 
 	public LocalDate getCancellationDate() {
