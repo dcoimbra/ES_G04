@@ -15,7 +15,6 @@ public class AdventureData {
 	private Integer age;
 	private String iban;
 	private Double amount;
-	private ClientData clientData;
 	private Adventure.State state;
 
 	private String paymentConfirmation;
@@ -24,6 +23,7 @@ public class AdventureData {
 	private String roomCancellation;
 	private String activityConfirmation;
 	private String activityCancellation;
+	private double margin;
 
 	public AdventureData() {
 	}
@@ -36,6 +36,7 @@ public class AdventureData {
 		this.iban = adventure.getIban();
 		this.amount = adventure.getAmount();
 		this.state = adventure.getState().getValue();
+		this.margin = adventure.getMargin();
 
 		this.paymentConfirmation = adventure.getPaymentConfirmation();
 		this.paymentCancellation = adventure.getPaymentCancellation();
@@ -43,9 +44,6 @@ public class AdventureData {
 		this.roomCancellation = adventure.getRoomCancellation();
 		this.activityConfirmation = adventure.getActivityConfirmation();
 		this.activityCancellation = adventure.getActivityCancellation();
-
-		Client client = adventure.getClient();
-		this.clientData = new ClientData(client);
 	}
 
 	public String getId() {
@@ -94,6 +92,14 @@ public class AdventureData {
 
 	public void setAmount(Double amount) {
 		this.amount = amount;
+	}
+	
+	public Double getMargin() {
+		return this.margin;
+	}
+
+	public void setMargin(Double margin) {
+		this.margin = margin;
 	}
 
 	public Adventure.State getState() {

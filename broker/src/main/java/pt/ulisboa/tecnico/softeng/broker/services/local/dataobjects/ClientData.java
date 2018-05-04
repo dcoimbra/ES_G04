@@ -1,5 +1,10 @@
 package pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import pt.ulisboa.tecnico.softeng.broker.domain.Adventure;
 import pt.ulisboa.tecnico.softeng.broker.domain.Client;
 
 public class ClientData {
@@ -7,6 +12,9 @@ public class ClientData {
 	private String nif;
 	private String drivingLicense;
 	private int age;
+	private String brokerName;
+	private String brokerCode;
+	private List<AdventureData> adventures = new ArrayList<>();
 
 	public ClientData() {
 	}
@@ -16,8 +24,37 @@ public class ClientData {
 		this.nif = client.getNif();
 		this.drivingLicense = client.getDrivingLicense();
 		this.age = client.getAge();
+		this.brokerName = client.getBroker().getName();
+		this.brokerCode = client.getBroker().getCode();
+		for(Adventure adv : client.getAdventureSet()) {
+			this.adventures.add(new AdventureData(adv));
+		}
+	}
+	
+	public List<AdventureData> getAdventures() {
+		return this.adventures;
 	}
 
+	public void setAdventures(List<AdventureData> adventures) {
+		this.adventures = adventures;
+	}
+
+	public String getBrokerName() {
+		return this.brokerName;
+	}
+	
+	public void setBrokerName(String brokerName) {
+		this.brokerName = brokerName;
+	}
+	
+	public String getBrokerCode() {
+		return this.brokerCode;
+	}
+	
+	public void setBrokerCode(String brokerCode) {
+		this.brokerCode = brokerCode;
+	}
+	
 	public String getIban() {
 		return this.iban;
 	}
