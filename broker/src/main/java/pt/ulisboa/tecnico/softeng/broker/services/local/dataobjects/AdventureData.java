@@ -15,7 +15,6 @@ public class AdventureData {
 	private Integer age;
 	private String iban;
 	private Double amount;
-	private ClientData clientData;
 	private Adventure.State state;
 
 	private String paymentConfirmation;
@@ -45,15 +44,6 @@ public class AdventureData {
 		this.roomCancellation = adventure.getRoomCancellation();
 		this.activityConfirmation = adventure.getActivityConfirmation();
 		this.activityCancellation = adventure.getActivityCancellation();
-		this.clientData = new ClientData(adventure.getClient());
-	}
-	
-	public ClientData getClientData() {
-		return clientData;
-	}
-
-	public void setClientData(ClientData clientData) {
-		this.clientData = clientData;
 	}
 
 	public String getId() {

@@ -3,6 +3,8 @@ package pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import pt.ulisboa.tecnico.softeng.broker.domain.Adventure;
 import pt.ulisboa.tecnico.softeng.broker.domain.Client;
 
 public class ClientData {
@@ -24,8 +26,9 @@ public class ClientData {
 		this.age = client.getAge();
 		this.brokerName = client.getBroker().getName();
 		this.brokerCode = client.getBroker().getCode();
-		this.adventures = client.getAdventureSet().stream().sorted((c1, c2) -> c1.getID().compareTo(c2.getID()))
-				.map(c -> new AdventureData(c)).collect(Collectors.toList());
+		for(Adventure adv : client.getAdventureSet()) {
+			this.adventures.add(new AdventureData(adv));
+		}
 	}
 	
 	public List<AdventureData> getAdventures() {
@@ -45,7 +48,7 @@ public class ClientData {
 	}
 	
 	public String getBrokerCode() {
-		return this.brokerName;
+		return this.brokerCode;
 	}
 	
 	public void setBrokerCode(String brokerCode) {

@@ -17,13 +17,13 @@ import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.BrokerData.C
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.ClientData;
 
 @Controller
-@RequestMapping(value = "/brokers/{code}/clients/{nif}/adventures")
+@RequestMapping(value = "/brokers/{brokerCode}/clients/{clientNif}/adventures")
 public class AdventureController {
 	private static Logger logger = LoggerFactory.getLogger(AdventureController.class);
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String accountForm(Model model, @PathVariable String brokerCode, @PathVariable String clientNif) {
-		logger.info("");
+		logger.info("showAdventures code:{}, nif:{}", brokerCode, clientNif);
 
 		ClientData clientData = BrokerInterface.getClientDataByNif(brokerCode, clientNif);
 
@@ -43,9 +43,15 @@ public class AdventureController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String submitAdventure(Model model, @PathVariable String brokerCode, @PathVariable String clientNif,
 			@ModelAttribute AdventureData adventureData) {
-		logger.info("adventureSubmit brokerCode:{}, clientNif:{}, begin:{}, end:{}, age:{}, iban:{}, amount:{}", brokerCode, clientNif,
-				adventureData.getBegin(), adventureData.getEnd(), adventureData.getAge(), adventureData.getIban(),
-				adventureData.getAmount());
+		logger.info("adventureSubmitBegin");
+
+		ClientData clientData = BrokerInterface.getClientDataByNif(brokerCode, clientNif);
+		adventureData.setIban(clientData.getIban());
+		adventureData.setAmount(0.0);
+
+		logger.info("adventureSubmitMiddle brokerCode:{}, clientNif:{}, begin:{}, end:{}, age:{}, iban:{}, margin:{}, amount:{}", brokerCode,
+				clientNif, adventureData.getBegin(), adventureData.getEnd(), adventureData.getAge(), adventureData.getIban(),
+				adventureData.getMargin(), adventureData.getAmount());
 
 		try {
 			BrokerInterface.createAdventure(brokerCode, clientNif, adventureData);
