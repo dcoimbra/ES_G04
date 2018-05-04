@@ -22,6 +22,8 @@
 	 		<label>Number: </label> <input class="form-control" type="number" th:field="*{number}" /> 
 			<label>Arrival: </label> <input class="form-control" type="date" th:field="*{arrival}" />  
 			<label>Departure: </label> <input class="form-control" type="date" th:field="*{departure}" />  
+			<label>Buyer Nif: </label> <input class="form-control" type="text" th:field="*{buyerNif}" /> 
+			<label>Buyer Iban: </label> <input class="form-control" type="text" th:field="*{buyerIban}" />
 			<input class="btn btn-primary" type="submit" value="Submit" />
 		</form>
 		<br/>
@@ -33,6 +35,8 @@
  					<th>Arrival</th>
 					<th>Departure</th>
 					<th>Actual Number</th>
+					<th>Buyer Nif</th>
+					<th>Buyer Iban</th>
 					<th>Cancelled</th>
 					<th>References</th>
 				</tr>
@@ -43,6 +47,8 @@
  					<td th:text="${bulk.arrival}">arrival</td>
 					<td th:text="${bulk.departure}">departure</td>
 					<td th:text="${bulk.actualNumber}">actual number</td>
+					<td th:text="${bulk.buyerNif}">buyer nif</td>
+					<td th:text="${bulk.buyerIban}">buyer iban</td>
 					<td th:text="${bulk.cancelled}">cancelled</td>
 					<td><p th:each="reference: ${bulk.references}"><span th:text="${reference}">reference</span></p></td>
 				</tr>

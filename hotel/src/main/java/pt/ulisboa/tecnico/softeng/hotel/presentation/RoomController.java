@@ -39,7 +39,8 @@ public class RoomController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String roomSubmit(Model model, @PathVariable String code, @ModelAttribute RoomData roomData) {
-		logger.info("roomSubmit hotelCode:{}, number:{}, type:{}", code, roomData.getNumber(), roomData.getType());
+		logger.info("roomSubmit hotelCode:{}, number:{}, type:{}, nif:{}, iban:{}",
+				code, roomData.getNumber(), roomData.getType(), roomData.getNif(), roomData.getIban());
 
 		try {
 			HotelInterface.createRoom(code, roomData);

@@ -14,11 +14,11 @@ public class RentACar extends RentACar_Base {
 		checkArguments(name, nif, iban);
 
 		setCode(nif + Integer.toString(getCounter()));
-		setName(name);
+		setName(name); 
 		setNif(nif);
 		setIban(iban);
 
-		setProcessor(new Processor());
+		setProcessor(new Processor()); 
 
 		FenixFramework.getDomainRoot().addRentACar(this);
 	}
@@ -133,6 +133,12 @@ public class RentACar extends RentACar_Base {
 		int counter = super.getCounter() + 1;
 		setCounter(counter);
 		return counter;
+	}
+
+
+	public Vehicle getVehicleByPlate(String plate) {
+		return getVehicleSet().stream().filter(v -> v.getPlate().equals(plate)).findFirst().orElse(null);
+
 	}
 
 }
