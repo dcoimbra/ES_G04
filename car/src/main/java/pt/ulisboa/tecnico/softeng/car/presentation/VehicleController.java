@@ -45,7 +45,7 @@ public class VehicleController {
         try {
             CarInterface.createCar(code, vehicleData);
         } catch (CarException ce) {
-            model.addAttribute("error", "Error: it was not possible to create the car");
+            model.addAttribute("carError", "Error: it was not possible to create the car");
             model.addAttribute("vehicle", vehicleData);
             model.addAttribute("rentacar", CarInterface.getRentACarDataByCode(code));
             return "vehicles";
@@ -62,7 +62,7 @@ public class VehicleController {
         try {
             CarInterface.createMotorcycle(code, vehicleData);
         } catch (CarException ce) {
-            model.addAttribute("error", "Error: it was not possible to create the motorcycle");
+            model.addAttribute("motorcycleError", "Error: it was not possible to create the motorcycle");
             model.addAttribute("vehicle", vehicleData);
             model.addAttribute("rentacar", CarInterface.getRentACarDataByCode(code));
             return "vehicles";

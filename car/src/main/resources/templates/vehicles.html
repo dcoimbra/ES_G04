@@ -15,7 +15,7 @@
 		<a class="btn btn-default pull-right" th:href="@{/rentacars}">RentACars</a>
 		<br/>
 		<h3>Create Car</h3>
-		<p class="text-danger" th:text="${error}">Error</p>
+		<p class="text-danger" th:text="${carError}">Error</p>
 		<form class="form-inline" th:action="@{/rentacars/{code}/vehicles/cars(code=${rentacar.code})}" th:object="${vehicle}" method="post">
 	 		<label>Plate: </label> <input class="form-control" type="text" th:field="*{plate}" />
 			<label>Kilometers: </label> <input class="form-control" type="text" th:field="*{kilometers}" />
@@ -26,7 +26,7 @@
 
 		<br/>
 		<h3>Create Motorcycle</h3>
-		<p class="text-danger" th:text="${error}">Error</p>
+		<p class="text-danger" th:text="${motorcycleError}">Error</p>
 		<form class="form-inline" th:action="@{/rentacars/{code}/vehicles/motorcycles(code=${rentacar.code})}" th:object="${vehicle}" method="post">
 			<label>Plate: </label> <input class="form-control" type="text" th:field="*{plate}" />
 			<label>Kilometers: </label> <input class="form-control" type="text" th:field="*{kilometers}" />
