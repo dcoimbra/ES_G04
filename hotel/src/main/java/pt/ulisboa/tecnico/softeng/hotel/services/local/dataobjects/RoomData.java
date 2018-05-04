@@ -9,8 +9,6 @@ public class RoomData {
 	private String hotelCode;
 	private String hotelName;
 	private String number;
-	private String nif;
-	private String iban;
 	private Room.Type type;
 	private List<RoomBookingData> bookings;
 
@@ -21,8 +19,6 @@ public class RoomData {
 		this.hotelCode = room.getHotel().getCode();
 		this.hotelName = room.getHotel().getName();
 		this.number = room.getNumber();
-		this.nif = room.getHotel().getNif();
-		this.iban = room.getHotel().getIban();
 		this.type = room.getType();
 
 		this.bookings = room.getBookingSet().stream().sorted((b1, b2) -> b1.getArrival().compareTo(b2.getArrival()))
@@ -51,22 +47,6 @@ public class RoomData {
 
 	public void setNumber(String number) {
 		this.number = number;
-	}
-
-	public String getNif() {
-		return nif;
-	}
-
-	public void setNif(String nif) {
-		this.nif = nif;
-	}
-
-	public String getIban() {
-		return iban;
-	}
-
-	public void setIban(String iban) {
-		this.iban = iban;
 	}
 
 	public Room.Type getType() {
