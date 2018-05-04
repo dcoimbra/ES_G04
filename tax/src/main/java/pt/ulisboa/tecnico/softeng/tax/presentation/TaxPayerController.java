@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -34,14 +33,16 @@ public class TaxPayerController {
 		logger.info("taxPayerSubmit nif:{}, name:{}, address:{}", buyer.getNif(), buyer.getName(), buyer.getAddress());
 		try {
 			TaxInterface.createBuyer(buyer);
-			return "taxpayers";
 		} catch (TaxException te) {
 			model.addAttribute("error", "Error: it was not possible to create the buyer");
 			model.addAttribute("buyer", buyer);
+			model.addAttribute("seller", new SellerData());
 			model.addAttribute("buyers", TaxInterface.getBuyers());
 			model.addAttribute("sellers", TaxInterface.getSellers());
 			return "taxpayers";
 		}
+		
+		return "redirect:/taxpayers";
 
 	}
 
@@ -50,13 +51,14 @@ public class TaxPayerController {
 		logger.info("taxPayerSubmit nif:{}, name:{}, address:{}", seller.getNif(), seller.getName(), seller.getAddress());
 		try {
 			TaxInterface.createSeller(seller);
-			return "taxpayers";
 		} catch (TaxException te) {
-			model.addAttribute("error", "Error: it was not possible to create the seller");
+			model.addAttribute("error2", "Error: it was not possible to create the seller");
+			model.addAttribute("buyer", new BuyerData());
 			model.addAttribute("seller", seller);
 			model.addAttribute("buyers", TaxInterface.getBuyers());
 			model.addAttribute("sellers", TaxInterface.getSellers());
 			return "taxpayers";
 		}
+		return "redirect:/taxpayers";
 	}
 }

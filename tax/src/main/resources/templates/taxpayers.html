@@ -44,7 +44,7 @@
 			</tbody>
 		</table>
 		<h3>Create Seller:</h3>
-		<p class="text-danger" th:text="${error}">This is not good</p>
+		<p class="text-danger" th:text="${error2}">This is not good</p>
 		<form class="form-inline" th:action="@{/taxpayers/seller}" th:object="${seller}" method="post">
 			<label>Nif: </label> <input class="form-control" type="text" th:field="*{nif}" /> 
 			<label>Name: </label> <input class="form-control" type="text" th:field="*{name}" /> 
