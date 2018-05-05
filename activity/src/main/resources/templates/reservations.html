@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reservations</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet"
+          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+    <h2>
+        Reservations of Offer of Activity <span th:text="${activity.name}">Tracking</span> of <span th:text="${activity.nameProvider}">eXtreme</span>
+    </h2>
+    <a class="btn btn-default pull-right" th:href="@{/providers/{codeProvider}/activities/{codeActivity}/offers(codeProvider=${activity.codeProvider},codeActivity=${activity.code})}">Activities</a>
+    <br/>
+    <h3>Create Reservation</h3>
+    <p class="text-danger" th:text="${error}">Error</p>
+    <form class="form-inline" th:action="@{/providers/{codeProvider}/activities/{codeActivity}/offers{begin}/reservations(codeProvider=${activity.codeProvider},codeActivity=${activity.code},begin=${offer.begin})}" th:object="${reservation}" method="post">
+        <label>Reference: </label> <input class="form-control" type="text" th:field="*{reference}" />
+        <label>Payment's Reference: </label> <input class="form-control" type="date" th:field="*{paymentReference}" />
+        <label>Invoice's Reference: </label> <input class="form-control" type="date" th:field="*{invoiceReference}" />
+        <label>Buyer's NIF: </label> <input class="form-control" type="text" th:field="*{buyerNif}" />
+        <label>Buyer's IBAN: </label> <input class="form-control" type="text" th:field="*{buyerIban}" />
+        <input class="btn btn-primary" type="submit" value="Submit" />
+    </form>
+    <br/>
+    <h2>
+        Reservations of Offer Begin: <span th:text="${offer.begin}">12/12/2017</span> End: <span th:text="${offer.end}">12/12/2017</span>
+    </h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Reference</th>
+            <th>Payment's Reference</th>
+            <th>Invoice's Reference</th>
+            <th>Cancellation</th>
+            <th>Cancellation Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reservation: ${offer.reservations}">
+            <td th:text="${reservation.reference}">xpto3456</td>
+            <td th:text="${reservation.paymentReference}">xpto12</td>
+            <td th:text="${reservation.invoiceReference}">xpto12</td>
+            <td th:text="${reservation.cancellation}">xpto3456CANCEL</td>
+            <td th:text="${reservation.cancellationDate}">07/12/2016</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
