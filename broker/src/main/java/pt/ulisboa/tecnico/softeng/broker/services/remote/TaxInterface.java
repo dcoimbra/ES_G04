@@ -25,7 +25,7 @@ public class TaxInterface {
 
 	public static void cancelInvoice(String invoiceReference) {
 		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://localhost:8086/taxpayers/submitinvoice";
+		String url = "http://localhost:8086/taxpayers/cancelinvoice";
 		try{
 			restTemplate.postForObject(url, invoiceReference, String.class);
 		} catch (RestClientException e){
