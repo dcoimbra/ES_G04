@@ -9,7 +9,7 @@ public class ActivityReservationData {
 	private String code;
 	private String nif;
 	private String iban;
-	private int age;;
+	private int age;
 	private LocalDate begin;
 	private LocalDate end;
 	private LocalDate cancellationDate;
