@@ -1,16 +1,16 @@
 package pt.ulisboa.tecnico.softeng.car.services.local;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.Atomic.TxMode;
 import pt.ist.fenixframework.FenixFramework;
-import pt.ulisboa.tecnico.softeng.car.domain.Car;
-import pt.ulisboa.tecnico.softeng.car.domain.Motorcycle;
-import pt.ulisboa.tecnico.softeng.car.domain.RentACar;
-import pt.ulisboa.tecnico.softeng.car.domain.Vehicle;
+import pt.ulisboa.tecnico.softeng.car.domain.*;
+import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 import pt.ulisboa.tecnico.softeng.car.services.local.dataobjects.RentACarData;
+import pt.ulisboa.tecnico.softeng.car.services.local.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.services.local.dataobjects.VehicleData;
 
 public class CarInterface {
@@ -82,6 +82,29 @@ public class CarInterface {
 				.orElse(null);
 	}
 
+	@Atomic(mode = TxMode.WRITE)
+	public static void createRenting(String code, String plate, RentingData renting) {
+		Vehicle vehicle = getVehicleByPlate(code, plate);
+		if (vehicle == null) {
+			throw new CarException();
+		}
 
-		
+		new Renting(renting.getDrivingLicense(), renting.getBegin(), renting.getEnd(), vehicle, renting.getBuyerNif(), renting.getBuyerIban());
+	}
+
+	@Atomic(mode = TxMode.WRITE)
+	public static void checkoutRenting(String code, String plate, String reference, int kilometers) {
+
+		Vehicle vehicle = getVehicleByPlate(code, plate);
+
+		if (vehicle == null) {
+			throw new CarException();
+		}
+
+		Renting renting = vehicle.getRenting(reference);
+
+		renting.checkout(kilometers);
+
+		renting.delete();
+	}
 }

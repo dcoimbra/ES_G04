@@ -22,7 +22,7 @@ public class BookingController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String bookingForm(Model model, @PathVariable String code, @PathVariable String number) {
-		logger.info("bookingForm hotelCode:{}, roomNumber", code, number);
+		logger.info("bookingForm hotelCode:{}, roomNumber:{}", code, number);
 
 		RoomData roomData = HotelInterface.getRoomDataByNumber(code, number);
 
