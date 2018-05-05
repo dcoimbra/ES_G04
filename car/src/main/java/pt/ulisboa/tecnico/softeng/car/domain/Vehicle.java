@@ -43,8 +43,6 @@ public abstract class Vehicle extends Vehicle_Base {
 		} 
 	}
 
-
-
 	/**
 	 * @param kilometers
 	 *            the kilometers to set
