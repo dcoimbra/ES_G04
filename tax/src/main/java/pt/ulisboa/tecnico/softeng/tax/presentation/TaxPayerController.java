@@ -36,7 +36,9 @@ public class TaxPayerController {
 		} catch (TaxException te) {
 			model.addAttribute("error", "Error: it was not possible to create the buyer");
 			model.addAttribute("buyer", buyer);
+			model.addAttribute("seller", new SellerData());
 			model.addAttribute("buyers", TaxInterface.getBuyers());
+			model.addAttribute("sellers", TaxInterface.getSellers());
 			return "taxpayers";
 		}
 		
@@ -51,7 +53,9 @@ public class TaxPayerController {
 			TaxInterface.createSeller(seller);
 		} catch (TaxException te) {
 			model.addAttribute("error2", "Error: it was not possible to create the seller");
+			model.addAttribute("buyer", new BuyerData());
 			model.addAttribute("seller", seller);
+			model.addAttribute("buyers", TaxInterface.getBuyers());
 			model.addAttribute("sellers", TaxInterface.getSellers());
 			return "taxpayers";
 		}

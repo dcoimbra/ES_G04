@@ -12,6 +12,7 @@ import pt.ulisboa.tecnico.softeng.tax.domain.Seller;
 import pt.ulisboa.tecnico.softeng.tax.domain.TaxPayer;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.BuyerData;
+import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.InvoiceData;
 import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.SellerData;
 
 public class TaxInterface {
@@ -72,10 +73,16 @@ public class TaxInterface {
 		IRS.cancelInvoice(invoiceConfirmation);
 	}
 
+	@Atomic(mode = TxMode.READ)
 	private static Invoice getInvoiceByReference(String reference) {
 		Invoice invoice = getIrs().getInvoiceSet().stream().filter(b -> b.getReference().equals(reference))
 				.findFirst().orElse(null);
 		return invoice;
+	}
+
+	@Atomic(mode = TxMode.WRITE)
+	public static void createInvoice(InvoiceData invoiceData) {
+		getIrs().submitInvoice(invoiceData);
 	}
 
 }

@@ -40,7 +40,7 @@
 					<td th:text="${buyer.name}">Alfredo</td>
 					<td th:text="${buyer.address}">Marquês</td>
 				 	<td><a
-						th:href="@{/taxpayers/buyer/{nif}/invoices(code=${buyer.nif})}">Invoices</a></td>
+						th:href="@{/taxpayers/buyer/{nif}/invoices(nif=${buyer.nif})}">Invoices</a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -69,7 +69,7 @@
 					<td th:text="${seller.name}">Alfredo</td>
 					<td th:text="${seller.address}">Marquês</td>
 				 	<td><a
-						th:href="@{/taxpayers/seller/{nif}/invoices(code=${seller.nif})}">Invoices</a></td>
+						th:href="@{/taxpayers/seller/{nif}/invoices(nif=${seller.nif})}">Invoices</a></td>
 				</tr>
 			</tbody>
 		</table>
