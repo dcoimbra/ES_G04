@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.joda.time.LocalDate;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,8 @@ public class HotelPersistenceTest {
 
 	private final LocalDate arrival = new LocalDate(2017, 12, 15);
 	private final LocalDate departure = new LocalDate(2017, 12, 19);
-
+	
+	@Ignore
 	@Test
 	public void success() {
 		atomicProcess();
