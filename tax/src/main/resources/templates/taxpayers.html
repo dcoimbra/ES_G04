@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>TaxPayers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+<script th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div class="container">
+		<h2>
+			Welcome to TaxPayers' Manager
+		</h2>
+		<br/>
+		<h3>Create Buyer:</h3>
+		<p class="text-danger" th:text="${error}">This is not good</p>
+		<form class="form-inline" th:action="@{/taxpayers/buyer}" th:object="${buyer}" method="post">
+			<label>Nif: </label> <input class="form-control" type="text" th:field="*{nif}" /> 
+			<label>Name: </label> <input class="form-control" type="text" th:field="*{name}" /> 
+			<label>Address: </label> <input class="form-control" type="text" th:field="*{address}" /> 
+			<input class="btn btn-primary" type="submit" value="Submit" />
+		</form>
+		<br/>
+		<h3>List of Buyers</h3>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nif</th>
+					<th>Name</th>
+					<th>Address</th>
+ 					<th>Invoices</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="buyer: ${buyers}">
+					<td th:text="${buyer.nif}">555555555</td>
+					<td th:text="${buyer.name}">Alfredo</td>
+					<td th:text="${buyer.address}">Marquês</td>
+				 	<td><a
+						th:href="@{/taxpayers/{nif}/invoices(code=${buyer.nif})}">Invoices</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Create Seller:</h3>
+		<p class="text-danger" th:text="${error2}">This is not good</p>
+		<form class="form-inline" th:action="@{/taxpayers/seller}" th:object="${seller}" method="post">
+			<label>Nif: </label> <input class="form-control" type="text" th:field="*{nif}" /> 
+			<label>Name: </label> <input class="form-control" type="text" th:field="*{name}" /> 
+			<label>Address: </label> <input class="form-control" type="text" th:field="*{address}" /> 
+			<input class="btn btn-primary" type="submit" value="Submit" />
+		</form>
+		<br/>
+		<h3>List of Sellers</h3>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nif</th>
+					<th>Name</th>
+					<th>Address</th>
+ 					<th>Invoices</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="seller: ${sellers}">
+					<td th:text="${seller.nif}">555555555</td>
+					<td th:text="${seller.name}">Alfredo</td>
+					<td th:text="${seller.address}">Marquês</td>
+				 	<td><a
+						th:href="@{/taxpayers/{nif}/invoices(code=${seller.nif})}">Invoices</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
