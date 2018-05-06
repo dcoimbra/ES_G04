@@ -77,16 +77,4 @@ public class TaxInterface {
 	public static String submitInvoice(InvoiceData invoiceData) {
 		return IRS.submitInvoice(invoiceData);
 	}
-
-	private static Invoice getInvoiceByReference(String reference) {
-		Invoice invoice = getIrs().getInvoiceSet().stream().filter(b -> b.getReference().equals(reference))
-				.findFirst().orElse(null);
-		return invoice;
-	}
-
-	@Atomic(mode = TxMode.WRITE)
-	public static void createInvoice(InvoiceData invoiceData) {
-		getIrs().submitInvoice(invoiceData);
-	}
-
 }
