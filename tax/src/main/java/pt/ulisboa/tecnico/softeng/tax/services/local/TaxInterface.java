@@ -1,18 +1,16 @@
 package pt.ulisboa.tecnico.softeng.tax.services.local;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.Atomic.TxMode;
-import pt.ulisboa.tecnico.softeng.tax.domain.Buyer;
-import pt.ulisboa.tecnico.softeng.tax.domain.IRS;
-import pt.ulisboa.tecnico.softeng.tax.domain.Invoice;
-import pt.ulisboa.tecnico.softeng.tax.domain.Seller;
-import pt.ulisboa.tecnico.softeng.tax.domain.TaxPayer;
+import pt.ulisboa.tecnico.softeng.tax.domain.*;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.BuyerData;
 import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.InvoiceData;
+import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.ItemTypeData;
 import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.SellerData;
 
 public class TaxInterface {
@@ -76,5 +74,19 @@ public class TaxInterface {
 	@Atomic(mode = TxMode.WRITE)
 	public static String submitInvoice(InvoiceData invoiceData) {
 		return IRS.submitInvoice(invoiceData);
+	}
+
+	@Atomic(mode = TxMode.READ)
+    public static List<ItemTypeData> getItemTypes() {
+		List<ItemTypeData> itemtypes = new ArrayList<>();
+		for (ItemType itemtype : getIrs().getItemTypeSet()) {
+			itemtypes.add(new ItemTypeData(itemtype));
+		}
+		return itemtypes;
+    }
+
+	@Atomic(mode = TxMode.WRITE)
+	public static void createItemType(ItemTypeData itemtype) {
+		new ItemType(getIrs(), itemtype.getName(), itemtype.getTax());
 	}
 }
