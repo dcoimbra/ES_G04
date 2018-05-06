@@ -1,4 +1,4 @@
-package pt.ulisboa.tecnico.softeng.broker.services.remote.dataobjects;
+package pt.ulisboa.tecnico.softeng.hotel.services.remote.dataobjects;
 
 import org.joda.time.DateTime;
 
@@ -6,7 +6,7 @@ public class BankOperationData {
 	private String reference;
 	private String type;
 	private String iban;
-	private double value;
+	private Double value;
 	private DateTime time;
 
 	public BankOperationData() {
@@ -36,11 +36,11 @@ public class BankOperationData {
 		this.iban = iban;
 	}
 
-	public double getValue() {
+	public Double getValue() {
 		return this.value;
 	}
 
-	public void setValue(double value) {
+	public void setValue(Double value) {
 		this.value = value;
 	}
 

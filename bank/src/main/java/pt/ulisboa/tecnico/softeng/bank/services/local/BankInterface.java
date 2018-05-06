@@ -112,10 +112,10 @@ public class BankInterface {
 	}
 
 	@Atomic(mode = TxMode.WRITE)
-	public static String processPayment(String IBAN, int amount) {
+	public static String processPayment(String IBAN, double d) {
 		for (Bank bank : FenixFramework.getDomainRoot().getBankSet()) {
 			if (bank.getAccount(IBAN) != null) {
-				return bank.getAccount(IBAN).withdraw(amount);
+				return bank.getAccount(IBAN).withdraw(d);
 			}
 		}
 		throw new BankException();

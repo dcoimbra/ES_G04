@@ -73,7 +73,11 @@ public class TaxInterface {
 		IRS.cancelInvoice(invoiceConfirmation);
 	}
 
-	@Atomic(mode = TxMode.READ)
+	@Atomic(mode = TxMode.WRITE)
+	public static String submitInvoice(InvoiceData invoiceData) {
+		return IRS.submitInvoice(invoiceData);
+	}
+
 	private static Invoice getInvoiceByReference(String reference) {
 		Invoice invoice = getIrs().getInvoiceSet().stream().filter(b -> b.getReference().equals(reference))
 				.findFirst().orElse(null);
