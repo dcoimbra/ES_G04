@@ -46,7 +46,7 @@ public class BuyerInvoicesController {
                 invoiceData.getSellerNIF(), invoiceData.getBuyerNIF(), invoiceData.getItemType(), invoiceData.getValue(), invoiceData.getDate());
 
         try {
-            TaxInterface.createInvoice(invoiceData);
+            TaxInterface.submitInvoice(invoiceData);
         } catch (TaxException be) {
             model.addAttribute("error", "Error: it was not possible to create the invoice");
             model.addAttribute("invoice", invoiceData);
