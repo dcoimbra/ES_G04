@@ -23,17 +23,10 @@ public class CarInterface {
 	public static String rentCar(Type vehicleType, String drivingLicense, String nif, String iban, LocalDate begin,
 			LocalDate end) {
 
-		RentingData rentingData = new RentingData();
-		rentingData.setVehicleType(vehicleType);
-		rentingData.setDrivingLicense(drivingLicense);
-		rentingData.setBegin(begin);
-		rentingData.setEnd(end);
-		rentingData.setNif(nif);
-		rentingData.setIban(iban);
-
 		RestTemplate restTemplate = new RestTemplate();
         try {
-            return restTemplate.postForObject(ENDPOINT + "rentcar", rentingData, String.class);
+            return restTemplate.postForObject(ENDPOINT + "rent?car=" + vehicleType + "&drivingLicense=" + drivingLicense
+					+ "&nif=" + nif + "&iban=" + iban + "&begin=" + begin + "&end=" + end , null, String.class);
         } catch (HttpClientErrorException e) {
 			throw new CarException();
         } catch (Exception e) {
