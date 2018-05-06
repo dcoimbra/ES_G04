@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import org.joda.time.LocalDate;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.Atomic.TxMode;
 import pt.ist.fenixframework.FenixFramework;
@@ -14,6 +15,10 @@ import pt.ulisboa.tecnico.softeng.car.services.local.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.services.local.dataobjects.VehicleData;
 
 public class CarInterface {
+
+	public static enum Type {
+		CAR, MOTORCYCLE
+	}
 
 	@Atomic(mode = TxMode.READ)
 	public static List<RentACarData> getRentACars() {
@@ -93,6 +98,31 @@ public class CarInterface {
 	}
 
 	@Atomic(mode = TxMode.WRITE)
+	public static String cancelRenting(String reference) {
+
+		Renting renting = RentACar.getRenting(reference);
+			if (renting != null) {
+				return renting.cancel();
+			}
+		throw new CarException();
+	}
+
+	@Atomic(mode = TxMode.WRITE)
+	public static String rentCar(Type vehicleType, String drivingLicense, String nif, String iban, LocalDate begin,
+								 LocalDate end) {
+
+		if (vehicleType == Type.CAR) {
+
+			return RentACar.rent(Car.class, drivingLicense, nif, iban, begin, end);
+		}
+
+		else {
+
+			return RentACar.rent(Motorcycle.class, drivingLicense, nif, iban, begin, end);
+		}
+	}
+
+	@Atomic(mode = TxMode.WRITE)
 	public static void checkoutRenting(String code, String plate, String reference, int kilometers) {
 
 		Vehicle vehicle = getVehicleByPlate(code, plate);
@@ -106,5 +136,18 @@ public class CarInterface {
 		renting.checkout(kilometers);
 
 		renting.delete();
+	}
+
+	@Atomic(mode = TxMode.READ)
+	public static RentingData getRentingData(String reference) {
+		for (RentACar rentACar : FenixFramework.getDomainRoot().getRentACarSet()) {
+			for (Vehicle vehicle : rentACar.getVehicleSet()) {
+				Renting renting = vehicle.getRenting(reference);
+				if (renting != null) {
+					return new RentingData(renting);
+				}
+			}
+		}
+		throw new CarException();
 	}
 }
