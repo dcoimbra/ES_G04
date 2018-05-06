@@ -38,7 +38,7 @@ public class SellerInvoicesController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String invoiceBuyerSubmit(Model model, @PathVariable String nif, @ModelAttribute InvoiceData invoiceData) {
+	public String invoiceSellerSubmit(Model model, @PathVariable String nif, @ModelAttribute InvoiceData invoiceData) {
 		invoiceData.setSellerNIF(nif);
 		logger.info("invoiceSellerSubmit sellerNif:{}, buyerNif:{}, itemType:{}, value:{}, date:{}",
 				invoiceData.getSellerNIF(), invoiceData.getBuyerNIF(), invoiceData.getItemType(), invoiceData.getValue(), invoiceData.getDate());
