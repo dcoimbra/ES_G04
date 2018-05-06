@@ -84,4 +84,9 @@ public class TaxInterface {
 		return invoice;
 	}
 
+	@Atomic(mode = TxMode.WRITE)
+	public static void createInvoice(InvoiceData invoiceData) {
+		getIrs().submitInvoice(invoiceData);
+	}
+
 }
