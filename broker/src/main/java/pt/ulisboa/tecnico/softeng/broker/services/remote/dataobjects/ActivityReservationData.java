@@ -7,6 +7,9 @@ public class ActivityReservationData {
 	private String cancellation;
 	private String name;
 	private String code;
+	private String nif;
+	private String iban;
+	private int age;
 	private LocalDate begin;
 	private LocalDate end;
 	private LocalDate cancellationDate;
@@ -95,6 +98,30 @@ public class ActivityReservationData {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public String getNif() {
+		return nif;
+	}
+
+	public void setNif(String nif) {
+		this.nif = nif;
+	}
+
+	public String getIban() {
+		return iban;
+	}
+
+	public void setIban(String iban) {
+		this.iban = iban;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
 	}
 
 }
