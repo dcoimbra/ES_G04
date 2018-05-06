@@ -14,7 +14,7 @@ public class CarInterface {
 
     private static  Logger logger = LoggerFactory.getLogger(ActivityInterface.class);
 
-	private static String ENDPOINT = "http://localhost:8084";
+	private static String ENDPOINT = "http://localhost:8084/rest/car/";
 
 	public static enum Type {
 		CAR, MOTORCYCLE
@@ -33,7 +33,7 @@ public class CarInterface {
 
 		RestTemplate restTemplate = new RestTemplate();
         try {
-            return restTemplate.postForObject(ENDPOINT + "/rest/car/rentcar", rentingData, String.class);
+            return restTemplate.postForObject(ENDPOINT + "rentcar", rentingData, String.class);
         } catch (HttpClientErrorException e) {
 			throw new CarException();
         } catch (Exception e) {
@@ -47,7 +47,7 @@ public class CarInterface {
 		RestTemplate restTemplate = new RestTemplate();
 
 		try {
-            return restTemplate.postForObject(ENDPOINT + "rest/car/cancel?Renting"+ rentingReference, null,String.class);
+            return restTemplate.postForObject(ENDPOINT + "cancel?Renting="+ rentingReference, null,String.class);
         } catch (HttpClientErrorException e) {
 			throw new CarException();
 		} catch (Exception e) {
@@ -60,7 +60,7 @@ public class CarInterface {
 		RestTemplate restTemplate = new RestTemplate();
 
 		try {
-            RentingData result = restTemplate.getForObject(ENDPOINT + "rest/car/operation?reference=" + reference, RentingData.class);
+            RentingData result = restTemplate.getForObject(ENDPOINT + "operation?reference=" + reference, RentingData.class);
 			logger.info("getRentingData reference:{}", result.getReference());
 			return  result;
 		} catch (HttpClientErrorException e) {
