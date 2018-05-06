@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.joda.time.LocalDate;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import pt.ist.fenixframework.Atomic;
@@ -32,6 +33,7 @@ public class ActivityPersistenceTest {
 	private final LocalDate end = new LocalDate(2017, 04, 15);
 
 	@Test
+	@Ignore
 	public void success() {
 		atomicProcess();
 		atomicAssert();
