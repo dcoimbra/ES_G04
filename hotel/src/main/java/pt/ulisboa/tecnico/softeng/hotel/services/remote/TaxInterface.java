@@ -1,45 +1,43 @@
 package pt.ulisboa.tecnico.softeng.hotel.services.remote;
 
-import org.springframework.web.client.RestClientException;
+
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
 import pt.ulisboa.tecnico.softeng.hotel.services.remote.dataobjects.InvoiceData;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
- 
+import pt.ulisboa.tecnico.softeng.hotel.services.remote.exceptions.TaxException;
+import pt.ulisboa.tecnico.softeng.hotel.services.remote.exceptions.RemoteAccessException;
+
 
 public class TaxInterface {
-	
-	private static Logger logger = LoggerFactory.getLogger(TaxInterface.class);
-	static RestTemplate restTemplate = new RestTemplate();
+
+	private static String ENDPOINT = "http://localhost:8086";
 	
 	public static String submitInvoice(InvoiceData invoiceData) {
 		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://localhost:8086/taxpayers/submitinvoice";
-		String response;
-		
-		try{
-			response = restTemplate.postForObject(url, invoiceData, String.class);
-			
-		} catch (RestClientException e){
-			logger.error("Failed to get {} due to error: {}", url, e.getMessage());
-			return null;
-		}
 
-		return response;
+		try{
+			String response;
+			response = restTemplate.postForObject(ENDPOINT + "/rest/tax/submitinvoice", invoiceData, String.class);
+			return response;
+			
+		} catch (HttpClientErrorException e) {
+			throw new TaxException();
+			
+		} catch (Exception e) {
+			throw new RemoteAccessException();
+		}
  	}
 
 	public static void cancelInvoice(String invoiceReference) {
 		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://localhost:8086/taxpayers/cancelinvoice";
 		
 		try{
-			restTemplate.postForObject(url, invoiceReference, String.class);
-			
-		} catch (RestClientException e){
-			logger.error("Failed to get {} due to error: {}", url, e.getMessage());
-			return;
+			restTemplate.postForObject(ENDPOINT + "/rest/tax/cancel?reference=" + invoiceReference,null, String.class);
+		} catch (HttpClientErrorException e) {
+			throw new TaxException();
+		} catch (Exception e) {
+			throw new RemoteAccessException();
 		}
-
-		return;
  	}
 }

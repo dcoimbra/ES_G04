@@ -35,7 +35,6 @@ public class BankInterface {
 		} catch (Exception e) {
 			throw new RemoteAccessException();
 		}
-	}
 
 	public static String cancelPayment(String reference) {
 
