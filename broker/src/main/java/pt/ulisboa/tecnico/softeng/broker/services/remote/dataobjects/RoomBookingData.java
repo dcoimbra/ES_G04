@@ -14,6 +14,8 @@ public class RoomBookingData {
 	private String paymentReference;
 	private String invoiceReference;
 	private LocalDate cancellationDate;
+	private String buyerIban;
+	private String buyerNif;
 	private double price;
 
 	public RoomBookingData() {
@@ -113,6 +115,22 @@ public class RoomBookingData {
 
 	public void setInvoiceReference(String invoiceReference) {
 		this.invoiceReference = invoiceReference;
+	}
+	
+	public void setBuyerNif(String buyerNif) {
+		this.buyerNif = buyerNif;
+	}
+
+	public String getBuyerNif() {
+		return this.buyerNif;
+	}
+
+	public void setBuyerIban(String buyerIban) {
+		this.buyerIban = buyerIban;
+	}
+
+	public String getBuyerIban() {
+		return this.buyerIban;
 	}
 
 }
