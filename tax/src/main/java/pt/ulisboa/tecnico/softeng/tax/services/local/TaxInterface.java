@@ -96,6 +96,7 @@ public class TaxInterface {
 		return itemtypes;
     }
 
+	@Atomic(mode = TxMode.WRITE)
 	public static void createItemType(ItemTypeData itemtype) {
 		new ItemType(getIrs(), itemtype.getName(), itemtype.getTax());
 	}
