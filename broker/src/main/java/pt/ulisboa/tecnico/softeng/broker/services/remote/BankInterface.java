@@ -14,7 +14,7 @@ public class BankInterface {
 
 	private static String ENDPOINT = "http://localhost:8082";
 
-	public static String processPayment(String iban, int amount) {
+	public static String processPayment(String iban, double amount) {
 		logger.info("processPayment iban:{}, amount:{}", iban, amount);
 
 		RestTemplate restTemplate = new RestTemplate();
