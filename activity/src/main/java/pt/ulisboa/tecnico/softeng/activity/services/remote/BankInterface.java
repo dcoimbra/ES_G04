@@ -36,6 +36,8 @@ public class BankInterface {
 			throw new RemoteAccessException();
 		}
 
+	}
+
 	public static String cancelPayment(String reference) {
 
 		logger.info("cancelPayment " + reference);
