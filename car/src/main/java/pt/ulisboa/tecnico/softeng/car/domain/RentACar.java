@@ -108,7 +108,7 @@ public class RentACar extends RentACar_Base {
 	 * @param reference
 	 * @return the renting with the given reference.
 	 */
-	protected static Renting getRenting(String reference) {
+	public static Renting getRenting(String reference) {
 		for (final RentACar rentACar : FenixFramework.getDomainRoot().getRentACarSet()) {
 			for (final Vehicle vehicle : rentACar.getVehicleSet()) {
 				final Renting renting = vehicle.getRenting(reference);
