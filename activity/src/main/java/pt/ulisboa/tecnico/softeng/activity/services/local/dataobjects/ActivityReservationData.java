@@ -2,21 +2,28 @@ package pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects;
 
 import org.joda.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import pt.ulisboa.tecnico.softeng.activity.domain.ActivityOffer;
 import pt.ulisboa.tecnico.softeng.activity.domain.ActivityProvider;
 import pt.ulisboa.tecnico.softeng.activity.domain.Booking;
 
 public class ActivityReservationData {
-	private final String reference;
-	private final String cancellation;
-	private final String name;
-	private final String code;
-	private final LocalDate begin;
-	private final LocalDate end;
-	private final LocalDate cancellationDate;
-	private final double price;
-	private final String paymentReference;
-	private final String invoiceReference;
+
+    private String reference;
+	private String cancellation;
+	private String name;
+	private String code;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate begin;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate end;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate cancellationDate;
+	private double price;
+	private String paymentReference;
+	private String invoiceReference;
+	private String buyerNif;
+	private String buyerIban;
 
 	public ActivityReservationData(ActivityProvider provider, ActivityOffer offer, Booking booking) {
 		this.reference = booking.getReference();
@@ -29,6 +36,8 @@ public class ActivityReservationData {
 		this.price = offer.getPrice();
 		this.paymentReference = booking.getPaymentReference();
 		this.invoiceReference = booking.getInvoiceReference();
+		this.buyerNif = booking.getBuyerNif();
+		this.buyerIban = booking.getIban();
 	}
 
 	public ActivityReservationData(Booking booking) {
@@ -42,7 +51,61 @@ public class ActivityReservationData {
 		this.price = booking.getAmount();
 		this.paymentReference = booking.getPaymentReference();
 		this.invoiceReference = booking.getInvoiceReference();
+		this.buyerNif = booking.getBuyerNif();
+		this.buyerIban = booking.getIban();
 	}
+
+	public ActivityReservationData() {
+
+	}
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public void setCancellation(String cancellation) {
+        this.cancellation = cancellation;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setBegin(LocalDate begin) {
+        this.begin = begin;
+    }
+
+    public void setEnd(LocalDate end) {
+        this.end = end;
+    }
+
+    public void setCancellationDate(LocalDate cancellationDate) {
+        this.cancellationDate = cancellationDate;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setPaymentReference(String paymentReference) {
+        this.paymentReference = paymentReference;
+    }
+
+    public void setInvoiceReference(String invoiceReference) {
+        this.invoiceReference = invoiceReference;
+    }
+
+    public void setBuyerNif(String buyerNif) {
+        this.buyerNif = buyerNif;
+    }
+
+    public void setBuyerIban(String buyerIban) {
+        this.buyerIban = buyerIban;
+    }
 
 	public String getReference() {
 		return this.reference;
@@ -82,6 +145,14 @@ public class ActivityReservationData {
 
 	public String getInvoiceReference() {
 		return this.invoiceReference;
+	}
+
+	public String getBuyerNif() {
+		return this.buyerNif;
+	}
+
+	public String getBuyerIban() {
+		return this.buyerIban;
 	}
 
 }
