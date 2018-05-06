@@ -73,8 +73,8 @@ public class ActivityInterface {
 	}
 
 	@Atomic(mode = TxMode.WRITE)
-	public static void createReservation(String codeProvider, String codeActivity, LocalDate offerBegin, ActivityReservationData reservation) {
-		ActivityOffer offer = getOfferByBeginEndDate(codeProvider, codeActivity, offerBegin);
+	public static void createReservation(String codeProvider, String codeActivity, LocalDate offerBegin, LocalDate offerEnd, ActivityReservationData reservation) {
+		ActivityOffer offer = getOfferByBeginEndDate(codeProvider, codeActivity, offerBegin, offerEnd);
 		ActivityProvider provider = getProviderByCode(codeProvider);
 
 		if (offer == null) {
@@ -84,13 +84,13 @@ public class ActivityInterface {
 		new Booking(provider, offer, reservation.getBuyerNif(), reservation.getBuyerIban());
 	}
 
-	private static ActivityOffer getOfferByBeginEndDate(String codeProvider, String codeActivity, LocalDate offerBegin) {
+	private static ActivityOffer getOfferByBeginEndDate(String codeProvider, String codeActivity, LocalDate offerBegin, LocalDate offerEnd) {
 		Activity activity = getActivityByCode(codeProvider, codeActivity);
 		if (activity == null) {
 			return null;
 		}
 
-		return activity.getActivityOfferSet().stream().filter(a -> a.getBegin().equals(offerBegin)).findFirst().orElse(null);
+		return activity.getActivityOfferSet().stream().filter(a -> a.getBegin().equals(offerBegin) && a.getEnd().equals(offerEnd)).findFirst().orElse(null);
 	}
 
 	@Atomic(mode = TxMode.WRITE)
@@ -155,8 +155,8 @@ public class ActivityInterface {
 	}
 
 	@Atomic(mode = TxMode.READ)
-	public static ActivityOfferData getOfferDataByBeginEndDate(String codeProvider, String codeActivity, LocalDate offerBegin) {
-		ActivityOffer offer = getOfferByBeginEndDate(codeProvider, codeActivity, offerBegin);
+	public static ActivityOfferData getOfferDataByBeginEndDate(String codeProvider, String codeActivity, LocalDate offerBegin, LocalDate offerEnd) {
+		ActivityOffer offer = getOfferByBeginEndDate(codeProvider, codeActivity, offerBegin, offerEnd);
 		if (offer == null) {
 			return null;
 		}

@@ -15,6 +15,10 @@ public class ActivityOfferData {
 	private LocalDate end;
 	private Integer capacity;
 	private double amount;
+	private String activityName;
+	private String codeActivity;
+	private String nameProvider;
+	private String codeProvider;
 	private List<ActivityReservationData> reservations;
 
 	public ActivityOfferData() {
@@ -25,6 +29,10 @@ public class ActivityOfferData {
 		this.end = offer.getEnd();
 		this.capacity = offer.getCapacity();
 		this.amount = offer.getAmount();
+		this.activityName = offer.getActivity().getName();
+		this.codeActivity = offer.getActivity().getCode();
+		this.nameProvider = offer.getActivity().getActivityProvider().getName();
+		this.codeProvider = offer.getActivity().getActivityProvider().getCode();
 		this.reservations = offer.getBookingSet().stream().map(b -> new ActivityReservationData(b))
 				.collect(Collectors.toList());
 	}
@@ -43,6 +51,22 @@ public class ActivityOfferData {
 
 	public void setEnd(LocalDate end) {
 		this.end = end;
+	}
+
+	public String getActivityName() {
+		return activityName;
+	}
+
+	public String getCodeActivity() {
+		return codeActivity;
+	}
+
+	public String getNameProvider() {
+		return nameProvider;
+	}
+
+	public String getCodeProvider() {
+		return codeProvider;
 	}
 
 	public Integer getCapacity() {

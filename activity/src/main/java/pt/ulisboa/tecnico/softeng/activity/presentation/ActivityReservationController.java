@@ -1,5 +1,7 @@
 package pt.ulisboa.tecnico.softeng.activity.presentation;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -18,18 +20,22 @@ import pt.ulisboa.tecnico.softeng.activity.services.local.dataobjects.ActivityRe
 import org.joda.time.LocalDate;
 
 @Controller
-@RequestMapping(value = "/providers/{codeProvider}/activities/{codeActivity}/offers/{begin}/reservations")
+@RequestMapping(value = "/providers/{codeProvider}/activities/{codeActivity}/offers/{begin}/{end}/reservations")
 public class ActivityReservationController {
     private static Logger logger = LoggerFactory.getLogger(ActivityReservationController.class);
 
     @RequestMapping(method = RequestMethod.GET)
-    public String reservationForm(Model model, @PathVariable String codeProvider, @PathVariable String codeActivity, @PathVariable LocalDate begin) {
-        logger.info("reservationForm codeProvider:{}, codeActivity:{}, begin:{}", codeProvider, codeActivity, begin);
+    public String reservationForm(Model model, @PathVariable String codeProvider, @PathVariable String codeActivity, @PathVariable String begin, @PathVariable String end) {
+        logger.info("reservationForm codeProvider:{}, codeActivity:{}, begin:{}, end:{}", codeProvider, codeActivity, begin, end);
 
-        ActivityOfferData offerData = ActivityInterface.getOfferDataByBeginEndDate(codeProvider, codeActivity, begin);
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
+        LocalDate beg = dtf.parseLocalDate(begin);
+        LocalDate en = dtf.parseLocalDate(end);
+
+        ActivityOfferData offerData = ActivityInterface.getOfferDataByBeginEndDate(codeProvider, codeActivity, beg, en);
 
         if (offerData == null) {
-            model.addAttribute("error", "Error: it does not exist an offer with begin date " + begin + " and end date "
+            model.addAttribute("error", "Error: it does not exist an offer with begin date " + beg.toString() + " and end date " + en.toString()
                     + " in activity with code " + codeActivity + " in provider with code " + codeProvider);
             model.addAttribute("provider", new ActivityProviderData());
             model.addAttribute("providers", ActivityInterface.getProviders());
@@ -42,20 +48,24 @@ public class ActivityReservationController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String reservationSubmit(Model model, @PathVariable String codeProvider, @PathVariable String codeActivity, @PathVariable LocalDate begin, @ModelAttribute ActivityReservationData reservation) {
-        logger.info("reservationSubmit codeProvider:{}, codeActivity:{}, offerBegin:{}, reference:{}, paymentReference:{}, invoiceReference:{}",
-                codeProvider, codeActivity, begin, reservation.getReference(), reservation.getPaymentReference(), reservation.getInvoiceReference());
+    public String reservationSubmit(Model model, @PathVariable String codeProvider, @PathVariable String codeActivity, @PathVariable String begin, @PathVariable String end, @ModelAttribute ActivityReservationData reservation) {
+        logger.info("reservationSubmit codeProvider:{}, codeActivity:{}, offerBegin:{}, offerEnd:{}, nif:{}, iban:{}",
+                codeProvider, codeActivity, begin, end, reservation.getBuyerNif(), reservation.getBuyerIban());
+
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
+        LocalDate beg = dtf.parseLocalDate(begin);
+        LocalDate en = dtf.parseLocalDate(end);
 
         try {
-            ActivityInterface.createReservation(codeProvider, codeActivity, begin, reservation);
+            ActivityInterface.createReservation(codeProvider, codeActivity, beg, en, reservation);
         } catch (ActivityException e) {
             model.addAttribute("error", "Error: it was not possible to create the reservation");
             model.addAttribute("reservation", reservation);
-            model.addAttribute("offer", ActivityInterface.getOfferDataByBeginEndDate(codeProvider, codeActivity, begin));
+            model.addAttribute("offer", ActivityInterface.getOfferDataByBeginEndDate(codeProvider, codeActivity, beg, en));
             return "reservations";
         }
 
-        return "redirect:/providers/" + codeProvider + "/activities/" + codeActivity + "/offers/" + "" + begin.toString() + "" + "/reservations";
+        return "redirect:/providers/" + codeProvider + "/activities/" + codeActivity + "/offers/" + beg.toString() + "/" + en.toString() + "/reservations";
     }
 
 }

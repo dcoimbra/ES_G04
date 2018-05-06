@@ -11,39 +11,34 @@
 <body>
 <div class="container">
     <h2>
-        Reservations of Offer of Activity <span th:text="${activity.name}">Tracking</span> of <span th:text="${activity.nameProvider}">eXtreme</span>
+        Reservations of Offer of Activity <span th:text="${offer.activityName}">Tracking</span> of <span th:text="${offer.nameProvider}">eXtreme</span>
     </h2>
-    <a class="btn btn-default pull-right" th:href="@{/providers/{codeProvider}/activities/{codeActivity}/offers(codeProvider=${activity.codeProvider},codeActivity=${activity.code})}">Activities</a>
+    <a class="btn btn-default pull-right" th:href="@{/providers/{codeProvider}/activities/{codeActivity}/offers(codeProvider=${offer.codeProvider},codeActivity=${offer.codeActivity})}">Activities</a>
     <br/>
     <h3>Create Reservation</h3>
     <p class="text-danger" th:text="${error}">Error</p>
-    <form class="form-inline" th:action="@{/providers/{codeProvider}/activities/{codeActivity}/offers{begin}/reservations(codeProvider=${activity.codeProvider},codeActivity=${activity.code},begin=${offer.begin})}" th:object="${reservation}" method="post">
-        <label>Reference: </label> <input class="form-control" type="text" th:field="*{reference}" />
-        <label>Payment's Reference: </label> <input class="form-control" type="date" th:field="*{paymentReference}" />
-        <label>Invoice's Reference: </label> <input class="form-control" type="date" th:field="*{invoiceReference}" />
+    <form class="form-inline" th:action="@{/providers/{codeProvider}/activities/{codeActivity}/offers/{begin}/{end}/reservations(codeProvider=${offer.codeProvider},codeActivity=${offer.codeActivity},begin=${offer.begin}, end=${offer.end})}" th:object="${reservation}" method="post">
         <label>Buyer's NIF: </label> <input class="form-control" type="text" th:field="*{buyerNif}" />
         <label>Buyer's IBAN: </label> <input class="form-control" type="text" th:field="*{buyerIban}" />
         <input class="btn btn-primary" type="submit" value="Submit" />
     </form>
     <br/>
     <h2>
-        Reservations of Offer Begin: <span th:text="${offer.begin}">12/12/2017</span> End: <span th:text="${offer.end}">12/12/2017</span>
+        Reservations of Offer Begin: <span th:text="${offer.begin}">2017-12-12</span> End: <span th:text="${offer.end}">2017-12-13</span>
     </h2>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Reference</th>
-            <th>Payment's Reference</th>
-            <th>Invoice's Reference</th>
+            <th>Buyer's NIF</th>
+            <th>Buyer's IBAN</th>
             <th>Cancellation</th>
             <th>Cancellation Date</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="reservation: ${offer.reservations}">
-            <td th:text="${reservation.reference}">xpto3456</td>
-            <td th:text="${reservation.paymentReference}">xpto12</td>
-            <td th:text="${reservation.invoiceReference}">xpto12</td>
+            <td th:text="${reservation.buyerNif}">123456789</td>
+            <td th:text="${reservation.buyerIban}">IBAN</td>
             <td th:text="${reservation.cancellation}">xpto3456CANCEL</td>
             <td th:text="${reservation.cancellationDate}">07/12/2016</td>
         </tr>
