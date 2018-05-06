@@ -2,15 +2,19 @@ package pt.ulisboa.tecnico.softeng.broker.services.remote;
 
 import org.joda.time.LocalDate;
 
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.client.RestClientException;
 import pt.ulisboa.tecnico.softeng.broker.services.remote.dataobjects.RentingData;
+import pt.ulisboa.tecnico.softeng.broker.services.remote.exception.CarException;
+import pt.ulisboa.tecnico.softeng.broker.services.remote.exception.RemoteAccessException;
 
 public class CarInterface {
 
     private static  Logger logger = LoggerFactory.getLogger(ActivityInterface.class);
+
+	private static String ENDPOINT = "http://localhost:8084";
 
 	public static enum Type {
 		CAR, MOTORCYCLE
@@ -27,40 +31,45 @@ public class CarInterface {
 		rentingData.setNif(nif);
 		rentingData.setIban(iban);
 
-		String url = "http://localhost:8084/rentacars/rent";
 		RestTemplate restTemplate = new RestTemplate();
         try {
-            return restTemplate.postForObject(url, rentingData, String.class);
-        } catch(RestClientException rce) {
-            logger.error("Failed to post to {} due to error: {}", url, rce.getMessage());
-            return null;
-        }
+            return restTemplate.postForObject(ENDPOINT + "/rest/car/rentcar", rentingData, String.class);
+        } catch (HttpClientErrorException e) {
+			throw new CarException();
+        } catch (Exception e) {
+			logger.info("rentCar REMOTE");
+			throw new RemoteAccessException();
+		}
 
 	}
 
 	public static String cancelRenting(String rentingReference) {
 		RestTemplate restTemplate = new RestTemplate();
 
-		String url = "http://localhost:8084/rentacars/cancelRenting";
 		try {
-            return restTemplate.postForObject(url, rentingReference, String.class);
-        } catch(RestClientException rce) {
-            logger.error("Failed to post to {} due to error: {}", url, rce.getMessage());
-            return null;
-        }
+            return restTemplate.postForObject(ENDPOINT + "rest/car/cancel?Renting"+ rentingReference, null,String.class);
+        } catch (HttpClientErrorException e) {
+			throw new CarException();
+		} catch (Exception e) {
+			logger.info("cancelRenting REMOTE");
+			throw new RemoteAccessException();
+		}
 	}
 
 	public static RentingData getRentingData(String reference) {
 		RestTemplate restTemplate = new RestTemplate();
 
-		String url = "http://localhost:8084/rentacars/rentingData/" + reference;
-
 		try {
-            return restTemplate.getForObject("http://localhost:8084/rentacars/rentingData/" + reference, RentingData.class);
-        } catch(RestClientException rce) {
-            logger.error("Failed to get {} due to error: {}", url, rce.getMessage());
-            return null;
-        }
+            RentingData result = restTemplate.getForObject(ENDPOINT + "rest/car/operation?reference=" + reference, RentingData.class);
+			logger.info("getRentingData reference:{}", result.getReference());
+			return  result;
+		} catch (HttpClientErrorException e) {
+			throw new CarException();
+		} catch (Exception e) {
+			logger.info("getRentingData REMOTE");
+			throw new RemoteAccessException();
+		}
 	}
 
 }
+
