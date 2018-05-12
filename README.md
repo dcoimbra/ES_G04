@@ -28,9 +28,6 @@ To see the coverage reports, go to <module name>/target/site/jacoco/index.html.
 - **unsuccessSequenceFailPayment:** Bernardo Andrade
 - **unsuccessSequenceFailTax:** José Ferrão
 
-- **Delete on tax:** Samuel Santos
-- **Delete on car:** Nuno Bombico
-
 ### Infrastructure
 
 This project includes the persistent layer, as offered by the FénixFramework.
