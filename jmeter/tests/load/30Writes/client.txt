@@ -1,34 +1,5 @@
-BK12,Broker1
+BK12,Broker
 BK12,José Manuel Esteves
 BK12,Hotel
 BK12,Rent a Car
 BK12,Activity Provider
-BK12,Broker2
-BK12,Broker3
-BK12,Broker4
-BK12,Broker5
-BK12,Broker6
-BK12,Broker7
-BK12,Broker8
-BK12,Broker9
-BK12,Broker10
-BK12,Broker11
-BK12,Broker12
-BK12,Broker13
-BK12,Broker14
-BK12,Broker15
-BK12,Broker16
-BK12,Broker17
-BK12,Broker18
-BK12,Broker19
-BK12,Broker20
-BK12,Broker21
-BK12,Broker22
-BK12,Broker23
-BK12,Broker24
-BK12,Broker25
-BK12,Broker26
-BK12,Broker27
-BK12,Broker28
-BK12,Broker29
-BK12,Broker30
