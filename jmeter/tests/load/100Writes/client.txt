@@ -1,4 +1,3 @@
-BK12,Broker0
 BK12,Broker1
 BK12,Broker2
 BK12,Broker3

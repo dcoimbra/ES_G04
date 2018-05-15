@@ -1,6 +1,7 @@
 Client,Street,111111115,BUYER
 Hotel,Street,111111112,SELLER
 Car,Street,111111116,SELLER
+José Manuel Esteves,Street,999999999,BUYER
 Activity,Street,111111111,SELLER
 BBroker0,Street,211111100,BUYER
 SBroker0,Street,311111100,SELLER
