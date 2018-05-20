@@ -19,6 +19,10 @@ No teste de carga `100 Reads`, começámos por criar um Activity Provider com ap
 
 De forma a exercitar o teste de carga sobre os diversos módulos, simulamos que existem 500 "utilizadores" a consultar a base de dados em simultâneo em 4 diferentes iterações.
 
+A média do throughput de leitura foi de, aproximadamente, 15%.
+
+Um sinal positivo foi a percentagem de erro obtida que foi de 0.0%.
+
 ## 30 Writes
 
 Neste teste de carga optámos por utilizar os mesmos dados que no teste `100 Writes` para poder ser feita uma
