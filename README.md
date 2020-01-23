@@ -10,7 +10,7 @@ To see the coverage reports, go to <module name>/target/site/jacoco/index.html.
 |   84766    |     Samuel Santos       |  samuel.c.santos@tecnico.ulisboa.pt     |    santos-samuel   |   3   |
 |   84729    | João Francisco Almeida  | joao.santos.almeida@tecnico.ulisboa.pt  |     JFMSAlmeida    |   3   |
 |   84704    |    Bernardo Andrade     | bernardo.andrade@tecnico.ulisboa.pt     |       Berhart      |   2   |
-|   84708    |     David Coimbra       |  david.coimbra@tecnico.ulisboa.pt       |    HiveMindize     |   3   |
+|   84708    |     David Coimbra       |  david.coimbra@tecnico.ulisboa.pt       |    dcoimbra        |   3   |
 |   84727    |      Ivan Zarro         |       ivan.zarro@tecnico.ulisboa.pt     |     ivancivel      |   1   |
 |   84842    |      José Ferrão        |       jozeus.alves@gmail.com            |       jozeus       |   1   |
 |   84750    |      Nuno Bombico       |     nuno.bombico@tecnico.ulisboa.pt     |    nunoBombico1    |   2   |
